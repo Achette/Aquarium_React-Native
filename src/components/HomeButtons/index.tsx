@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
   container: {
-    marginHorizontal: 50,
     marginVertical: 10,
+    marginHorizontal: 50,
   },
 });
