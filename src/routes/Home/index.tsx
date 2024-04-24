@@ -1,25 +1,45 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { PrimaryButton, SecondaryButton } from '../../components/HomeButtons';
+import { HomeBanner } from '../../components/HomeBanner';
+import { AquariumImage } from '../../components/AquariumImage';
+import { HomeCarousel } from '../../components/HomeCarousel';
 
-function Home() {
+function Home({navigation}) {
   return (
-    <View style={styles.view}>
-      <SecondaryButton content='Cadastrar'/>
-      <PrimaryButton content='Entrar'/>
+    <View style={styles.page}>
+      <View style={styles.buttons}>
+        <SecondaryButton
+          content='Cadastrar'
+          onPress={() => navigation.navigate('SignUp')}
+        />
+        <PrimaryButton
+          content='Entrar'
+          onPress={() => navigation.navigate('LogIn')}
+        />
+      </View>
+      <HomeBanner />
+      <AquariumImage />
+      <HomeCarousel />
     </View>
   );
 };
 
-export default Home;
-
 const styles = StyleSheet.create({
-  view: {
+  page: {
+    flex:1,
+    height: '100%',
+    marginVertical: 10,
+    justifyContent: 'center',
+  },
+  buttons: {
     flex: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    height: '20%',
+    marginBottom: 42,
+    marginTop: 22,
   },
 });
+
+export default Home;

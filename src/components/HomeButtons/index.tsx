@@ -5,19 +5,21 @@ import { Colors } from '../../theme/Colors';
 
 type ButtonProps = {
   content: string;
+  onPress: any;
 };
 
-export const PrimaryButton = ({content}:ButtonProps) => {
+export const PrimaryButton = ({content, onPress}:ButtonProps) => {
   return (
     <Button 
       title={content}
       buttonStyle={styles.button}
       containerStyle={styles.container}
+      onPress={onPress}
     />
   );
 };
 
-export const SecondaryButton = ({content}:ButtonProps) => {
+export const SecondaryButton = ({content, onPress}:ButtonProps) => {
   return (
     <Button 
       title={content}
@@ -25,6 +27,7 @@ export const SecondaryButton = ({content}:ButtonProps) => {
       titleStyle={{ color: Colors.primary }}
       buttonStyle={[styles.button, styles.secondaryButton]}
       containerStyle={styles.container}
+      onPress={onPress}
     />
   );
 };
