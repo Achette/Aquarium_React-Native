@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { Text, StyleSheet, FlatList, View, Dimensions, Animated } from 'react-native';
 import { CarouselPaginator } from '../CarouselPaginator';
+import { Colors } from '../../theme/Colors'
 
 const data = [
   { id: '1', content: 'Gerencie seu aquário com nossa plataforma completa de controle e monitoramento.' },
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     justifyContent: 'center',
-    color: '#898A8D',
+    color: Colors.carouselText,
     marginHorizontal: 30,
     marginVertical: 10,
     lineHeight: 24,
