@@ -41,7 +41,7 @@ function LogIn({navigation}) {
           <TextButton content="Esqueci minha senha" onPress={() => {alert("Sinto muito :(")}} />
         </View>
       
-        <PrimaryButton content="Entrar" onPress={() => {}} />
+        <PrimaryButton content="Entrar" onPress={() => {navigation.navigate('Aquariums')}} />
         <View style={{flexDirection: 'row', marginVertical: 15}}>
           <Text style={styles.subtitle}>Ainda não tem conta?</Text>
           <TextButton content="Cadastrar" onPress={() => {navigation.navigate('SignUp')}} />
