@@ -8,7 +8,7 @@ export const LogInBanner = () => {
   return (
     <Image
       source={LogInBannerPNG}
-      style={{ width: "100%" }}
+      style={{ width: "100%", resizeMode: 'stretch'}}
     />
   );
 };
