@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Text } from '@rneui/base';
 import { UserBar } from '../../components/UserBar';
 import { AquariumsList } from '../../components/AquariumsList';
+import { ActionButton } from '../../components/ActionButton';
 import { Colors } from '../../theme/Colors';
 
 let aquariums = [
@@ -12,6 +13,8 @@ let aquariums = [
 ];
 
 // aquariums = [];
+
+const addIcon = require('../../assets/icons/addicon.png');
 
 function Aquariums({navigation}) {
   return (
@@ -36,7 +39,13 @@ function Aquariums({navigation}) {
         />
       )}
 
-      <Text>Botão de adicionar aquários</Text>
+      <View style={styles.bottomBar}>
+        <ActionButton
+          icon={addIcon}
+          title='Novo Aquário'
+          onPress={() => alert('Me sinto pressionado')}
+        />
+      </View>
     </View>
   );
 };
@@ -45,7 +54,6 @@ const styles = StyleSheet.create({
   page: {
     flex:1,
     alignItems: 'center',
-    marginBottom: 100,
   },
   noAquariums: {
     flex: 1,
@@ -55,6 +63,11 @@ const styles = StyleSheet.create({
   noAquariumsText: {
     fontSize: 18,
     color: Colors.primary,
+  },
+  bottomBar: {
+    marginBottom: 50,
+    width: '85%',
+    alignItems: 'flex-end',
   },
 });
 
