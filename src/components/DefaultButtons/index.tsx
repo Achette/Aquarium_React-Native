@@ -39,7 +39,6 @@ export const TextButton = ({content, onPress}:ButtonProps) => {
     <Button 
       title={content}
       type="clear"
-      buttonStyle={styles.textButton}
       titleStyle={styles.textButtonTitle}
       onPress={onPress}
     />
@@ -71,11 +70,9 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
     borderWidth: 1,
   },
-  textButton: {
-    color: Colors.primary,
-  },
   textButtonTitle: {
     fontWeight: 'bold',
     fontSize: 16,
+    color: Colors.primary,
   },
 });
