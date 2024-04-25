@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     maxHeight: 50,
   },
   verticalLine: {
-    color: Colors.secondary,
+    color: Colors.primary,
     fontWeight: '100',
     fontSize: 40,
     lineHeight: 45,
