@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView, Image } from 'react-native';
+import { StyleSheet, View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Button, Text, Input } from '@rneui/themed';
 import { Colors } from '../../theme/Colors';
 
@@ -8,27 +8,32 @@ function NewAquarium({navigation}) {
   const [selectedShape, setShape] = useState('rectangular');
   const [selectedMaterial, setMaterial] = useState('glass');
   const [selectedVoltage, setVoltage] = useState('127');
+  const [thickness, setThickness] = useState(10);
+  const [width, setWidth] = useState(10);
+  const [length, setLength] = useState(10);
+  const [depth, setDepth] = useState(10);
+  const [capacity, setCapacity] = useState(10);
 
   const rectangular = require('../../assets/icons/rectangularshape.png');
   const circle = require('../../assets/icons/circularshape.png');
   const hexagonal = require('../../assets/icons/hexagonalshape.png');
-  const voltageIcon = require('../../assets/icons/voltage.png');
+  const voltage = require('../../assets/icons/voltage.png');
 
-  const formats = [
-    { title: 'Retangular', format: 'rectangular', icon: rectangular },
-    { title: 'Curvo', format: 'circle', icon: circle },
-    { title: 'Hexagonal', format: 'hexagonal', icon: hexagonal },
+  const shapes = [
+    { title: 'Retangular', value: 'rectangular', icon: rectangular },
+    { title: 'Curvo', value: 'circle', icon: circle },
+    { title: 'Hexagonal', value: 'hexagonal', icon: hexagonal },
   ]
 
   const materials = [
-    { title: 'Vidro', material: 'glass' },
-    { title: 'Acrílico', material: 'acrylic' },
-    { title: 'Plástico', material: 'plastic' },
+    { title: 'Vidro', value: 'glass' },
+    { title: 'Acrílico', value: 'acrylic' },
+    { title: 'Plástico', value: 'plastic' },
   ]
 
-  const voltage = [
-    { title: '127V', voltage: '127' },
-    { title: '220V', voltage: '220' },
+  const voltages = [
+    { title: '127V', value: '127', icon: voltage },
+    { title: '220V', value: '220', icon: voltage },
   ]
 
   return (
@@ -48,58 +53,142 @@ function NewAquarium({navigation}) {
 
         <Text style={styles.title}>Formato</Text>
         <View style={styles.checkBoxContainer}>
-          {formats.map((format) => (
+          {shapes.map((s) => (
             <Button
-              key={format.format}
-              title={format.title}
+              key={s.value}
+              title={s.title}
               type='outline'
               titleStyle={styles.checkBoxText}
-              buttonStyle={[ styles.checkBox, selectedShape === format.format ? {} : {opacity: 0.4}]}
-              onPress={() => setShape(format.format)}
-              icon={<Image source={format.icon} style={styles.checkBoxIcon}/>}
+              buttonStyle={[ styles.checkBox, selectedShape === s.value ? {} : {opacity: 0.4}]}
+              onPress={() => setShape(s.value)}
+              icon={<Image source={s.icon} style={styles.checkBoxIcon}/>}
             />
           ))}
         </View>
 
         <Text style={styles.title}>Material</Text>
         <View style={styles.checkBoxContainer}>
-          {materials.map((material) => (
+          {materials.map((m) => (
             <Button
-              key={material.material}
-              title={material.title}
+              key={m.value}
+              title={m.title}
               type='outline'
               titleStyle={styles.checkBoxText}
-              buttonStyle={[ styles.checkBox, selectedMaterial === material.material ? {} : {opacity: 0.4}]}
-              onPress={() => setMaterial(material.material)}
+              buttonStyle={[ styles.checkBox, selectedMaterial === m.value ? {} : {opacity: 0.4}]}
+              onPress={() => setMaterial(m.value)}
             />
           ))}
         </View>
 
         <Text style={styles.title}>Voltagem</Text>
         <View style={styles.checkBoxContainer}>
-          {voltage.map((voltage) => (
+          {voltages.map((v) => (
             <Button
-              key={voltage.voltage}
-              title={voltage.title}
+              key={v.value}
+              title={v.title}
               type='outline'
               titleStyle={styles.checkBoxText}
-              buttonStyle={[ styles.checkBox, selectedVoltage === voltage.voltage ? {} : {opacity: 0.4}]}
-              onPress={() => setVoltage(voltage.voltage)}
-              icon={<Image source={voltageIcon} style={[styles.checkBoxIcon, {marginRight: 2}]}/>}
+              buttonStyle={[ styles.checkBox, selectedVoltage === v.value ? {} : {opacity: 0.4}]}
+              onPress={() => setVoltage(v.value)}
+              icon={<Image source={v.icon} style={[styles.checkBoxIcon, {marginRight: 2}]}/>}
             />
           ))}
         </View>
 
-        <Text style={styles.title}>Espessura (mm)</Text>
+        <View style={styles.selectionContainer}>
+          <Text style={styles.title}>Espessura (mm)</Text>
+          <View style={styles.changeValueContainer}>
+            <TouchableOpacity>
+              <Text
+                style={styles.changeValueButton}
+                onPress={() => {if(thickness>0){setThickness(thickness - 1)}}}
+              >-</Text>
+            </TouchableOpacity>
+            <Text style={styles.changeValueText}>{thickness}</Text>
+            <TouchableOpacity>
+              <Text
+                style={styles.changeValueButton}
+                onPress={() => {if(thickness<50){setThickness(thickness + 1)}}}
+              >+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
-        <Text style={styles.title}>Largura (cm)</Text>
+        <View style={styles.selectionContainer}>
+          <Text style={styles.title}>Largura (cm)</Text>
+          <View style={styles.changeValueContainer}>
+            <TouchableOpacity>
+              <Text
+                style={styles.changeValueButton}
+                onPress={() => {if(width>0){setWidth(width - 1)}}}
+              >-</Text>
+            </TouchableOpacity>
+            <Text style={styles.changeValueText}>{width}</Text>
+            <TouchableOpacity>
+              <Text
+                style={styles.changeValueButton}
+                onPress={() => {if(width<50){setWidth(width + 1)}}}
+              >+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
-        <Text style={styles.title}>Comprimento (cm)</Text>
+        <View style={styles.selectionContainer}>
+          <Text style={styles.title}>Comprimento (cm)</Text>
+          <View style={styles.changeValueContainer}>
+            <TouchableOpacity>
+              <Text
+                style={styles.changeValueButton}
+                onPress={() => {if(length>0){setLength(length - 1)}}}
+              >-</Text>
+            </TouchableOpacity>
+            <Text style={styles.changeValueText}>{length}</Text>
+            <TouchableOpacity>
+              <Text
+                style={styles.changeValueButton}
+                onPress={() => {if(length<50){setLength(length + 1)}}}
+              >+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
-        <Text style={styles.title}>Profundidade (cm)</Text>
+        <View style={styles.selectionContainer}>
+          <Text style={styles.title}>Profundidade (cm)</Text>
+          <View style={styles.changeValueContainer}>
+            <TouchableOpacity>
+              <Text
+                style={styles.changeValueButton}
+                onPress={() => {if(depth>0){setDepth(depth - 1)}}}
+              >-</Text>
+            </TouchableOpacity>
+            <Text style={styles.changeValueText}>{depth}</Text>
+            <TouchableOpacity>
+              <Text
+                style={styles.changeValueButton}
+                onPress={() => {if(depth<50){setDepth(depth + 1)}}}
+              >+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
 
-        <Text style={styles.title}>Capaciade (L)</Text>
-
+        <View style={styles.selectionContainer}>
+          <Text style={styles.title}>Capacidade (L)</Text>
+          <View style={styles.changeValueContainer}>
+            <TouchableOpacity>
+              <Text
+                style={styles.changeValueButton}
+                onPress={() => {if(capacity>0){setCapacity(capacity - 1)}}}
+              >-</Text>
+            </TouchableOpacity>
+            <Text style={styles.changeValueText}>{capacity}</Text>
+            <TouchableOpacity>
+              <Text
+                style={styles.changeValueButton}
+                onPress={() => {if(capacity<500){setCapacity(capacity + 1)}}}
+              >+</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </ScrollView>
   );
@@ -127,7 +216,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: Colors.primary,
     justifyContent: 'flex-start',
-    width: '100%',
+    alignSelf: 'flex-start',
     marginVertical: 8,
   },
   checkBoxContainer: {
@@ -153,7 +242,35 @@ const styles = StyleSheet.create({
     height: 16,
     objectFit: 'contain',
     marginRight: 6,
-  }
+  },
+  selectionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 12,
+  },
+  changeValueContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 5,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    borderRadius: 6,
+    minWidth: 115,
+  },
+  changeValueButton: {
+    color: Colors.primary,
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingHorizontal: 15,
+  },
+  changeValueText: {
+    color: Colors.primary,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginHorizontal: 4, 
+  },
 });
 
 export default NewAquarium;
