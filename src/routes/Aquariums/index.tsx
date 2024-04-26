@@ -43,7 +43,7 @@ function Aquariums({navigation}) {
         <ActionButton
           icon={addIcon}
           title='Novo Aquário'
-          onPress={() => alert('Me sinto pressionado')}
+          onPress={() => navigation.navigate('NewAquarium')}
         />
       </View>
     </View>
