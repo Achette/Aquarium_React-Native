@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import { NewAquariumCheckbox } from '../../components/NewAquariumCheckbox';
+import { NewAquariumChangeValue } from '../../components/NewAquariumChangeValue';
 import { Text, Input } from '@rneui/themed';
 import { Colors } from '../../theme/Colors';
 
@@ -53,7 +54,6 @@ function NewAquarium({navigation}) {
         </View>
 
         <NewAquariumCheckbox
-          navigation={navigation}
           onSelect={setShape}
           selectedValue={selectedShape}
           object={shapes}
@@ -61,7 +61,6 @@ function NewAquarium({navigation}) {
         />
 
         <NewAquariumCheckbox
-          navigation={navigation}
           onSelect={setMaterial}
           selectedValue={selectedMaterial}
           object={materials}
@@ -69,7 +68,6 @@ function NewAquarium({navigation}) {
         />
 
         <NewAquariumCheckbox
-          navigation={navigation}
           onSelect={setVoltage}
           selectedValue={selectedVoltage}
           object={voltages}
@@ -77,100 +75,36 @@ function NewAquarium({navigation}) {
           iconStyle={{marginRight: 2}}
         />
 
-        <View style={styles.selectionContainer}>
-          <Text style={styles.title}>Espessura (mm)</Text>
-          <View style={styles.changeValueContainer}>
-            <TouchableOpacity>
-              <Text
-                style={styles.changeValueButton}
-                onPress={() => {if(thickness>0){setThickness(thickness - 1)}}}
-              >-</Text>
-            </TouchableOpacity>
-            <Text style={styles.changeValueText}>{thickness}</Text>
-            <TouchableOpacity>
-              <Text
-                style={styles.changeValueButton}
-                onPress={() => {if(thickness<50){setThickness(thickness + 1)}}}
-              >+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <NewAquariumChangeValue
+          title="Espessura (mm)"
+          value={thickness}
+          setValue={setThickness}
+        />
 
-        <View style={styles.selectionContainer}>
-          <Text style={styles.title}>Largura (cm)</Text>
-          <View style={styles.changeValueContainer}>
-            <TouchableOpacity>
-              <Text
-                style={styles.changeValueButton}
-                onPress={() => {if(width>0){setWidth(width - 1)}}}
-              >-</Text>
-            </TouchableOpacity>
-            <Text style={styles.changeValueText}>{width}</Text>
-            <TouchableOpacity>
-              <Text
-                style={styles.changeValueButton}
-                onPress={() => {if(width<50){setWidth(width + 1)}}}
-              >+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <NewAquariumChangeValue
+          title="Largura (cm)"
+          value={width}
+          setValue={setWidth}
+        />
 
-        <View style={styles.selectionContainer}>
-          <Text style={styles.title}>Comprimento (cm)</Text>
-          <View style={styles.changeValueContainer}>
-            <TouchableOpacity>
-              <Text
-                style={styles.changeValueButton}
-                onPress={() => {if(length>0){setLength(length - 1)}}}
-              >-</Text>
-            </TouchableOpacity>
-            <Text style={styles.changeValueText}>{length}</Text>
-            <TouchableOpacity>
-              <Text
-                style={styles.changeValueButton}
-                onPress={() => {if(length<50){setLength(length + 1)}}}
-              >+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <NewAquariumChangeValue
+          title="Comprimento (cm)"
+          value={length}
+          setValue={setLength}
+        />
 
-        <View style={styles.selectionContainer}>
-          <Text style={styles.title}>Profundidade (cm)</Text>
-          <View style={styles.changeValueContainer}>
-            <TouchableOpacity>
-              <Text
-                style={styles.changeValueButton}
-                onPress={() => {if(depth>0){setDepth(depth - 1)}}}
-              >-</Text>
-            </TouchableOpacity>
-            <Text style={styles.changeValueText}>{depth}</Text>
-            <TouchableOpacity>
-              <Text
-                style={styles.changeValueButton}
-                onPress={() => {if(depth<50){setDepth(depth + 1)}}}
-              >+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <NewAquariumChangeValue
+          title="Profundidade (cm)"
+          value={depth}
+          setValue={setDepth}
+        />
 
-        <View style={styles.selectionContainer}>
-          <Text style={styles.title}>Capacidade (L)</Text>
-          <View style={styles.changeValueContainer}>
-            <TouchableOpacity>
-              <Text
-                style={styles.changeValueButton}
-                onPress={() => {if(capacity>0){setCapacity(capacity - 1)}}}
-              >-</Text>
-            </TouchableOpacity>
-            <Text style={styles.changeValueText}>{capacity}</Text>
-            <TouchableOpacity>
-              <Text
-                style={styles.changeValueButton}
-                onPress={() => {if(capacity<500){setCapacity(capacity + 1)}}}
-              >+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <NewAquariumChangeValue
+          title="Capacidade (L)"
+          value={capacity}
+          setValue={setCapacity}
+        />
+
       </View>
     </ScrollView>
   );
@@ -200,58 +134,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignSelf: 'flex-start',
     marginVertical: 8,
-  },
-  checkBoxContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    width: '100%',
-    margin: 0,
-    padding: 0,
-    marginBottom: 16,
-  },
-  checkBox: {
-    marginRight: 10,
-    borderWidth: 1,
-    borderColor: Colors.primary,
-    borderRadius: 6,
-  },
-  checkBoxText: {
-    fontSize: 14,
-    color: Colors.primary,
-  },
-  checkBoxIcon: {
-    width: 16,
-    height: 16,
-    objectFit: 'contain',
-    marginRight: 6,
-  },
-  selectionContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    marginBottom: 12,
-  },
-  changeValueContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 5,
-    borderWidth: 1,
-    borderColor: Colors.primary,
-    borderRadius: 6,
-    minWidth: 115,
-  },
-  changeValueButton: {
-    color: Colors.primary,
-    fontSize: 20,
-    fontWeight: 'bold',
-    paddingHorizontal: 15,
-  },
-  changeValueText: {
-    color: Colors.primary,
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginHorizontal: 4, 
   },
 });
 

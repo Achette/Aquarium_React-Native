@@ -4,7 +4,6 @@ import { Button, Text } from '@rneui/themed';
 import { Colors } from '../../theme/Colors';
 
 type NewAquariumCheckboxProps = {
-  navigation: any;
   onSelect: any;
   selectedValue: string;
   object: any[];
@@ -12,7 +11,7 @@ type NewAquariumCheckboxProps = {
   iconStyle?: any;
 }
 
-export const NewAquariumCheckbox = ({navigation, onSelect, selectedValue, object, title, iconStyle}:NewAquariumCheckboxProps) => {
+export const NewAquariumCheckbox = ({onSelect, selectedValue, object, title, iconStyle}:NewAquariumCheckboxProps) => {
   return (
     <View style={{ width: '100%' }}>
       <Text style={styles.title}>{title}</Text>
