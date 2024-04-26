@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView, Image, TouchableOpacity } from 'react-native';
-import { Button, Text, Input } from '@rneui/themed';
+import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
+import { NewAquariumCheckbox } from '../../components/NewAquariumCheckbox';
+import { Text, Input } from '@rneui/themed';
 import { Colors } from '../../theme/Colors';
 
 function NewAquarium({navigation}) {
@@ -51,49 +52,30 @@ function NewAquarium({navigation}) {
           />
         </View>
 
-        <Text style={styles.title}>Formato</Text>
-        <View style={styles.checkBoxContainer}>
-          {shapes.map((s) => (
-            <Button
-              key={s.value}
-              title={s.title}
-              type='outline'
-              titleStyle={styles.checkBoxText}
-              buttonStyle={[ styles.checkBox, selectedShape === s.value ? {} : {opacity: 0.4}]}
-              onPress={() => setShape(s.value)}
-              icon={<Image source={s.icon} style={styles.checkBoxIcon}/>}
-            />
-          ))}
-        </View>
+        <NewAquariumCheckbox
+          navigation={navigation}
+          onSelect={setShape}
+          selectedValue={selectedShape}
+          object={shapes}
+          title="Formato"
+        />
 
-        <Text style={styles.title}>Material</Text>
-        <View style={styles.checkBoxContainer}>
-          {materials.map((m) => (
-            <Button
-              key={m.value}
-              title={m.title}
-              type='outline'
-              titleStyle={styles.checkBoxText}
-              buttonStyle={[ styles.checkBox, selectedMaterial === m.value ? {} : {opacity: 0.4}]}
-              onPress={() => setMaterial(m.value)}
-            />
-          ))}
-        </View>
+        <NewAquariumCheckbox
+          navigation={navigation}
+          onSelect={setMaterial}
+          selectedValue={selectedMaterial}
+          object={materials}
+          title="Material"  
+        />
 
-        <Text style={styles.title}>Voltagem</Text>
-        <View style={styles.checkBoxContainer}>
-          {voltages.map((v) => (
-            <Button
-              key={v.value}
-              title={v.title}
-              type='outline'
-              titleStyle={styles.checkBoxText}
-              buttonStyle={[ styles.checkBox, selectedVoltage === v.value ? {} : {opacity: 0.4}]}
-              onPress={() => setVoltage(v.value)}
-              icon={<Image source={v.icon} style={[styles.checkBoxIcon, {marginRight: 2}]}/>}
-            />
-          ))}
-        </View>
+        <NewAquariumCheckbox
+          navigation={navigation}
+          onSelect={setVoltage}
+          selectedValue={selectedVoltage}
+          object={voltages}
+          title="Voltagem"
+          iconStyle={{marginRight: 2}}
+        />
 
         <View style={styles.selectionContainer}>
           <Text style={styles.title}>Espessura (mm)</Text>
