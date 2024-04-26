@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { NewAquariumCheckbox } from '../../components/NewAquariumCheckbox';
 import { NewAquariumValueChange } from '../../components/NewAquariumValueChange';
 import { Text, Input } from '@rneui/themed';
@@ -11,10 +11,8 @@ function NewAquarium({navigation}) {
   const [selectedMaterial, setMaterial] = useState('glass');
   const [selectedVoltage, setVoltage] = useState('127');
   const [thickness, setThickness] = useState(10);
-  const [width, setWidth] = useState(10);
-  const [length, setLength] = useState(10);
-  const [depth, setDepth] = useState(10);
-  const [capacity, setCapacity] = useState(10);
+  const [height, setHeight] = useState(10);
+  const [volume, setVolume] = useState(10);
 
   const rectangular = require('../../assets/icons/rectangularshape.png');
   const circle = require('../../assets/icons/circularshape.png');
@@ -46,10 +44,8 @@ function NewAquarium({navigation}) {
 
   const valueChangeObjects = [
     { title: 'Espessura (mm)', value: thickness, setValue: setThickness },
-    { title: 'Largura (cm)', value: width, setValue: setWidth },
-    { title: 'Comprimento (cm)', value: length, setValue: setLength },
-    { title: 'Profundidade (cm)', value: depth, setValue: setDepth },
-    { title: 'Capacidade (L)', value: capacity, setValue: setCapacity },
+    { title: 'Altura (cm)', value: height, setValue: setHeight },
+    { title: 'Volume (L)', value: volume, setValue: setVolume },
   ]
 
   return (
