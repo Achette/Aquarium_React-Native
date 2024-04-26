@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
-import { Text, Input } from '@rneui/themed';
+import React from 'react';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Text } from '@rneui/themed';
 import { Colors } from '../../theme/Colors';
 
-type NewAquariumChangeValueProps = {
+type NewAquariumValueChangeProps = {
   title: string;
   value: number;
   setValue: any;
 }
 
-export const NewAquariumChangeValue = ({title, value, setValue}:NewAquariumChangeValueProps) => {
+export const NewAquariumValueChange = ({title, value, setValue}:NewAquariumValueChangeProps) => {
   return (
     <View style={styles.selectionContainer}>
       <Text style={styles.title}>{title}</Text>

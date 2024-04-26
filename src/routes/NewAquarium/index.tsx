@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import { NewAquariumCheckbox } from '../../components/NewAquariumCheckbox';
-import { NewAquariumChangeValue } from '../../components/NewAquariumChangeValue';
+import { NewAquariumValueChange } from '../../components/NewAquariumValueChange';
 import { Text, Input } from '@rneui/themed';
 import { Colors } from '../../theme/Colors';
 
@@ -75,31 +75,31 @@ function NewAquarium({navigation}) {
           iconStyle={{marginRight: 2}}
         />
 
-        <NewAquariumChangeValue
+        <NewAquariumValueChange
           title="Espessura (mm)"
           value={thickness}
           setValue={setThickness}
         />
 
-        <NewAquariumChangeValue
+        <NewAquariumValueChange
           title="Largura (cm)"
           value={width}
           setValue={setWidth}
         />
 
-        <NewAquariumChangeValue
+        <NewAquariumValueChange
           title="Comprimento (cm)"
           value={length}
           setValue={setLength}
         />
 
-        <NewAquariumChangeValue
+        <NewAquariumValueChange
           title="Profundidade (cm)"
           value={depth}
           setValue={setDepth}
         />
 
-        <NewAquariumChangeValue
+        <NewAquariumValueChange
           title="Capacidade (L)"
           value={capacity}
           setValue={setCapacity}
