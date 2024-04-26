@@ -38,6 +38,20 @@ function NewAquarium({navigation}) {
     { title: '220V', value: '220', icon: voltage },
   ]
 
+  const checkBoxesObjects = [
+    { title: 'Formato', value: selectedShape, object: shapes, onSelect: setShape },
+    { title: 'Material', value: selectedMaterial, object: materials, onSelect: setMaterial },
+    { title: 'Voltagem', value: selectedVoltage, object: voltages, onSelect: setVoltage },
+  ]
+
+  const valueChangeObjects = [
+    { title: 'Espessura (mm)', value: thickness, setValue: setThickness },
+    { title: 'Largura (cm)', value: width, setValue: setWidth },
+    { title: 'Comprimento (cm)', value: length, setValue: setLength },
+    { title: 'Profundidade (cm)', value: depth, setValue: setDepth },
+    { title: 'Capacidade (L)', value: capacity, setValue: setCapacity },
+  ]
+
   return (
     <ScrollView>
       <View style={styles.page}>
@@ -53,57 +67,24 @@ function NewAquarium({navigation}) {
           />
         </View>
 
-        <NewAquariumCheckbox
-          onSelect={setShape}
-          selectedValue={selectedShape}
-          object={shapes}
-          title="Formato"
-        />
+        {checkBoxesObjects.map((obj) => (
+          <NewAquariumCheckbox
+            key={obj.title}
+            onSelect={obj.onSelect}
+            selectedValue={obj.value}
+            object={obj.object}
+            title={obj.title}
+          />
+        ))}
 
-        <NewAquariumCheckbox
-          onSelect={setMaterial}
-          selectedValue={selectedMaterial}
-          object={materials}
-          title="Material"  
-        />
-
-        <NewAquariumCheckbox
-          onSelect={setVoltage}
-          selectedValue={selectedVoltage}
-          object={voltages}
-          title="Voltagem"
-          iconStyle={{marginRight: 2}}
-        />
-
-        <NewAquariumValueChange
-          title="Espessura (mm)"
-          value={thickness}
-          setValue={setThickness}
-        />
-
-        <NewAquariumValueChange
-          title="Largura (cm)"
-          value={width}
-          setValue={setWidth}
-        />
-
-        <NewAquariumValueChange
-          title="Comprimento (cm)"
-          value={length}
-          setValue={setLength}
-        />
-
-        <NewAquariumValueChange
-          title="Profundidade (cm)"
-          value={depth}
-          setValue={setDepth}
-        />
-
-        <NewAquariumValueChange
-          title="Capacidade (L)"
-          value={capacity}
-          setValue={setCapacity}
-        />
+        {valueChangeObjects.map((obj) => (
+          <NewAquariumValueChange
+            key={obj.title}
+            title={obj.title}
+            value={obj.value}
+            setValue={obj.setValue}
+          />
+        ))}
 
       </View>
     </ScrollView>
