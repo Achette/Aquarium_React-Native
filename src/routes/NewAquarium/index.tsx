@@ -4,6 +4,7 @@ import { NewAquariumCheckbox } from '../../components/NewAquariumCheckbox';
 import { NewAquariumValueChange } from '../../components/NewAquariumValueChange';
 import { Text, Input } from '@rneui/themed';
 import { Colors } from '../../theme/Colors';
+import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
 
 function NewAquarium({navigation}) {
 
@@ -82,6 +83,11 @@ function NewAquarium({navigation}) {
           />
         ))}
 
+        <View style={styles.buttonsContainer}>
+          <PrimaryButton content="Avançar" onPress={() => navigation.navigate('Aquariums')} />
+          <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
+        </View>
+
       </View>
     </ScrollView>
   );
@@ -112,6 +118,12 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginVertical: 8,
   },
+  buttonsContainer: {
+    width: '120%',
+    alignItems: 'center',
+    gap: 8,
+    marginTop: 16,
+  }
 });
 
 export default NewAquarium;
