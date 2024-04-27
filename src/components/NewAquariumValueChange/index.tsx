@@ -17,14 +17,14 @@ export const NewAquariumValueChange = ({title, value, setValue}:NewAquariumValue
         <TouchableOpacity>
           <Text
             style={styles.changeValueButton}
-            onPress={() => {if(value>0){setValue(value - 1)}}}
+            onPress={() => {if(value>0){setValue(value - 0.5)}}}
           >-</Text>
         </TouchableOpacity>
-        <Text style={styles.changeValueText}>{value}</Text>
+        <Text style={styles.changeValueText}>{value.toFixed(1)}</Text>
         <TouchableOpacity>
           <Text
             style={styles.changeValueButton}
-            onPress={() => {if(value<50){setValue(value + 1)}}}
+            onPress={() => {if(value<50){setValue(value + 0.5)}}}
           >+</Text>
         </TouchableOpacity>
       </View>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.primary,
     borderRadius: 6,
-    minWidth: 115,
+    minWidth: 130,
   },
   changeValueButton: {
     color: Colors.primary,

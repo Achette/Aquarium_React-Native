@@ -10,9 +10,9 @@ function NewAquarium({navigation}) {
   const [selectedShape, setShape] = useState('rectangular');
   const [selectedMaterial, setMaterial] = useState('glass');
   const [selectedVoltage, setVoltage] = useState('127');
-  const [thickness, setThickness] = useState(10);
-  const [height, setHeight] = useState(10);
-  const [volume, setVolume] = useState(10);
+  const [thickness, setThickness] = useState(10.0);
+  const [height, setHeight] = useState(10.0);
+  const [volume, setVolume] = useState(10.0);
 
   const rectangular = require('../../assets/icons/rectangularshape.png');
   const circle = require('../../assets/icons/circularshape.png');
