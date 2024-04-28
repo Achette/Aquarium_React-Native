@@ -84,10 +84,9 @@ function NewAquarium({navigation}) {
         ))}
 
         <View style={styles.buttonsContainer}>
-          <PrimaryButton content="Avançar" onPress={() => navigation.navigate('Aquariums')} />
+          <PrimaryButton content="Avançar" onPress={() => navigation.navigate('NewAccessories')} />
           <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
         </View>
-
       </View>
     </ScrollView>
   );
