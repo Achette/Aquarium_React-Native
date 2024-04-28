@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { Text, StyleSheet, FlatList, View, Dimensions, Animated } from 'react-native';
+import React from 'react';
+import { StyleSheet, FlatList } from 'react-native';
 import { AquariumItems } from '../AquariumItems';
 
 type AquariumsListProps = {
@@ -27,6 +27,5 @@ const styles = StyleSheet.create({
   list: {
     width: '100%',
     marginTop: 16,
-    // backgroundColor: 'lightgrey',
   },
 });
