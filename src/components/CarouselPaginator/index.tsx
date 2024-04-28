@@ -1,14 +1,19 @@
-import React from 'react'
-import { View, StyleSheet, useWindowDimensions, Animated } from 'react-native'
-import { Colors } from '../../theme/Colors';
+import { S } from './styles';
+import { View, useWindowDimensions, Animated } from 'react-native'
 
-export const CarouselPaginator = ({ data, scrollX }) => {
+
+type CarouselPaginatorProps = {
+  data: any;
+  scrollX: any;
+};
+
+export const CarouselPaginator = ({ data, scrollX }:CarouselPaginatorProps) => {
 
   const { width } = useWindowDimensions();
 
   return (
-    <View style={styles.container}>
-      {data.map((_, i) => {
+    <View style={S.container}>
+      {data.map((_:any, i:any) => {
         const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
 
         const dotWidth = scrollX.interpolate({
@@ -23,22 +28,8 @@ export const CarouselPaginator = ({ data, scrollX }) => {
           extrapolate: 'clamp',
         });
 
-        return <Animated.View style={[styles.dot, { width:dotWidth, opacity }]} key={i.toString()} />;
+        return <Animated.View style={[S.dot, { width:dotWidth, opacity }]} key={i.toString()} />;
       })}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    height: 64,
-    justifyContent: 'center',
-  },
-  dot: {
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: Colors.primary,
-    marginHorizontal: 8,
-  }
-});

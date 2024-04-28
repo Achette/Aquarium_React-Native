@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { S } from './styles';
+import { useState } from 'react';
+import { View, ScrollView } from 'react-native';
 import { Text } from '@rneui/themed';
-import { Colors } from '../../theme/Colors';
-import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
 import { ItemButton } from '../../components/ItemButton';
+import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
 
-function NewPets({navigation}) {
+
+function NewPets({navigation}:any) {
 
   const [hasFish, setHasFish] = useState(false);
   const [hasTurtle, setHasTurtle] = useState(false);
@@ -17,10 +18,10 @@ function NewPets({navigation}) {
   const [snakeQuantity, setSnakeQuantity] = useState(1);
   const [frogQuantity, setFrogQuantity] = useState(1);
 
-  const fishIcon = require('../../assets/icons/fish.png');
-  const turtleIcon = require('../../assets/icons/turtle.png');
-  const snakeIcon = require('../../assets/icons/snake.png');
-  const frogIcon = require('../../assets/icons/frog.png');
+  const fishIcon = require('../../assets/icons/pets/fish.png');
+  const turtleIcon = require('../../assets/icons/pets/turtle.png');
+  const snakeIcon = require('../../assets/icons/pets/snake.png');
+  const frogIcon = require('../../assets/icons/pets/frog.png');
 
   const pets = [
     { title: 'Peixe', icon: fishIcon, onPress: () => setHasFish(!hasFish), isSelected: hasFish, itemQuantity: fishQuantity, setQuantity: setFishQuantity},
@@ -31,10 +32,10 @@ function NewPets({navigation}) {
 
   return (
     <ScrollView>
-      <View style={styles.page}>
-        <Text style={styles.title}>Pets</Text>
+      <View style={S.page}>
+        <Text style={S.title}>Pets</Text>
 
-        <View style={styles.petsButtonsContainer}>
+        <View style={S.petsButtonsContainer}>
           {pets.map((item, index) => (
             <ItemButton 
               key={index}
@@ -49,7 +50,7 @@ function NewPets({navigation}) {
           ))}
         </View>
 
-        <View style={styles.buttonsContainer}>
+        <View style={S.buttonsContainer}>
           <PrimaryButton content="Avançar" onPress={() => navigation.navigate('Aquariums')} />
           <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
         </View>
@@ -57,37 +58,5 @@ function NewPets({navigation}) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  page: {
-    flex:1,
-    alignItems: 'center',
-    height: '100%',
-    margin: 24,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: Colors.primary,
-    justifyContent: 'flex-start',
-    alignSelf: 'flex-start',
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  petsButtonsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    gap: 12,
-    marginVertical: 28,
-    paddingHorizontal: 10,
-  },
-  buttonsContainer: {
-    width: '120%',
-    alignItems: 'center',
-    gap: 8,
-    marginTop: 16,
-  }
-});
 
 export default NewPets;

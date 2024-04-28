@@ -1,7 +1,6 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import { S } from './styles';
 import { Button } from '@rneui/themed';
-import { Colors } from '../../theme/Colors';
+
 
 type UserButtonProps = {
   content: string;
@@ -17,8 +16,8 @@ export const UserButton = ({content, onPress}:UserButtonProps) => {
     <Button 
       title={content}
       type="solid"
-      buttonStyle={styles.userButton}
-      titleStyle={styles.userButtonTitle}
+      buttonStyle={S.userButton}
+      titleStyle={S.userButtonTitle}
       onPress={onPress}
     />
   );
@@ -28,36 +27,10 @@ export const LogOffButton = ({onPress}:LogOffButtonProps) => {
   return (
     <Button 
       type="solid"
-      buttonStyle={styles.logOffButton}
+      buttonStyle={S.logOffButton}
       icon={{name: 'power', type: 'feather', size: 15, color: 'white'}}
-      iconContainerStyle={styles.logOffIconContainer}
+      iconContainerStyle={S.logOffIconContainer}
       onPress={onPress}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  userButton: {
-    backgroundColor: Colors.primary,
-    width: 40,
-    height: 40,
-    borderRadius: 60,
-  },
-  userButtonTitle: {
-    fontSize: 18,
-    alignSelf: 'center',
-    justifyContent: 'center',
-  },
-  logOffButton: {
-    backgroundColor: Colors.primary,
-    width: 36,
-    height: 36,
-    borderRadius: 50
-  },
-  logOffIconContainer: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    width: 36,
-    height: 36
-  }
-});

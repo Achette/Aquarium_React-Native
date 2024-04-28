@@ -1,6 +1,7 @@
-import React from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import { S } from './styles';
+import { FlatList } from 'react-native';
 import { AquariumItems } from '../AquariumItems';
+
 
 type AquariumsListProps = {
   navigation: any;
@@ -18,14 +19,7 @@ export const AquariumsList = ({navigation, data}:AquariumsListProps) => {
         />
       )}
       keyExtractor={item => item.id}
-      style={styles.list}
+      style={S.list}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  list: {
-    width: '100%',
-    marginTop: 16,
-  },
-});

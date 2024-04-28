@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { S } from './styles';
+import { useState } from 'react';
+import { View, ScrollView } from 'react-native';
+import { Text, Input } from '@rneui/themed';
 import { NewAquariumCheckbox } from '../../components/NewAquariumCheckbox';
 import { NewAquariumValueChange } from '../../components/NewAquariumValueChange';
-import { Text, Input } from '@rneui/themed';
-import { Colors } from '../../theme/Colors';
 import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
 
-function NewAquarium({navigation}) {
+
+function NewAquarium({navigation}:any) {
 
   const [selectedShape, setShape] = useState('rectangular');
   const [selectedMaterial, setMaterial] = useState('glass');
@@ -15,9 +16,9 @@ function NewAquarium({navigation}) {
   const [height, setHeight] = useState(10.0);
   const [volume, setVolume] = useState(10.0);
 
-  const rectangular = require('../../assets/icons/rectangularshape.png');
-  const circle = require('../../assets/icons/circularshape.png');
-  const hexagonal = require('../../assets/icons/hexagonalshape.png');
+  const rectangular = require('../../assets/icons/shapes/rectangular.png');
+  const circle = require('../../assets/icons/shapes/circular.png');
+  const hexagonal = require('../../assets/icons/shapes/hexagonal.png');
   const voltage = require('../../assets/icons/voltage.png');
 
   const shapes = [
@@ -51,16 +52,16 @@ function NewAquarium({navigation}) {
 
   return (
     <ScrollView>
-      <View style={styles.page}>
-        <Text style={[styles.title, {fontSize: 28}]}>Novo Aquário</Text>
-        <View style={styles.inputContainer}>
+      <View style={S.page}>
+        <Text style={[S.title, {fontSize: 28}]}>Novo Aquário</Text>
+        <View style={S.inputContainer}>
           <Input
-            containerStyle={styles.input}
+            containerStyle={S.input}
             inputStyle={{padding: 0}}
             placeholder="Nome do aquário"
-            placeholderTextColor={Colors.placeholderText}
+            placeholderTextColor={S.placeholderText.color}
             errorMessage="Campo obrigatório"
-            errorStyle={{ color: Colors.inputErrorText }}
+            errorStyle={S.error}
           />
         </View>
 
@@ -83,7 +84,7 @@ function NewAquarium({navigation}) {
           />
         ))}
 
-        <View style={styles.buttonsContainer}>
+        <View style={S.buttonsContainer}>
           <PrimaryButton content="Avançar" onPress={() => navigation.navigate('NewAccessories')} />
           <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
         </View>
@@ -91,38 +92,5 @@ function NewAquarium({navigation}) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  page: {
-    flex:1,
-    alignItems: 'center',
-    height: '100%',
-    margin: 24,
-  },
-  inputContainer: {
-    flex: 1,
-    marginTop: 16,
-    width: '106%',
-    opacity: 0.6,
-  },
-  input: {
-    marginBottom: 8,
-    width: '100%',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: Colors.primary,
-    justifyContent: 'flex-start',
-    alignSelf: 'flex-start',
-    marginVertical: 8,
-  },
-  buttonsContainer: {
-    width: '120%',
-    alignItems: 'center',
-    gap: 8,
-    marginTop: 16,
-  }
-});
 
 export default NewAquarium;

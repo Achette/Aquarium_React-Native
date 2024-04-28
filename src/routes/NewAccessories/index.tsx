@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { S } from './styles';
+import { useState } from 'react';
+import { View, ScrollView } from 'react-native';
 import { Text } from '@rneui/themed';
-import { Colors } from '../../theme/Colors';
 import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
 import { ItemButton } from '../../components/ItemButton';
 
-function NewAccessories({navigation}) {
+
+function NewAccessories({navigation}:any) {
 
   const [hasPump, setHasPump] = useState(false);
   const [hasFeeder, setHasFeeder] = useState(false);
@@ -14,12 +15,12 @@ function NewAccessories({navigation}) {
   const [hasLedLights, setHasLedLights] = useState(false);
   const [hasVegetation, setHasVegetation] = useState(false);
 
-  const pumpIcon = require('../../assets/icons/pump.png');
-  const feederIcon = require('../../assets/icons/feeder.png');
-  const thermostatIcon = require('../../assets/icons/thermostat.png');
-  const filterIcon = require('../../assets/icons/filter.png');
-  const ledLightsIcon = require('../../assets/icons/ledlights.png');
-  const vegetationIcon = require('../../assets/icons/vegetation.png');
+  const pumpIcon = require('../../assets/icons/accessories/pump.png');
+  const feederIcon = require('../../assets/icons/accessories/feeder.png');
+  const thermostatIcon = require('../../assets/icons/accessories/thermostat.png');
+  const filterIcon = require('../../assets/icons/accessories/filter.png');
+  const ledLightsIcon = require('../../assets/icons/accessories/ledlights.png');
+  const vegetationIcon = require('../../assets/icons/accessories/vegetation.png');
 
   const accessories = [
     { title: 'Bombinha', icon: pumpIcon, onPress: () => setHasPump(!hasPump), isSelected: hasPump },
@@ -32,10 +33,10 @@ function NewAccessories({navigation}) {
 
   return (
     <ScrollView>
-      <View style={styles.page}>
-        <Text style={styles.title}>Acessórios</Text>
+      <View style={S.page}>
+        <Text style={S.title}>Acessórios</Text>
 
-        <View style={styles.accessoriesButtonsContainer}>
+        <View style={S.accessoriesButtonsContainer}>
           {accessories.map((item, index) => (
             <ItemButton 
               key={index}
@@ -47,7 +48,7 @@ function NewAccessories({navigation}) {
           ))}
         </View>
 
-        <View style={styles.buttonsContainer}>
+        <View style={S.buttonsContainer}>
           <PrimaryButton content="Avançar" onPress={() => navigation.navigate('NewSensors')} />
           <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
         </View>
@@ -55,37 +56,5 @@ function NewAccessories({navigation}) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  page: {
-    flex:1,
-    alignItems: 'center',
-    height: '100%',
-    margin: 24,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: Colors.primary,
-    justifyContent: 'flex-start',
-    alignSelf: 'flex-start',
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  accessoriesButtonsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: 12,
-    marginVertical: 28,
-  
-  },
-  buttonsContainer: {
-    width: '120%',
-    alignItems: 'center',
-    gap: 8,
-    marginTop: 16,
-  }
-});
 
 export default NewAccessories;

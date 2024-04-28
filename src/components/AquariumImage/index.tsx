@@ -1,6 +1,6 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import { S } from './styles';
 import { Image } from 'react-native';
+
 
 export const AquariumImage = () => {
   
@@ -9,18 +9,7 @@ export const AquariumImage = () => {
   return (
     <Image
       source={AquariumPNG}
-      style={styles.image}
+      style={S.image}
     />
   );
 };
-
-const styles = StyleSheet.create({
-  image: {
-    width: 250,
-    resizeMode: 'contain',
-    alignSelf: 'center',
-    alignContent: 'center',
-    marginTop: 50,
-    marginBottom: 50,
-  },
-});
