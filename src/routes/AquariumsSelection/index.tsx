@@ -15,7 +15,7 @@ let aquariums = [
 const addIcon = require('../../assets/icons/buttons/add.png');
 
 
-function Aquariums({navigation}:any) {
+function AquariumsSelection({navigation}:any) {
 
   const handleLogOff = () => {
     Alert.alert('Já vai?', 'Valeu, falou');
@@ -52,4 +52,4 @@ function Aquariums({navigation}:any) {
   );
 };
 
-export default Aquariums;
+export default AquariumsSelection;

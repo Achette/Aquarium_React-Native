@@ -51,7 +51,7 @@ function NewPets({navigation}:any) {
         </View>
 
         <View style={S.buttonsContainer}>
-          <PrimaryButton content="Avançar" onPress={() => navigation.navigate('Aquariums')} />
+          <PrimaryButton content="Avançar" onPress={() => navigation.navigate('Aquarium')} />
           <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
         </View>
       </View>

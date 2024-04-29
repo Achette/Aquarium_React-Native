@@ -15,7 +15,7 @@ export const AquariumsList = ({navigation, data}:AquariumsListProps) => {
       renderItem={({ item }) => (
         <AquariumItems
           item={item}
-          onPress={() => {navigation.navigate('Aquariums')}}
+          onPress={() => {navigation.navigate('Aquarium')}}
         />
       )}
       keyExtractor={item => item.id}
