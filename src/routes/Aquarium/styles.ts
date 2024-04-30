@@ -3,14 +3,21 @@ import { Colors } from '../../theme/Colors';
 
 
 export const S = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+  tabBar: {
+    borderTopColor: Colors.primary,
+    height: 70,
   },
-  text: {
+  tabBarLabel: {
+    fontSize: 12,
     color: Colors.primary,
-    fontSize: 20,
-    fontWeight: 'bold'
+    paddingBottom: 10,
+  },
+  tabBarInactive: {
+    color: Colors.inactiveTab,
+  },
+  icon: {
+    marginTop: 12,
+    width: 40,
+    resizeMode: 'contain',
   },
 });

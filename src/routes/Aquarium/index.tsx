@@ -1,40 +1,46 @@
 import { S } from './styles';
-import { Text, View } from 'react-native';
+import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import DashboardsTab from '../DashboardsTab';
+import AquariumTab from '../AquariumTab';
+import ControlsTab from '../ControlsTab';
 
 
-function AquariumTab() {
-  return (
-    <View style={S.container}>
-      <Text style={S.text}>Aquário X</Text>
-    </View>
-  );
-}
+const Tab = createBottomTabNavigator()
 
-function DashboardsTab() {
-  return (
-    <View style={S.container}>
-      <Text style={S.text}>Dashboard</Text>
-    </View>
-  );
-}
+const dashboardIcon = require('../../assets/icons/tabbar/dashboard.png');
+const homeIcon = require('../../assets/icons/tabbar/home.png');
+const controlIcon = require('../../assets/icons/tabbar/controls.png');
 
-function ControlsTab() {
-  return (
-    <View style={S.container}>
-      <Text style={S.text}>Controles</Text>
-    </View>
-  );
-}
-
-const Tab = createBottomTabNavigator() 
+const tabs = [
+  { name: 'Dashboards', component: DashboardsTab, icon: dashboardIcon },
+  { name: 'Início', component: AquariumTab, icon: homeIcon },
+  { name: 'Controles', component: ControlsTab, icon: controlIcon },
+]
 
 export default function Aquarium() {
   return (
-      <Tab.Navigator initialRouteName="Início">
-        <Tab.Screen name="Dashboards" component={DashboardsTab} />
-        <Tab.Screen name="Início" component={AquariumTab} />
-        <Tab.Screen name="Controles" component={ControlsTab} />
-      </Tab.Navigator>
+    <Tab.Navigator
+      initialRouteName="Início"
+      backBehavior="initialRoute"
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: S.tabBar,
+      }}
+    >
+      {tabs.map(tab => (
+        <Tab.Screen
+          key={tab.name}
+          name={tab.name}
+          component={tab.component}
+          options={{
+            tabBarLabel: tab.name,
+            tabBarLabelStyle: S.tabBarLabel,
+            tabBarIcon: () => (<Image source={tab.icon} style={S.icon}/>),
+            tabBarInactiveBackgroundColor: S.tabBarInactive.color,
+          }}
+        />
+      ))}
+    </Tab.Navigator>
   );
 };
