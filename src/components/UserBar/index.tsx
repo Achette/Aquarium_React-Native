@@ -1,6 +1,7 @@
 import { S } from './styles';
 import { View, Text, Image } from 'react-native';
-import { UserButton, LogOffButton } from '../UserButtons';
+import { UserButton } from '../UserButton';
+import { PowerButton } from '../PowerButton';
 
 
 type UserBarProps = {
@@ -19,7 +20,7 @@ export const UserBar = ({userButtonContent, userButtonOnPress, logOffButtonOnPre
       <View style={S.buttonsContainer}>
         <UserButton content={userButtonContent} onPress={userButtonOnPress}/>
         <Text style={S.verticalLine}>|</Text>
-        <LogOffButton onPress={logOffButtonOnPress}/>
+        <PowerButton onPress={logOffButtonOnPress} size={15}/>
       </View>
     </View>
   );
