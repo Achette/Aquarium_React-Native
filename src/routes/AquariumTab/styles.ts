@@ -32,4 +32,13 @@ export const S = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  buttonsBar: {
+    width: '100%',
+    flexDirection: 'row',
+    position: 'absolute',
+    justifyContent: 'space-between',
+    bottom: 25,
+    paddingHorizontal: 50,
+    backgroundColor: Colors.background,
+  }
 });

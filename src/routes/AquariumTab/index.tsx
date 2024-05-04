@@ -1,8 +1,9 @@
 import { S } from './styles';
-import { View } from 'react-native';
+import { View, Alert, ScrollView } from 'react-native';
 import { TopBar } from '../../components/TopBar';
 import { ConfigDisplay } from '../../components/ConfigDisplay';
 import { DataDisplay } from '../../components/DataDisplay';
+import { ActionButton } from '../../components/ActionButton';
 
 
 export default function AquariumTab({navigation}:any) {
@@ -44,7 +45,10 @@ export default function AquariumTab({navigation}:any) {
     { icon: luminosityIcon, title: 'Luminosidade', value: '35 lm' },
     { icon: lastCleaningIcon, title: 'Última Limpeza', value: '16/04/2024 | 12:00' },
     { icon: lastFeedingIcon, title: 'Última Alimentação', value: '23/04/2024 | 12:00' },
-  ]
+  ];
+
+  const cleanIcon = require('../../assets/icons/buttons/clean.png');
+  const foodIcon = require('../../assets/icons/buttons/food.png');
 
   return (
     <View style={S.container}>
@@ -74,6 +78,19 @@ export default function AquariumTab({navigation}:any) {
             icon={data.icon}
           />
         ))}
+    </View>
+
+    <View style={S.buttonsBar}>
+      <ActionButton
+        icon={cleanIcon}
+        title='Limpar'
+        onPress={() => {Alert.alert('Limpar', 'Pronto, limpou os cocô tudo')}}
+      />
+      <ActionButton
+        icon={foodIcon}
+        title='Alimentar'
+        onPress={() => {Alert.alert('Alimentar', 'Pronto, deu comida pros peixinho')}}
+      />
     </View>
   </View>
   );
