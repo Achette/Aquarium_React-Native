@@ -24,7 +24,6 @@ export const S = StyleSheet.create({
     justifyContent: 'center',
     gap: 12,
     marginVertical: 28,
-  
   },
   buttonsContainer: {
     width: '120%',

@@ -20,7 +20,7 @@ export const UserBar = ({userButtonContent, userButtonOnPress, logOffButtonOnPre
       <View style={S.buttonsContainer}>
         <UserButton content={userButtonContent} onPress={userButtonOnPress}/>
         <Text style={S.verticalLine}>|</Text>
-        <PowerButton onPress={logOffButtonOnPress} size={15}/>
+        <PowerButton onPress={logOffButtonOnPress} size={16}/>
       </View>
     </View>
   );

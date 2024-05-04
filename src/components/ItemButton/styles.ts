@@ -11,7 +11,7 @@ export const S = StyleSheet.create({
     padding: 2,
     width: 100,
     minHeight: 120,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.background,
   },
   title: {
     fontSize: 14,

@@ -14,4 +14,11 @@ export const S = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 100,
   },
+  controlsButtonsContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '90%',
+    gap: 12,
+    marginVertical: 28,
+  },
 });
