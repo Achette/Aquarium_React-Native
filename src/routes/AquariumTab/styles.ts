@@ -14,4 +14,13 @@ export const S = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 100,
   },
+  configsDisplay: {
+    flexDirection: 'row',
+    gap: 10,
+    flexWrap: 'wrap',
+    marginTop: 30,
+    width: '85%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
