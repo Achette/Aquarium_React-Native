@@ -19,7 +19,7 @@ export const BackButton = ({navigation}:any) => {
 export const ConfigButton = () => {
   return (
     <TouchableOpacity
-      onPress={() => Alert.alert('Configurações', 'Já pensou, configurar algo?')}
+      onPress={() => Alert.alert('Configurações', 'Configurar configurações configuráveis')}
       style={[S.button, S.buttonRight]}
     >
       <Image source={ConfigIcon}/>

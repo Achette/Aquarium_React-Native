@@ -2,6 +2,7 @@ import { S } from './styles';
 import { View } from 'react-native';
 import { TopBar } from '../../components/TopBar';
 import { ConfigDisplay } from '../../components/ConfigDisplay';
+import { DataDisplay } from '../../components/DataDisplay';
 
 
 export default function AquariumTab({navigation}:any) {
@@ -27,6 +28,24 @@ export default function AquariumTab({navigation}:any) {
     { icon: turtleIcon, content: '2' },
   ];
 
+  const internalTemperatureIcon = require('../../assets/icons/data/temperature.png');
+  const saturarionIcon = require('../../assets/icons/data/saturation.png');
+  const phIcon = require('../../assets/icons/data/ph.png');
+  const waterLevelIcon = require('../../assets/icons/data/waterlevel.png');
+  const luminosityIcon = require('../../assets/icons/data/luminosity.png');
+  const lastCleaningIcon = require('../../assets/icons/data/lastcleaning.png');
+  const lastFeedingIcon = require('../../assets/icons/data/lastfeeding.png');
+
+  const data = [
+    { icon: internalTemperatureIcon, title: 'Temperatura Interna', value: '27°C' },
+    { icon: saturarionIcon, title: 'Saturação', value: '9,07 ppm' },
+    { icon: phIcon, title: 'PH', value: '7' },
+    { icon: waterLevelIcon, title: 'Variação do Nível da Água', value: '17,5 ml' },
+    { icon: luminosityIcon, title: 'Luminosidade', value: '35 lm' },
+    { icon: lastCleaningIcon, title: 'Última Limpeza', value: '16/04/2024 | 12:00' },
+    { icon: lastFeedingIcon, title: 'Última Alimentação', value: '23/04/2024 | 12:00' },
+  ]
+
   return (
     <View style={S.container}>
       <TopBar 
@@ -45,6 +64,17 @@ export default function AquariumTab({navigation}:any) {
           />
         ))}
       </View>
+
+      <View style={S.dataDisplay}>
+        {data.map((data, index) => (
+          <DataDisplay
+            key={index}
+            title={data.title}
+            value={data.value}
+            icon={data.icon}
+          />
+        ))}
     </View>
+  </View>
   );
 };

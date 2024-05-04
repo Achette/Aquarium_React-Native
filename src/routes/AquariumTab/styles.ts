@@ -23,4 +23,13 @@ export const S = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  dataDisplay: {
+    flexDirection: 'row',
+    gap: 10,
+    flexWrap: 'wrap',
+    marginTop: 40,
+    width: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
