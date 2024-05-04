@@ -5,7 +5,6 @@ import { Colors } from '../../theme/Colors';
 export const S = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.background,
   },
@@ -13,5 +12,6 @@ export const S = StyleSheet.create({
     color: Colors.primary,
     fontSize: 28,
     fontWeight: 'bold',
+    marginTop: 100,
   },
 });

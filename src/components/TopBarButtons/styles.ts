@@ -3,15 +3,13 @@ import { Colors } from '../../theme/Colors';
 
 
 export const S = StyleSheet.create({
-  container: {
-    flex: 1,
+  button: {
+    width: 40,
+    height: 40,
+    flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.background,
   },
-  text: {
-    color: Colors.primary,
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginTop: 100,
+  buttonRight: {
+    justifyContent: 'flex-end',
   },
 });
