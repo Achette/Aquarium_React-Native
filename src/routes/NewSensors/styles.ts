@@ -7,7 +7,8 @@ export const S = StyleSheet.create({
     flex:1,
     alignItems: 'center',
     height: '100%',
-    margin: 24,
+    padding: 24,
+    backgroundColor: Colors.background,
   },
   title: {
     fontSize: 28,

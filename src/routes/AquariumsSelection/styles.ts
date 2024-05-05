@@ -6,6 +6,7 @@ export const S = StyleSheet.create({
   page: {
     flex:1,
     alignItems: 'center',
+    backgroundColor: Colors.background,
   },
   noAquariums: {
     flex: 1,

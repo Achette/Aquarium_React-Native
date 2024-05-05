@@ -5,8 +5,9 @@ import { Colors } from '../../theme/Colors';
 export const S = StyleSheet.create({
   page: {
     flex:1,
-    marginVertical: 10,
+    paddingVertical: 10,
     alignItems: 'center',
+    backgroundColor: Colors.background,
   },
   title: {
     fontWeight: 'bold',

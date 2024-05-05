@@ -6,6 +6,7 @@ export const S = StyleSheet.create({
   tabBar: {
     borderTopColor: Colors.primary,
     height: 70,
+    backgroundColor: Colors.background,
   },
   tabBarLabel: {
     fontSize: 12,
