@@ -1,24 +1,24 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { Text, StyleSheet, FlatList, View, Dimensions, Animated } from 'react-native';
+import { S } from './styles';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { Text, FlatList, View, Dimensions, Animated } from 'react-native';
 import { CarouselPaginator } from '../CarouselPaginator';
-import { Colors } from '../../theme/Colors'
 
-const data = [
-  { id: '1', content: 'Gerencie seu aquário com nossa plataforma completa de controle e monitoramento.' },
-  { id: '2', content: 'Cadastre seu aquário, adicione sensores, monitore dados em tempo real e controle dispositivos, tudo em um só lugar.' },
-  { id: '3', content: 'Dados de sensores, dashboards personalizados e notificações em tempo real.' },
-  { id: '4', content: 'Cadastre-se agora para começar a explorar todas as funcionalidades que oferecemos!' },
-];
-
-const screenWidth = Dimensions.get('window').width;
 
 export const HomeCarousel = () => {
   
   const [currentIndex, setCurrentIndex] = useState(0);
+  const screenWidth = Dimensions.get('window').width;
   const scrollX = useRef(new Animated.Value(0)).current;
-  const dataRef = useRef(null);
+  const dataRef = useRef(0);
 
-  const viewableItemsChanged = useRef(({ viewableItems }) => {
+  const data = [
+    { id: '1', content: 'Gerencie seu aquário com nossa plataforma completa de controle e monitoramento.' },
+    { id: '2', content: 'Cadastre seu aquário, adicione sensores, monitore dados em tempo real e controle dispositivos, tudo em um só lugar.' },
+    { id: '3', content: 'Dados de sensores, dashboards personalizados e notificações em tempo real.' },
+    { id: '4', content: 'Cadastre-se agora para começar a explorar todas as funcionalidades que oferecemos!' },
+  ];
+
+  const viewableItemsChanged = useRef(({ viewableItems }:any) => {
     setCurrentIndex(viewableItems[0].index);
   }).current;
 
@@ -44,8 +44,8 @@ export const HomeCarousel = () => {
         <FlatList
           data={data}
           renderItem={({item}) => (
-            <View style={styles.itemContainer}>
-              <Text style={styles.text}>{item.content}</Text>
+            <View style={[S.itemContainer, {width: screenWidth}]}>
+              <Text style={S.text}>{item.content}</Text>
             </View>
           )}
           keyExtractor={item => item.id}
@@ -66,21 +66,3 @@ export const HomeCarousel = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  itemContainer: {
-    width: screenWidth,
-    paddingHorizontal: 30,
-    paddingVertical: 5,
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 16,
-    textAlign: 'center',
-    justifyContent: 'center',
-    color: Colors.carouselText,
-    marginHorizontal: 30,
-    marginVertical: 10,
-    lineHeight: 24,
-  },
-});

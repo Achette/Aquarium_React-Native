@@ -1,7 +1,7 @@
-import React from 'react';
-import { StyleSheet, Image, Text, View } from 'react-native';
+import { S } from './styles';
+import { Image, Text, View } from 'react-native';
 import { Button } from '@rneui/themed';
-import { Colors } from '../../theme/Colors';
+
 
 type ActionButtonProps = {
   icon: any;
@@ -11,10 +11,10 @@ type ActionButtonProps = {
 
 export const ActionButton = ({icon, title, onPress}:ActionButtonProps) => {
   return (
-    <View style={styles.buttonElement}>
+    <View style={S.buttonElement}>
       <Button
-        buttonStyle={styles.button}
-        containerStyle={[styles.buttoncontainer]}
+        buttonStyle={S.button}
+        containerStyle={[S.buttoncontainer]}
         onPress={onPress}
       >
         <Image
@@ -22,30 +22,7 @@ export const ActionButton = ({icon, title, onPress}:ActionButtonProps) => {
           source={icon}
         />
       </Button>
-      <Text style={styles.buttonText}>{title}</Text>
+      <Text style={S.buttonText}>{title}</Text>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: Colors.secondary,
-    width: '100%',
-    height: '100%',
-  },
-  buttoncontainer: {
-    width: 60,
-    height: 60,
-    borderRadius: 50,
-    borderColor: Colors.primary,
-    borderWidth: 1.5,
-  },
-  buttonText: {
-    color: Colors.primary,
-    fontSize: 12,
-  },
-  buttonElement: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-});

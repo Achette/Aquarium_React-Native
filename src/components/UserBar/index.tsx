@@ -1,7 +1,8 @@
-import React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
-import { UserButton, LogOffButton } from '../UserButtons';
-import { Colors } from '../../theme/Colors';
+import { S } from './styles';
+import { View, Text, Image } from 'react-native';
+import { UserButton } from '../UserButton';
+import { PowerButton } from '../PowerButton';
+
 
 type UserBarProps = {
   userButtonContent: string;
@@ -14,42 +15,13 @@ export const UserBar = ({userButtonContent, userButtonOnPress, logOffButtonOnPre
   const LogoPNG = require('../../assets/icons/logo.png');
 
   return (
-    <View style={styles.topBar}>
+    <View style={S.topBar}>
       <Image source={LogoPNG}/>
-      <View style={styles.buttonsContainer}>
+      <View style={S.buttonsContainer}>
         <UserButton content={userButtonContent} onPress={userButtonOnPress}/>
-        <Text style={styles.verticalLine}>|</Text>
-        <LogOffButton onPress={logOffButtonOnPress}/>
+        <Text style={S.verticalLine}>|</Text>
+        <PowerButton onPress={logOffButtonOnPress} size={16}/>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  topBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    width: '100%',
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: 105,
-    borderColor: Colors.primary,
-    borderWidth: 1,
-    borderRadius: 50,
-    padding: 5,
-    maxHeight: 50,
-  },
-  verticalLine: {
-    color: Colors.primary,
-    fontWeight: '100',
-    fontSize: 40,
-    lineHeight: 45,
-  },
-});
-

@@ -1,7 +1,7 @@
-import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { S } from './styles';
+import { View, Image, TouchableOpacity } from 'react-native';
 import { Text } from '@rneui/themed';
-import { Colors } from '../../theme/Colors';
+
 
 type ItemButtonProps = {
   icon: any;
@@ -13,77 +13,40 @@ type ItemButtonProps = {
   setQuantity?: any;
 }
 
-export const ItemButton = ({icon, title, onPress, isSelected=false, hasCounter=false, itemQuantity, setQuantity}:ItemButtonProps) => {
+export const ItemButton = ({icon, title, onPress, isSelected=false, hasCounter=false, itemQuantity=1, setQuantity}:ItemButtonProps) => {
   
   let selectionOpacity = isSelected ? 1 : 0.4;
 
   return (
     <View>
       <TouchableOpacity 
-        style={[styles.button, {opacity: selectionOpacity}]}
+        style={[S.button, {opacity: selectionOpacity}]}
         onPress={onPress}
       >
-        <Image source={icon} style={styles.icon}/>
-        <Text style={styles.title}>{title}</Text>
+
+        <Image source={icon} style={S.icon}/>
+        <Text style={S.title}>{title}</Text>
+
         {isSelected && hasCounter ? 
-          <View style={styles.counterContainer}>
+          <View style={S.counterContainer}>
             <TouchableOpacity>
               <Text
-                style={styles.changeValueButton}
+                style={S.changeValueButton}
                 onPress={() => {if(itemQuantity>1){setQuantity(itemQuantity - 1)}}}
               >-</Text>
             </TouchableOpacity>
-            <Text style={styles.changeValueText}>{itemQuantity}</Text>
+            <Text style={S.changeValueText}>{itemQuantity}</Text>
             <TouchableOpacity>
               <Text
-                style={styles.changeValueButton}
+                style={S.changeValueButton}
                 onPress={() => {if(itemQuantity<50){setQuantity(itemQuantity + 1)}}}
               >+</Text>
             </TouchableOpacity>
           </View>
           : null
         }
+
       </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    borderColor: Colors.primary,
-    borderWidth: 1.2,
-    borderRadius: 16,
-    alignItems: 'center',
-    padding: 2,
-    width: 100,
-    minHeight: 120,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 14,
-    color: Colors.primary,   
-    textAlign: 'center',
-  },
-  icon: {
-    height: 70,
-    maxWidth: 90,
-    resizeMode: 'contain',
-    marginVertical: 8,
-  },
-  counterContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 6,
-  },
-  changeValueButton: {
-    color: Colors.primary,
-    fontSize: 20,
-    paddingHorizontal: 15,
-  },
-  changeValueText: {
-    color: Colors.primary,
-    fontSize: 18,
-    marginHorizontal: 4, 
-  },
-});

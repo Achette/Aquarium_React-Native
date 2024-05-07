@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { S } from './styles';
+import { useState } from 'react';
+import { View, ScrollView } from 'react-native';
 import { Text } from '@rneui/themed';
-import { Colors } from '../../theme/Colors';
-import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
 import { ItemButton } from '../../components/ItemButton';
+import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
 
-function NewSensors({navigation}) {
+
+function NewSensors({navigation}:any) {
 
   const [hasExternalTemperatureSensor, setHasExternalTemperatureSensor] = useState(false);
   const [hasWaterLevelSensor, setHasWaterLevelSensor] = useState(false);
@@ -14,12 +15,12 @@ function NewSensors({navigation}) {
   const [hasPhSensor, setHasPhSensor] = useState(false);
   const [hasSaturationSensor, setHasSaturationSensor] = useState(false);
   
-  const externalTemperatureIcon = require('../../assets/icons/temperaturesensor.png');
-  const waterLevelIcon = require('../../assets/icons/waterlevelsensor.png');
-  const oxygenLevelIcon = require('../../assets/icons/oxygensensor.png');
-  const luminosityIcon = require('../../assets/icons/luminositysensor.png');
-  const phIcon = require('../../assets/icons/phsensor.png');
-  const saturationIcon = require('../../assets/icons/saturationsensor.png');
+  const externalTemperatureIcon = require('../../assets/icons/sensors/temperature.png');
+  const waterLevelIcon = require('../../assets/icons/sensors/waterlevel.png');
+  const oxygenLevelIcon = require('../../assets/icons/sensors/oxygen.png');
+  const luminosityIcon = require('../../assets/icons/sensors/luminosity.png');
+  const phIcon = require('../../assets/icons/sensors/ph.png');
+  const saturationIcon = require('../../assets/icons/sensors/saturation.png');
 
   const sensors = [
     { title: 'Temperatura Externa', icon: externalTemperatureIcon, onPress: () => setHasExternalTemperatureSensor(!hasExternalTemperatureSensor), isSelected: hasExternalTemperatureSensor },
@@ -32,10 +33,10 @@ function NewSensors({navigation}) {
 
   return (
     <ScrollView>
-      <View style={styles.page}>
-        <Text style={styles.title}>Sensores</Text>
+      <View style={S.page}>
+        <Text style={S.title}>Sensores</Text>
 
-        <View style={styles.sensorsButtonsContainer}>
+        <View style={S.sensorsButtonsContainer}>
           {sensors.map((item, index) => (
             <ItemButton 
               key={index}
@@ -47,7 +48,7 @@ function NewSensors({navigation}) {
           ))}
         </View>
 
-        <View style={styles.buttonsContainer}>
+        <View style={S.buttonsContainer}>
           <PrimaryButton content="Avançar" onPress={() => navigation.navigate('NewPets')} />
           <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
         </View>
@@ -55,37 +56,5 @@ function NewSensors({navigation}) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  page: {
-    flex:1,
-    alignItems: 'center',
-    height: '100%',
-    margin: 24,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: Colors.primary,
-    justifyContent: 'flex-start',
-    alignSelf: 'flex-start',
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  sensorsButtonsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    gap: 12,
-    marginVertical: 28,
-  
-  },
-  buttonsContainer: {
-    width: '120%',
-    alignItems: 'center',
-    gap: 8,
-    marginTop: 16,
-  }
-});
 
 export default NewSensors;
