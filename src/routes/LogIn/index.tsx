@@ -1,10 +1,11 @@
 import { S } from './styles';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { View, ScrollView, Alert } from 'react-native';
 import { Text } from '@rneui/base';
 import { Input } from '@rneui/themed';
 import { LogInBanner } from '../../components/LogInBanner';
 import { PrimaryButton, TextButton } from '../../components/DefaultButtons';
+import { AquariumContext } from '../../context'
 import axios from 'axios';
 
 
@@ -12,8 +13,9 @@ function LogIn({navigation}:any) {
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
   const [userId, setUserId] = useState('');
+
+  const { token, setToken } = useContext(AquariumContext);
 
   const inputsContents = [
     { placeholder: 'Nome', leftIconName: 'user', errorMessage: '', inputMode: 'text', secureTextEntry: false, onChangeText: setName},

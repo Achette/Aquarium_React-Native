@@ -1,9 +1,11 @@
 import { S } from './styles';
+import { useContext } from 'react';
 import { View, Alert } from 'react-native';
 import { Text } from '@rneui/base';
 import { UserBar } from '../../components/UserBar';
 import { AquariumsList } from '../../components/AquariumsList';
 import { ActionButton } from '../../components/ActionButton';
+import { AquariumContext } from '../../context'
 
 let aquariums = [
   { id: '1', icon: 'hexagonal', name: 'Aquário 1' },
@@ -16,6 +18,10 @@ const addIcon = require('../../assets/icons/buttons/add.png');
 
 
 function AquariumsSelection({navigation}:any) {
+
+  const { token, setToken } = useContext(AquariumContext);
+
+  console.log('Token na página de Aquários:', token);
 
   const handleLogOff = () => {
     Alert.alert('Já vai?', 'Valeu, falou');
