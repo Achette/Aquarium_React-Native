@@ -5,6 +5,7 @@ import { Text } from '@rneui/base';
 import { Input } from '@rneui/themed';
 import { LogInBanner } from '../../components/LogInBanner';
 import { SecondaryButton, TextButton } from '../../components/DefaultButtons';
+import { useAquarium } from '../../context'
 import axios from 'axios';
 
 
@@ -14,8 +15,7 @@ function LogIn({navigation}:any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [token, setToken] = useState('');
-  const [userId, setUserId] = useState('');
+  const { setToken, setUserId } = useAquarium();
 
   const inputsContents = [
     { placeholder: 'Nome', leftIconName: 'user', errorMessage: '', inputMode: 'text', secureTextEntry: false, onChangeText: setName},
@@ -37,13 +37,11 @@ function LogIn({navigation}:any) {
 
     try {
       const response = await axios.post(`${process.env.BASE_URL}/register`, userData);
-      console.log('Usuário criado:', response.data);
-  
-      const jwt = response.data.data.jwt;
-      const userId = response.data.data.user.id;
-      console.log(`Token: ${jwt}, id: ${userId}`);
-  
+      const jwt = response.data.jwt;
+      const userId = response.data.user.id;
+
       if (jwt) {
+        console.log(`Usuário criado - Token: ${jwt}, id: ${userId}`);
         setToken(jwt);
         setUserId(userId);
         Alert.alert('Sucesso!', 'Cadastro realizado com sucesso!');

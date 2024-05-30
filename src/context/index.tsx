@@ -3,6 +3,8 @@ import React, { createContext, useState, useContext, SetStateAction } from 'reac
 interface AppContextProps {
   token: string;
   setToken: React.Dispatch<SetStateAction<string>>;
+  userId: string;
+  setUserId: React.Dispatch<SetStateAction<string>>;
 }
 
 type AppProviderProps = {
@@ -13,9 +15,15 @@ export const AquariumContext = createContext<AppContextProps>({} as AppContextPr
 
 export function AquariumProvider({ children }: AppProviderProps) {
   const [token, setToken] = useState<string>('');
+  const [userId, setUserId] = useState<string>('');
 
   return (
-    <AquariumContext.Provider value={{ token, setToken }}>
+    <AquariumContext.Provider value={{ 
+      token, 
+      setToken,
+      userId,
+      setUserId,
+    }}>
       {children}
     </AquariumContext.Provider>
   );

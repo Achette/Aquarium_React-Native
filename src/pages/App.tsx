@@ -1,6 +1,6 @@
 import { S } from './styles';
 import { useState, useEffect } from 'react';
-import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,31 +15,52 @@ import NewAccessories from '../routes/NewAccessories';
 import NewSensors from '../routes/NewSensors';
 import NewPets from '../routes/NewPets';
 import Aquarium from '../routes/Aquarium';
+import axios from 'axios';
 
 const Stack = createStackNavigator();
 
 function AppNavigator() {
-  const { setToken } = useAquarium();
+  const { setToken, setUserId } = useAquarium();
   const [initialRoute, setInitialRoute] = useState("Home");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getToken = async () => {
+    const handleStart = async () => {
       try {
-        const token = await AsyncStorage.getItem('token');
-        console.log('Token lido local (App):', token);
-        if (token) {
-          setToken(token);
-          setInitialRoute("AquariumsSelection");
+        const username = await AsyncStorage.getItem('username');
+        const password = await AsyncStorage.getItem('password');
+        const userId = await AsyncStorage.getItem('userId');
+        
+        if (username && password && userId) {
+          console.log(`Usuário logado previamente - username: ${username}, password: ${password}, userId: ${userId}`);
+
+          const userData = {
+            username: username,
+            password: password,
+          };
+
+          try {
+            const response = await axios.post(`${process.env.BASE_URL}/login`, userData);
+            const jwt = response.data.jwt;
+            await AsyncStorage.setItem('jwt', jwt);
+            setToken(jwt);
+            setUserId(userId);
+            console.log(`Login realizado novamente - Novo token: ${jwt}`);
+            setInitialRoute("AquariumsSelection");
+          } catch (e) {
+            console.log(`Erro ao fazer login com usuário salvo: ${e}`);
+          }
+        } else {
+          console.log('Nenhum usuário logado, redirecionando para página "Home"');
         }
       } catch (e) {
-        console.log('Erro ao ler token:', e);
+        console.log(`Erro ao fazer login com usuário salvo: ${e}`);
       } finally {
         setLoading(false);
       }
     };
 
-    getToken();
+    handleStart();
   }, []);
 
   if (loading) {

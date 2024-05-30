@@ -1,12 +1,12 @@
 import { S } from './styles';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { View, ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Text } from '@rneui/base';
 import { Input } from '@rneui/themed';
 import { LogInBanner } from '../../components/LogInBanner';
 import { PrimaryButton, TextButton } from '../../components/DefaultButtons';
-import { AquariumContext } from '../../context'
+import { useAquarium } from '../../context'
 import axios from 'axios';
 
 
@@ -14,18 +14,20 @@ function LogIn({navigation}:any) {
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [userId, setUserId] = useState('');
-  const { token, setToken } = useContext(AquariumContext);
+  const { setToken, setUserId } = useAquarium();
 
   const inputsContents = [
     { placeholder: 'Nome', leftIconName: 'user', errorMessage: '', inputMode: 'text', secureTextEntry: false, onChangeText: setName},
     { placeholder: 'Senha', leftIconName: 'lock', errorMessage: 'Senha inválida', inputMode: 'text', secureTextEntry: true, onChangeText: setPassword },
   ]
 
-  const storeToken = async (token: any) => {
+  const storeUser = async (username:string, password:string, jwt:string, userId:string) => {
     try {
-      await AsyncStorage.setItem('token', token);
-      console.log('Token salvo local:', token);
+      await AsyncStorage.setItem('username', username);
+      await AsyncStorage.setItem('password', password);
+      await AsyncStorage.setItem('jwt', jwt);
+      await AsyncStorage.setItem('userId', userId);
+      console.log('Dados do usuário salvos com sucesso no AsyncStorage');
     } catch (e) {
       console.error('Erro ao salvar token:', e);
     }
@@ -42,15 +44,14 @@ function LogIn({navigation}:any) {
 
     try {
       const response = await axios.post(`${process.env.BASE_URL}/login`, userData);
-      console.log('Usuário logado:', response.data);
-
-      const { token, id } = response.data.data;
-      console.log(`Token: ${token}, id: ${id}`);
-
-      if (token) {
-        setToken(token);
-        setUserId(id);
-        storeToken(token);
+      const jwt = response.data.jwt;
+      const userId = response.data.result.id;
+      
+      if (jwt) {
+        console.log(`Usuário logado - Token: ${jwt}, id: ${userId}`);
+        setToken(jwt);
+        setUserId(userId);
+        storeUser(userData.username, userData.password, jwt, userId);
         Alert.alert('Sucesso!', 'Login realizado com sucesso!');
         navigation.navigate('AquariumsSelection');
       }
