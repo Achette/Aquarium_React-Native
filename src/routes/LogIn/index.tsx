@@ -1,6 +1,7 @@
 import { S } from './styles';
 import { useState, useContext } from 'react';
 import { View, ScrollView, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Text } from '@rneui/base';
 import { Input } from '@rneui/themed';
 import { LogInBanner } from '../../components/LogInBanner';
@@ -14,13 +15,21 @@ function LogIn({navigation}:any) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [userId, setUserId] = useState('');
-
   const { token, setToken } = useContext(AquariumContext);
 
   const inputsContents = [
     { placeholder: 'Nome', leftIconName: 'user', errorMessage: '', inputMode: 'text', secureTextEntry: false, onChangeText: setName},
     { placeholder: 'Senha', leftIconName: 'lock', errorMessage: 'Senha inválida', inputMode: 'text', secureTextEntry: true, onChangeText: setPassword },
   ]
+
+  const storeToken = async (token: any) => {
+    try {
+      await AsyncStorage.setItem('token', token);
+      console.log('Token salvo local:', token);
+    } catch (e) {
+      console.error('Erro ao salvar token:', e);
+    }
+  };
 
   async function handleLogIn() {
     const userData = {
@@ -41,6 +50,7 @@ function LogIn({navigation}:any) {
       if (token) {
         setToken(token);
         setUserId(id);
+        storeToken(token);
         Alert.alert('Sucesso!', 'Login realizado com sucesso!');
         navigation.navigate('AquariumsSelection');
       }

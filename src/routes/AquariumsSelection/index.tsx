@@ -6,6 +6,7 @@ import { UserBar } from '../../components/UserBar';
 import { AquariumsList } from '../../components/AquariumsList';
 import { ActionButton } from '../../components/ActionButton';
 import { AquariumContext } from '../../context'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let aquariums = [
   { id: '1', icon: 'hexagonal', name: 'Aquário 1' },
@@ -20,11 +21,12 @@ const addIcon = require('../../assets/icons/buttons/add.png');
 function AquariumsSelection({navigation}:any) {
 
   const { token, setToken } = useContext(AquariumContext);
-
   console.log('Token na página de Aquários:', token);
 
   const handleLogOff = () => {
     Alert.alert('Já vai?', 'Valeu, falou');
+    setToken('');
+    AsyncStorage.removeItem('token');
     navigation.navigate('Home');
   }
 
