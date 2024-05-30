@@ -21,7 +21,6 @@ const addIcon = require('../../assets/icons/buttons/add.png');
 function AquariumsSelection({navigation}:any) {
 
   const { token, setToken } = useContext(AquariumContext);
-  console.log('Token na página de Aquários:', token);
 
   const handleLogOff = () => {
     Alert.alert('Já vai?', 'Valeu, falou');

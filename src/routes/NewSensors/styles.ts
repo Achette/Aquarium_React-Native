@@ -22,10 +22,9 @@ export const S = StyleSheet.create({
   sensorsButtonsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
     gap: 12,
     marginVertical: 28,
-  
+    paddingHorizontal: 10,
   },
   buttonsContainer: {
     width: '120%',

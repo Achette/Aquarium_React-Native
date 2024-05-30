@@ -1,5 +1,5 @@
 import { S } from './styles';
-import { useState } from 'react';
+import { useAquarium } from '../../context';
 import { View, ScrollView } from 'react-native';
 import { Text } from '@rneui/themed';
 import { ItemButton } from '../../components/ItemButton';
@@ -8,16 +8,16 @@ import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons'
 
 function NewSensors({navigation}:any) {
 
-  const [hasExternalTemperatureSensor, setHasExternalTemperatureSensor] = useState(false);
-  const [hasWaterLevelSensor, setHasWaterLevelSensor] = useState(false);
-  const [hasOxygenLevelSensor, setHasOxygenLevelSensor] = useState(false);
-  const [hasLuminositySensor, setHasLuminositySensor] = useState(false);
-  const [hasPhSensor, setHasPhSensor] = useState(false);
-  const [hasSaturationSensor, setHasSaturationSensor] = useState(false);
-  
+  const { 
+    hasExternalTemperatureSensor, setHasExternalTemperatureSensor,
+    hasWaterLevelSensor, setHasWaterLevelSensor,
+    hasLuminositySensor, setHasLuminositySensor,
+    hasPhSensor, setHasPhSensor,
+    hasSaturationSensor, setHasSaturationSensor,
+  } = useAquarium();
+
   const externalTemperatureIcon = require('../../assets/icons/sensors/temperature.png');
   const waterLevelIcon = require('../../assets/icons/sensors/waterlevel.png');
-  const oxygenLevelIcon = require('../../assets/icons/sensors/oxygen.png');
   const luminosityIcon = require('../../assets/icons/sensors/luminosity.png');
   const phIcon = require('../../assets/icons/sensors/ph.png');
   const saturationIcon = require('../../assets/icons/sensors/saturation.png');
@@ -25,7 +25,6 @@ function NewSensors({navigation}:any) {
   const sensors = [
     { title: 'Temperatura Externa', icon: externalTemperatureIcon, onPress: () => setHasExternalTemperatureSensor(!hasExternalTemperatureSensor), isSelected: hasExternalTemperatureSensor },
     { title: 'Nível da Água', icon: waterLevelIcon, onPress: () => setHasWaterLevelSensor(!hasWaterLevelSensor), isSelected: hasWaterLevelSensor },
-    { title: 'Nível de Oxigênio', icon: oxygenLevelIcon, onPress: () => setHasOxygenLevelSensor(!hasOxygenLevelSensor), isSelected: hasOxygenLevelSensor },
     { title: 'Luminosidade', icon: luminosityIcon, onPress: () => setHasLuminositySensor(!hasLuminositySensor), isSelected: hasLuminositySensor },
     { title: 'pH', icon: phIcon, onPress: () => setHasPhSensor(!hasPhSensor), isSelected: hasPhSensor },
     { title: 'Saturação', icon: saturationIcon, onPress: () => setHasSaturationSensor(!hasSaturationSensor), isSelected: hasSaturationSensor },

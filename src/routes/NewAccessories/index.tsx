@@ -1,5 +1,5 @@
 import { S } from './styles';
-import { useState } from 'react';
+import { useAquarium } from '../../context';
 import { View, ScrollView } from 'react-native';
 import { Text } from '@rneui/themed';
 import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
@@ -8,12 +8,14 @@ import { ItemButton } from '../../components/ItemButton';
 
 function NewAccessories({navigation}:any) {
 
-  const [hasPump, setHasPump] = useState(false);
-  const [hasFeeder, setHasFeeder] = useState(false);
-  const [hasThermostat, setHasThermostat] = useState(false);
-  const [hasFilter, setHasFilter] = useState(false);
-  const [hasLedLights, setHasLedLights] = useState(false);
-  const [hasVegetation, setHasVegetation] = useState(false);
+  const { 
+    hasPump, setHasPump,
+    hasFeeder, setHasFeeder,
+    hasThermostat, setHasThermostat,
+    hasFilter, setHasFilter,
+    hasLedLights, setHasLedLights,
+    hasVegetation, setHasVegetation,
+  } = useAquarium();
 
   const pumpIcon = require('../../assets/icons/accessories/pump.png');
   const feederIcon = require('../../assets/icons/accessories/feeder.png');

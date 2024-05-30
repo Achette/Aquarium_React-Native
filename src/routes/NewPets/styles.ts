@@ -22,7 +22,6 @@ export const S = StyleSheet.create({
   petsButtonsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
     gap: 12,
     marginVertical: 28,
     paddingHorizontal: 10,
