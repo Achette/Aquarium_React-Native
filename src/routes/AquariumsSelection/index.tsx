@@ -1,4 +1,5 @@
 import { S } from './styles';
+import { Icons } from '../../theme/Icons';
 import { useContext } from 'react';
 import { View, Alert } from 'react-native';
 import { Text } from '@rneui/base';
@@ -14,8 +15,6 @@ let aquariums = [
   { id: '3', icon: 'circular', name: 'Aquário 3' },
 ];
 // aquariums = [];
-
-const addIcon = require('../../assets/icons/buttons/add.png');
 
 
 function AquariumsSelection({navigation}:any) {
@@ -50,7 +49,7 @@ function AquariumsSelection({navigation}:any) {
 
       <View style={S.bottomBar}>
         <ActionButton
-          icon={addIcon}
+          icon={Icons.addAquariumButton}
           title='Novo Aquário'
           onPress={() => navigation.navigate('NewAquarium')}
         />

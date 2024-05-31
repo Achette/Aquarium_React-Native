@@ -1,4 +1,5 @@
 import { S } from './styles';
+import { Icons } from '../../theme/Icons';
 import { useAquarium } from '../../context';
 import { View, ScrollView } from 'react-native';
 import { Text } from '@rneui/themed';
@@ -24,7 +25,7 @@ function NewPets({navigation}:any) {
     hasFilter, setHasFilter,
     hasLedLights, setHasLedLights,
     hasVegetation, setHasVegetation,
-    hasExternalTemperatureSensor, setHasExternalTemperatureSensor,
+    hasTemperatureSensor, setHasTemperatureSensor,
     hasWaterLevelSensor, setHasWaterLevelSensor,
     hasLuminositySensor, setHasLuminositySensor,
     hasPhSensor, setHasPhSensor,
@@ -42,16 +43,11 @@ function NewPets({navigation}:any) {
 
   const headers = { 'Authorization': `${token}` };
 
-  const fishIcon = require('../../assets/icons/pets/fish.png');
-  const turtleIcon = require('../../assets/icons/pets/turtle.png');
-  const snakeIcon = require('../../assets/icons/pets/snake.png');
-  const frogIcon = require('../../assets/icons/pets/frog.png');
-
   const pets = [
-    { title: 'Peixe', icon: fishIcon, onPress: () => setHasFish(!hasFish), isSelected: hasFish, itemQuantity: fishQuantity, setQuantity: setFishQuantity},
-    { title: 'Tartaruga', icon: turtleIcon, onPress: () => setHasTurtle(!hasTurtle), isSelected: hasTurtle, itemQuantity: turtleQuantity, setQuantity: setTurtleQuantity},
-    { title: 'Cobra', icon: snakeIcon, onPress: () => setHasSnake(!hasSnake), isSelected: hasSnake, itemQuantity: snakeQuantity, setQuantity: setSnakeQuantity},
-    { title: 'Sapo', icon: frogIcon, onPress: () => setHasFrog(!hasFrog), isSelected: hasFrog, itemQuantity: frogQuantity, setQuantity: setFrogQuantity},
+    { title: 'Peixe', icon: Icons.fish, onPress: () => setHasFish(!hasFish), isSelected: hasFish, itemQuantity: fishQuantity, setQuantity: setFishQuantity},
+    { title: 'Tartaruga', icon: Icons.turtle, onPress: () => setHasTurtle(!hasTurtle), isSelected: hasTurtle, itemQuantity: turtleQuantity, setQuantity: setTurtleQuantity},
+    { title: 'Cobra', icon: Icons.snake, onPress: () => setHasSnake(!hasSnake), isSelected: hasSnake, itemQuantity: snakeQuantity, setQuantity: setSnakeQuantity},
+    { title: 'Sapo', icon: Icons.frog, onPress: () => setHasFrog(!hasFrog), isSelected: hasFrog, itemQuantity: frogQuantity, setQuantity: setFrogQuantity},
   ]
 
   const resetParams = () => {
@@ -65,7 +61,7 @@ function NewPets({navigation}:any) {
 
     const booleanFalseParams = [
       setHasPump, setHasFeeder, setHasThermostat, setHasFilter, setHasLedLights, setHasVegetation,
-      setHasExternalTemperatureSensor, setHasWaterLevelSensor, setHasLuminositySensor, setHasPhSensor, setHasSaturationSensor,
+      setHasTemperatureSensor, setHasWaterLevelSensor, setHasLuminositySensor, setHasPhSensor, setHasSaturationSensor,
       setHasFish, setHasTurtle, setHasSnake, setHasFrog,
     ];
     booleanFalseParams.forEach((f) => f(false));
@@ -96,7 +92,7 @@ function NewPets({navigation}:any) {
     if (hasVegetation) aquariumAccessories.push({ name: 'Plantas naturais' });
 
     const aquariumSensors = [];
-    if (hasExternalTemperatureSensor) aquariumSensors.push({ name: 'Sensor', metric: 'Temperatura externa' });
+    if (hasTemperatureSensor) aquariumSensors.push({ name: 'Sensor', metric: 'Temperatura externa' });
     if (hasWaterLevelSensor) aquariumSensors.push({ name: 'Sensor', metric: 'Nível de água' });
     if (hasLuminositySensor) aquariumSensors.push({ name: 'Sensor', metric: 'Luminosidade' });
     if (hasPhSensor) aquariumSensors.push({ name: 'Sensor', metric: 'pH' });

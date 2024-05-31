@@ -16,7 +16,7 @@ interface AppContextProps {
   hasFilter: boolean; setHasFilter: React.Dispatch<SetStateAction<boolean>>;
   hasLedLights: boolean; setHasLedLights: React.Dispatch<SetStateAction<boolean>>;
   hasVegetation: boolean; setHasVegetation: React.Dispatch<SetStateAction<boolean>>;
-  hasExternalTemperatureSensor: boolean; setHasExternalTemperatureSensor: React.Dispatch<SetStateAction<boolean>>;
+  hasTemperatureSensor: boolean; setHasTemperatureSensor: React.Dispatch<SetStateAction<boolean>>;
   hasWaterLevelSensor: boolean; setHasWaterLevelSensor: React.Dispatch<SetStateAction<boolean>>;
   hasLuminositySensor: boolean; setHasLuminositySensor: React.Dispatch<SetStateAction<boolean>>;
   hasPhSensor: boolean; setHasPhSensor: React.Dispatch<SetStateAction<boolean>>;
@@ -56,7 +56,7 @@ export function AquariumProvider({ children }: AppProviderProps) {
   const [hasLedLights, setHasLedLights] = useState<boolean>(false);
   const [hasVegetation, setHasVegetation] = useState<boolean>(false);
 
-  const [hasExternalTemperatureSensor, setHasExternalTemperatureSensor] = useState<boolean>(false);
+  const [hasTemperatureSensor, setHasTemperatureSensor] = useState<boolean>(false);
   const [hasWaterLevelSensor, setHasWaterLevelSensor] = useState<boolean>(false);
   const [hasLuminositySensor, setHasLuminositySensor] = useState<boolean>(false);
   const [hasPhSensor, setHasPhSensor] = useState<boolean>(false);
@@ -89,7 +89,7 @@ export function AquariumProvider({ children }: AppProviderProps) {
       hasFilter, setHasFilter,
       hasLedLights, setHasLedLights,
       hasVegetation, setHasVegetation,
-      hasExternalTemperatureSensor, setHasExternalTemperatureSensor,
+      hasTemperatureSensor, setHasTemperatureSensor,
       hasWaterLevelSensor, setHasWaterLevelSensor,
       hasLuminositySensor, setHasLuminositySensor,
       hasPhSensor, setHasPhSensor,

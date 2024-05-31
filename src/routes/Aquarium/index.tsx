@@ -1,4 +1,5 @@
 import { S } from './styles';
+import { Icons } from '../../theme/Icons';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import DashboardsTab from '../DashboardsTab';
@@ -8,14 +9,10 @@ import ControlsTab from '../ControlsTab';
 
 const Tab = createBottomTabNavigator()
 
-const dashboardIcon = require('../../assets/icons/tabbar/dashboard.png');
-const homeIcon = require('../../assets/icons/tabbar/home.png');
-const controlIcon = require('../../assets/icons/tabbar/controls.png');
-
 const tabs = [
-  { name: 'Dashboards', component: DashboardsTab, icon: dashboardIcon },
-  { name: 'Início', component: AquariumTab, icon: homeIcon },
-  { name: 'Controles', component: ControlsTab, icon: controlIcon },
+  { name: 'Dashboards', component: DashboardsTab, icon: Icons.dashboardTabBar },
+  { name: 'Início', component: AquariumTab, icon: Icons.homeTabBar },
+  { name: 'Controles', component: ControlsTab, icon: Icons.controlTabBar },
 ]
 
 export default function Aquarium() {

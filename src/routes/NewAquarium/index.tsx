@@ -1,4 +1,5 @@
 import { S } from './styles';
+import { Icons } from '../../theme/Icons';
 import { useAquarium } from '../../context';
 import { View, ScrollView } from 'react-native';
 import { Text, Input } from '@rneui/themed';
@@ -19,15 +20,10 @@ function NewAquarium({navigation}:any) {
     volume, setVolume,
   } = useAquarium();
 
-  const rectangular = require('../../assets/icons/shapes/rectangular.png');
-  const circle = require('../../assets/icons/shapes/circular.png');
-  const hexagonal = require('../../assets/icons/shapes/hexagonal.png');
-  const voltage = require('../../assets/icons/voltage.png');
-
   const shapes = [
-    { title: 'Retangular', value: 'Retangular', icon: rectangular },
-    { title: 'Curvo', value: 'Curvo', icon: circle },
-    { title: 'Sextavado', value: 'Sextavado', icon: hexagonal },
+    { title: 'Retangular', value: 'Retangular', icon: Icons.rectangularShape },
+    { title: 'Curvo', value: 'Curvo', icon: Icons.circularShape },
+    { title: 'Sextavado', value: 'Sextavado', icon: Icons.hexagonalShape },
   ]
 
   const materials = [
@@ -37,8 +33,8 @@ function NewAquarium({navigation}:any) {
   ]
 
   const voltages = [
-    { title: '110V', value: '110V', icon: voltage },
-    { title: '220V', value: '220V', icon: voltage },
+    { title: '110V', value: '110V', icon: Icons.voltageIcon },
+    { title: '220V', value: '220V', icon: Icons.voltageIcon },
   ]
 
   const checkBoxesObjects = [

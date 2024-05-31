@@ -1,5 +1,6 @@
 import { S } from './styles';
-import { View, Alert, ScrollView } from 'react-native';
+import { Icons } from '../../theme/Icons';
+import { View, Alert } from 'react-native';
 import { TopBar } from '../../components/TopBar';
 import { ConfigDisplay } from '../../components/ConfigDisplay';
 import { DataDisplay } from '../../components/DataDisplay';
@@ -8,47 +9,28 @@ import { ActionButton } from '../../components/ActionButton';
 
 export default function AquariumTab({navigation}:any) {
 
-  const icon = require('../../assets/icons/shapes/hexagonal.png');
+  const icon = Icons.hexagonalShape;
   const title = 'Aquário 1';
 
-  const materialIcon = require('../../assets/icons/config/material.png');
-  const voltageIcon = require('../../assets/icons/config/voltage.png');
-  const heightIcon = require('../../assets/icons/config/height.png');
-  const thicknessIcon = require('../../assets/icons/config/thickness.png');
-  const capacityIcon = require('../../assets/icons/config/capacity.png');
-  const fishIcon = require('../../assets/icons/pets/fish.png');
-  const turtleIcon = require('../../assets/icons/pets/turtle.png');
-
   const configs = [
-    { icon: materialIcon, content: 'Vidro' },
-    { icon: voltageIcon, content: '127V' },
-    { icon: heightIcon, content: '30cm' },
-    { icon: thicknessIcon, content: '3mm' },
-    { icon: capacityIcon, content: '3,5L' },
-    { icon: fishIcon, content: '8' },
-    { icon: turtleIcon, content: '2' },
+    { icon: Icons.material, content: 'Vidro' },
+    { icon: Icons.voltage, content: '110V' },
+    { icon: Icons.height, content: '30cm' },
+    { icon: Icons.thickness, content: '3mm' },
+    { icon: Icons.capacity, content: '3,5L' },
+    { icon: Icons.fish, content: '8' },
+    { icon: Icons.turtle, content: '2' },
   ];
-
-  const internalTemperatureIcon = require('../../assets/icons/data/temperature.png');
-  const saturarionIcon = require('../../assets/icons/data/saturation.png');
-  const phIcon = require('../../assets/icons/data/ph.png');
-  const waterLevelIcon = require('../../assets/icons/data/waterlevel.png');
-  const luminosityIcon = require('../../assets/icons/data/luminosity.png');
-  const lastCleaningIcon = require('../../assets/icons/data/lastcleaning.png');
-  const lastFeedingIcon = require('../../assets/icons/data/lastfeeding.png');
 
   const data = [
-    { icon: internalTemperatureIcon, title: 'Temperatura Interna', value: '27°C' },
-    { icon: saturarionIcon, title: 'Saturação', value: '9,07 ppm' },
-    { icon: phIcon, title: 'PH', value: '7' },
-    { icon: waterLevelIcon, title: 'Variação do Nível da Água', value: '17,5 ml' },
-    { icon: luminosityIcon, title: 'Luminosidade', value: '35 lm' },
-    { icon: lastCleaningIcon, title: 'Última Limpeza', value: '16/04/2024 | 12:00' },
-    { icon: lastFeedingIcon, title: 'Última Alimentação', value: '23/04/2024 | 12:00' },
+    { icon: Icons.temperatureData, title: 'Temperatura', value: '27°C' },
+    { icon: Icons.saturationData, title: 'Saturação', value: '9,07 ppm' },
+    { icon: Icons.phData, title: 'PH', value: '7' },
+    { icon: Icons.waterLevelData, title: 'Variação do Nível da Água', value: '17,5 ml' },
+    { icon: Icons.luminosityData, title: 'Luminosidade', value: '35 lm' },
+    { icon: Icons.lastCleaningData, title: 'Última Limpeza', value: '16/04/2024 | 12:00' },
+    { icon: Icons.lastFeedingData, title: 'Última Alimentação', value: '23/04/2024 | 12:00' },
   ];
-
-  const cleanIcon = require('../../assets/icons/buttons/clean.png');
-  const foodIcon = require('../../assets/icons/buttons/food.png');
 
   return (
     <View style={S.container}>
@@ -82,12 +64,12 @@ export default function AquariumTab({navigation}:any) {
 
     <View style={S.buttonsBar}>
       <ActionButton
-        icon={cleanIcon}
+        icon={Icons.cleanButton}
         title='Limpar'
         onPress={() => {Alert.alert('Limpar', 'Pronto, limpou os cocô tudo')}}
       />
       <ActionButton
-        icon={foodIcon}
+        icon={Icons.foodButton}
         title='Alimentar'
         onPress={() => {Alert.alert('Alimentar', 'Pronto, deu comida pros peixinho')}}
       />

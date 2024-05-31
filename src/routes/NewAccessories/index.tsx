@@ -1,4 +1,5 @@
 import { S } from './styles';
+import { Icons } from '../../theme/Icons';
 import { useAquarium } from '../../context';
 import { View, ScrollView } from 'react-native';
 import { Text } from '@rneui/themed';
@@ -17,20 +18,13 @@ function NewAccessories({navigation}:any) {
     hasVegetation, setHasVegetation,
   } = useAquarium();
 
-  const pumpIcon = require('../../assets/icons/accessories/pump.png');
-  const feederIcon = require('../../assets/icons/accessories/feeder.png');
-  const thermostatIcon = require('../../assets/icons/accessories/thermostat.png');
-  const filterIcon = require('../../assets/icons/accessories/filter.png');
-  const ledLightsIcon = require('../../assets/icons/accessories/ledlights.png');
-  const vegetationIcon = require('../../assets/icons/accessories/vegetation.png');
-
   const accessories = [
-    { title: 'Bombinha', icon: pumpIcon, onPress: () => setHasPump(!hasPump), isSelected: hasPump },
-    { title: 'Alimentador', icon: feederIcon, onPress: () => setHasFeeder(!hasFeeder), isSelected: hasFeeder },
-    { title: 'Termostato', icon: thermostatIcon, onPress: () => setHasThermostat(!hasThermostat), isSelected: hasThermostat },
-    { title: 'Filtro', icon: filterIcon, onPress: () => setHasFilter(!hasFilter), isSelected: hasFilter },
-    { title: 'Luzes de LED', icon: ledLightsIcon, onPress: () => setHasLedLights(!hasLedLights), isSelected: hasLedLights },
-    { title: 'Vegetação', icon: vegetationIcon, onPress: () => setHasVegetation(!hasVegetation), isSelected: hasVegetation },
+    { title: 'Bombinha', icon: Icons.pump, onPress: () => setHasPump(!hasPump), isSelected: hasPump },
+    { title: 'Alimentador', icon: Icons.feeder, onPress: () => setHasFeeder(!hasFeeder), isSelected: hasFeeder },
+    { title: 'Termostato', icon: Icons.thermostat, onPress: () => setHasThermostat(!hasThermostat), isSelected: hasThermostat },
+    { title: 'Filtro', icon: Icons.filter, onPress: () => setHasFilter(!hasFilter), isSelected: hasFilter },
+    { title: 'Luzes de LED', icon: Icons.ledLights, onPress: () => setHasLedLights(!hasLedLights), isSelected: hasLedLights },
+    { title: 'Vegetação', icon: Icons.vegetation, onPress: () => setHasVegetation(!hasVegetation), isSelected: hasVegetation },
   ]
 
   return (
