@@ -15,7 +15,9 @@ const tabs = [
   { name: 'Controles', component: ControlsTab, icon: Icons.controlTabBar },
 ]
 
-export default function Aquarium() {
+export default function Aquarium({ route }:any) {
+  const { aquarium } = route.params;
+
   return (
     <Tab.Navigator
       initialRouteName="Início"
@@ -30,6 +32,7 @@ export default function Aquarium() {
           key={tab.name}
           name={tab.name}
           component={tab.component}
+          initialParams={{ aquarium }}
           options={{
             tabBarLabel: tab.name,
             tabBarLabelStyle: S.tabBarLabel,

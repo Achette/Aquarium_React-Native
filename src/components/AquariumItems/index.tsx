@@ -9,20 +9,15 @@ type AquariumItemsProps = {
   onPress: any;
 };
 
+const iconMap: Record<string, any> = {
+  'Curvo': Icons.circularShape,
+  'Sextavado': Icons.hexagonalShape,
+  'Retangular': Icons.rectangularShape,
+};
+
 export const AquariumItems = ({item, onPress}:AquariumItemsProps) => {
 
-  let icon;
-  switch (item.icon) {
-    case 'Curvo':
-      icon = Icons.circularShape;
-      break;
-    case 'Sextavado':
-      icon = Icons.hexagonalShape;
-      break;
-    default:
-      icon = Icons.rectangularShape;
-      break;
-  };
+  const icon = iconMap[item.format_aquarium] || Icons.rectangularShape;
 
   return (
     <Button 

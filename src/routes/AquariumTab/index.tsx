@@ -1,6 +1,7 @@
 import { S } from './styles';
 import { Icons } from '../../theme/Icons';
 import { View, Alert } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import { TopBar } from '../../components/TopBar';
 import { ConfigDisplay } from '../../components/ConfigDisplay';
 import { DataDisplay } from '../../components/DataDisplay';
@@ -8,9 +9,19 @@ import { ActionButton } from '../../components/ActionButton';
 
 
 export default function AquariumTab({navigation}:any) {
+  const route = useRoute();
+  const { aquarium } = route.params as { aquarium: any };
 
-  const icon = Icons.hexagonalShape;
-  const title = 'Aquário 1';
+  const iconMap: Record<string, any> = {
+    'Curvo': Icons.circularShape,
+    'Sextavado': Icons.hexagonalShape,
+    'Retangular': Icons.rectangularShape,
+  };
+
+  const icon = iconMap[aquarium.format_aquarium] || Icons.rectangularShape;
+  const title = aquarium.name;
+
+  //! criar função para coletar os dados complementares do aquário usando o aquarium.id
 
   const configs = [
     { icon: Icons.material, content: 'Vidro' },

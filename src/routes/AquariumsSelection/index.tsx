@@ -23,14 +23,22 @@ function AquariumsSelection({navigation}:any) {
   useEffect(() => {
     const loadAquariums = async () => {
       try {     
-        const response = await axios.get(`${process.env.BASE_URL}/aquarium`, { headers })
+        const response = await axios.get(`${process.env.BASE_URL}/aquarium`, { headers });
+
         const aquariumsData = await response.data.map((aquarium:any) => ({
           id: aquarium.id,
-          icon: aquarium.format_aquarium,
           name: aquarium.name,
+          format_aquarium: aquarium.format_aquarium,
+          material: aquarium.material,
+          thickness: aquarium.thickness,
+          height: aquarium.height,
+          voltage: aquarium.voltage,
+          capacity: aquarium.capacity,
         }));
+
         console.log(`${aquariumsData.length} aquarios carregados`);
         console.log(`Aquarios: ${JSON.stringify(aquariumsData)}`);
+
         setAquariums(aquariumsData);
       } catch (e) {
         console.log(`Erro ao carregar aquários: ${e}`);
