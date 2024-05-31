@@ -22,7 +22,7 @@ function AquariumsSelection({navigation}:any) {
 
   useEffect(() => {
     const loadAquariums = async () => {
-      try {     
+      try {
         const response = await axios.get(`${process.env.BASE_URL}/aquarium`, { headers });
 
         const aquariumsData = await response.data.map((aquarium:any) => ({

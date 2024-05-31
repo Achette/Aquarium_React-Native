@@ -54,7 +54,7 @@ function NewPets({navigation}:any) {
     setAquariumName('');
     setShape('Retangular');
     setMaterial('Vidro');
-    setVoltage('127V');
+    setVoltage('110V');
 
     const number10Params = [setThickness, setHeight, setVolume];
     number10Params.forEach((f) => f(10.0));
@@ -83,26 +83,29 @@ function NewPets({navigation}:any) {
       capacity: `${volume}`,
     };
 
-    const aquariumAccessories = [];
-    if (hasPump) aquariumAccessories.push({ name: 'Bombinha' });
-    if (hasFeeder) aquariumAccessories.push({ name: 'Alimentador automático' });
-    if (hasThermostat) aquariumAccessories.push({ name: 'Termostato / Aquecedor' });
-    if (hasFilter) aquariumAccessories.push({ name: 'Filtro' });
-    if (hasLedLights) aquariumAccessories.push({ name: 'Luz LED' });
-    if (hasVegetation) aquariumAccessories.push({ name: 'Plantas naturais' });
+    const aquariumAccessories = [
+      hasPump && { name: 'Bombinha' },
+      hasFeeder && { name: 'Alimentador automático' },
+      hasThermostat && { name: 'Termostato / Aquecedor' },
+      hasFilter && { name: 'Filtro' },
+      hasLedLights && { name: 'Luz LED' },
+      hasVegetation && { name: 'Plantas naturais' },
+    ].filter(Boolean);
 
-    const aquariumSensors = [];
-    if (hasTemperatureSensor) aquariumSensors.push({ name: 'Sensor', metric: 'Temperatura' });
-    if (hasWaterLevelSensor) aquariumSensors.push({ name: 'Sensor', metric: 'Nível de água' });
-    if (hasLuminositySensor) aquariumSensors.push({ name: 'Sensor', metric: 'Luminosidade' });
-    if (hasPhSensor) aquariumSensors.push({ name: 'Sensor', metric: 'pH' });
-    if (hasSaturationSensor) aquariumSensors.push({ name: 'Sensor', metric: 'Saturação' });
+    const aquariumSensors = [
+      hasTemperatureSensor && { name: 'Sensor', metric: 'Temperatura' },
+      hasWaterLevelSensor && { name: 'Sensor', metric: 'Nível de água' },
+      hasLuminositySensor && { name: 'Sensor', metric: 'Luminosidade' },
+      hasPhSensor && { name: 'Sensor', metric: 'pH' },
+      hasSaturationSensor && { name: 'Sensor', metric: 'Saturação' },
+    ].filter(Boolean);
 
-    const aquariumPets = [];
-    if (hasFish) aquariumPets.push({ species: 'Peixe', quantity: fishQuantity });
-    if (hasTurtle) aquariumPets.push({ species: 'Tartaruga', quantity: turtleQuantity });
-    if (hasSnake) aquariumPets.push({ species: 'Cobra', quantity: snakeQuantity });
-    if (hasFrog) aquariumPets.push({ species: 'Sapo', quantity: frogQuantity });
+    const aquariumPets = [
+      hasFish && { species: 'Peixe', quantity: fishQuantity },
+      hasTurtle && { species: 'Tartaruga', quantity: turtleQuantity },
+      hasSnake && { species: 'Cobra', quantity: snakeQuantity },
+      hasFrog && { species: 'Sapo', quantity: frogQuantity },
+    ].filter(Boolean);
 
     console.log(`Aquarium Data: ${JSON.stringify(aquariumData)}`);
     console.log(`Aquarium Accessories: ${JSON.stringify(aquariumAccessories)}`);
@@ -114,23 +117,16 @@ function NewPets({navigation}:any) {
       const aquariumId = aquariumResponse.data.result.id;
       console.log(`Aquário criado com sucesso - ID: ${aquariumId}`);
 
-      aquariumAccessories.forEach(async (accessory) => {
-        const response = await axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/accessories`, accessory, { headers });
-        console.log(`${response.data.message} - ID: ${response.data.result.id}, Name: ${response.data.result.name}`);
-      });
+      await Promise.all([
+        ...aquariumAccessories.map(accessory => axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/accessories`, accessory, { headers })),
+        ...aquariumSensors.map(sensor => axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/sensors`, sensor, { headers })),
+        ...aquariumPets.map(pet => axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/pets`, pet, { headers }))
+      ]);
 
-      aquariumSensors.forEach(async (sensor) => {
-        const response = await axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/sensors`, sensor, { headers });
-        console.log(`${response.data.message} - ID: ${response.data.result.id}, Name: ${response.data.result.name}, Metric: ${response.data.result.metric}`);
-      });
-
-      aquariumPets.forEach(async (pet) => {
-        const response = await axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/pets`, pet, { headers });
-        console.log(`${response.data.message} - ID: ${response.data.result.id}, Species: ${response.data.result.species}, Quantity: ${response.data.result.quantity}`);
-      });
+      console.log('Acessórios, sensores e pets adicionados com sucesso.');
 
       resetParams(); 
-      navigation.navigate('Aquarium');
+      navigation.navigate('AquariumsSelection');
     } catch (e) {
       console.error('Erro ao criar aquário:', e);
     }
