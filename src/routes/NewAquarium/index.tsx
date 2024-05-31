@@ -27,7 +27,7 @@ function NewAquarium({navigation}:any) {
   const shapes = [
     { title: 'Retangular', value: 'Retangular', icon: rectangular },
     { title: 'Curvo', value: 'Curvo', icon: circle },
-    { title: 'Hexagonal', value: 'Hexagonal', icon: hexagonal },
+    { title: 'Sextavado', value: 'Sextavado', icon: hexagonal },
   ]
 
   const materials = [
@@ -37,7 +37,7 @@ function NewAquarium({navigation}:any) {
   ]
 
   const voltages = [
-    { title: '127V', value: '127V', icon: voltage },
+    { title: '110V', value: '110V', icon: voltage },
     { title: '220V', value: '220V', icon: voltage },
   ]
 
