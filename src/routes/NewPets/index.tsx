@@ -1,14 +1,19 @@
 import { S } from './styles';
+import { useState, useContext } from 'react';
+import { AquariumContext } from '../../context'
 import { Icons } from '../../theme/Icons';
 import { useAquarium } from '../../context';
 import { View, ScrollView } from 'react-native';
 import { Text } from '@rneui/themed';
 import { ItemButton } from '../../components/ItemButton';
 import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
+import { Loading } from '../../components/Loading';
 import axios from 'axios';
 
 
 function NewPets({navigation}:any) {
+
+  const [ isLoading, setIsLoading ] = useState(true);
 
   const {
     token,
@@ -73,6 +78,9 @@ function NewPets({navigation}:any) {
   };
 
   const handleCreateAquarium = async () => {
+
+    setIsLoading(true);
+
     const aquariumData = {
       name: aquariumName, 
       format_aquarium: selectedShape,
@@ -125,7 +133,8 @@ function NewPets({navigation}:any) {
 
       console.log('Acessórios, sensores e pets adicionados com sucesso.');
 
-      resetParams(); 
+      resetParams();
+      setIsLoading(false);
       navigation.navigate('AquariumsSelection');
     } catch (e) {
       console.error('Erro ao criar aquário:', e);
@@ -135,27 +144,31 @@ function NewPets({navigation}:any) {
   return (
     <ScrollView>
       <View style={S.page}>
-        <Text style={S.title}>Pets</Text>
-
-        <View style={S.petsButtonsContainer}>
-          {pets.map((item, index) => (
-            <ItemButton 
-              key={index}
-              icon={item.icon} 
-              title={item.title} 
-              onPress={item.onPress} 
-              isSelected={item.isSelected}
-              hasCounter={true}
-              itemQuantity={item.itemQuantity}
-              setQuantity={item.setQuantity}
-            />
-          ))}
-        </View>
-
-        <View style={S.buttonsContainer}>
-          <PrimaryButton content="Criar aquário" onPress={handleCreateAquarium} />
-          <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
-        </View>
+        {isLoading ? (
+          <Loading text='Criando aquário...' />
+        ) : (
+          <>
+            <Text style={S.title}>Pets</Text>
+            <View style={S.petsButtonsContainer}>
+              {pets.map((item, index) => (
+                <ItemButton
+                  key={index}
+                  icon={item.icon}
+                  title={item.title}
+                  onPress={item.onPress}
+                  isSelected={item.isSelected}
+                  hasCounter={true}
+                  itemQuantity={item.itemQuantity}
+                  setQuantity={item.setQuantity}
+                />
+              ))}
+            </View>
+            <View style={S.buttonsContainer}>
+              <PrimaryButton content="Criar aquário" onPress={handleCreateAquarium} />
+              <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
+            </View>
+          </>
+        )}
       </View>
     </ScrollView>
   );

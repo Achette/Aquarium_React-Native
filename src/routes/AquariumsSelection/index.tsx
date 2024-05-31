@@ -1,21 +1,21 @@
 import { S } from './styles';
-import { Colors } from '../../theme/Colors';
 import { Icons } from '../../theme/Icons';
 import { useState, useEffect, useContext } from 'react';
-import { View, Alert, ActivityIndicator } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Text } from '@rneui/base';
 import { UserBar } from '../../components/UserBar';
 import { AquariumsList } from '../../components/AquariumsList';
 import { ActionButton } from '../../components/ActionButton';
+import { Loading } from '../../components/Loading';
 import { AquariumContext } from '../../context'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 
-function AquariumsSelection({navigation}:any) {
+export default function AquariumsSelection({navigation}:any) {
 
   const [ aquariums, setAquariums ] = useState([]);
-  const [ loading, setLoading ] = useState(true);
+  const [ isLoading, setIsLoading ] = useState(true);
   const { token, setToken } = useContext(AquariumContext);
 
   const headers = { 'Authorization': `${token}` };
@@ -43,7 +43,7 @@ function AquariumsSelection({navigation}:any) {
       } catch (e) {
         console.log(`Erro ao carregar aquários: ${e}`);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
@@ -65,32 +65,29 @@ function AquariumsSelection({navigation}:any) {
         logOffButtonOnPress={handleLogOff}
       />
 
-      {loading ? (
-        <View style={S.loadingContainer}>
-          <ActivityIndicator size="large" color={Colors.primary} />
-        </View>
+      {isLoading ? (
+        <Loading text='Carregando seus aquários...' />
       ) : (
-        aquariums.length === 0 ? (
-          <View style={S.noAquariums}>
-            <Text style={S.noAquariumsText}>Nenhum aquário cadastrado 😕</Text>
+        <>
+          {aquariums.length === 0 ? (
+            <View style={S.noAquariums}>
+              <Text style={S.noAquariumsText}>Nenhum aquário cadastrado 😕</Text>
+            </View>
+          ) : (
+            <AquariumsList
+              navigation={navigation}
+              data={aquariums}
+            />
+          )}
+          <View style={S.bottomBar}>
+            <ActionButton
+              icon={Icons.addAquariumButton}
+              title='Novo Aquário'
+              onPress={() => navigation.navigate('NewAquarium')}
+            />
           </View>
-        ) : (
-          <AquariumsList
-            navigation={navigation}
-            data={aquariums}
-          />
-        )
+        </>
       )}
-
-      <View style={S.bottomBar}>
-        <ActionButton
-          icon={Icons.addAquariumButton}
-          title='Novo Aquário'
-          onPress={() => navigation.navigate('NewAquarium')}
-        />
-      </View>
     </View>
   );
 };
-
-export default AquariumsSelection;

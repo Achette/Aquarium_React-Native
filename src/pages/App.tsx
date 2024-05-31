@@ -1,6 +1,4 @@
-import { S } from './styles';
 import { useState, useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,14 +13,16 @@ import NewAccessories from '../routes/NewAccessories';
 import NewSensors from '../routes/NewSensors';
 import NewPets from '../routes/NewPets';
 import Aquarium from '../routes/Aquarium';
+import { Loading } from '../components/Loading';
 import axios from 'axios';
+
 
 const Stack = createStackNavigator();
 
 function AppNavigator() {
   const { setToken, setUserId } = useAquarium();
   const [ initialRoute, setInitialRoute ] = useState("Home");
-  const [ loading, setLoading ] = useState(true);
+  const [ isLoading, setIsLoading ] = useState(true);
 
   useEffect(() => {
     const handleStart = async () => {
@@ -56,47 +56,41 @@ function AppNavigator() {
       } catch (e) {
         console.log(`Erro ao fazer login com usuário salvo: ${e}`);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
     handleStart();
   }, []);
 
-  if (loading) {
-    return (
-      <View style={S.loadingContainer}>
-        <ActivityIndicator size="large" color={Colors.primary} />
-      </View>
-    );
-  }
-
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={initialRoute}
-        screenOptions={{ cardStyle: { backgroundColor: Colors.background } }}
-      >
-        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-        <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
-        <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
-        <Stack.Screen name="AquariumsSelection" component={AquariumsSelection} options={{ headerShown: false }} />
-        <Stack.Screen name="NewAquarium" component={NewAquarium} options={{ headerShown: false }} />
-        <Stack.Screen name="NewAccessories" component={NewAccessories} options={{ headerShown: false }} />
-        <Stack.Screen name="NewSensors" component={NewSensors} options={{ headerShown: false }} />
-        <Stack.Screen name="NewPets" component={NewPets} options={{ headerShown: false }} />
-        <Stack.Screen name="Aquarium" component={Aquarium} options={{ headerShown: false }} />
-      </Stack.Navigator>
+      {isLoading ? (
+        <Loading text='Autenticando usuário...' />
+      ) : (
+        <Stack.Navigator
+          initialRouteName={initialRoute}
+          screenOptions={{ cardStyle: { backgroundColor: Colors.background } }}
+        >
+          <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+          <Stack.Screen name="LogIn" component={LogIn} options={{ headerShown: false }} />
+          <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
+          <Stack.Screen name="AquariumsSelection" component={AquariumsSelection} options={{ headerShown: false }} />
+          <Stack.Screen name="NewAquarium" component={NewAquarium} options={{ headerShown: false }} />
+          <Stack.Screen name="NewAccessories" component={NewAccessories} options={{ headerShown: false }} />
+          <Stack.Screen name="NewSensors" component={NewSensors} options={{ headerShown: false }} />
+          <Stack.Screen name="NewPets" component={NewPets} options={{ headerShown: false }} />
+          <Stack.Screen name="Aquarium" component={Aquarium} options={{ headerShown: false }} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }
 
-function App() {
+export default function App() {
   return (
     <AquariumProvider>
       <AppNavigator />
     </AquariumProvider>
   );
 }
-
-export default App;
