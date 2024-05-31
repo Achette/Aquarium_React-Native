@@ -21,8 +21,8 @@ const Stack = createStackNavigator();
 
 function AppNavigator() {
   const { setToken, setUserId } = useAquarium();
-  const [initialRoute, setInitialRoute] = useState("Home");
-  const [loading, setLoading] = useState(true);
+  const [ initialRoute, setInitialRoute ] = useState("Home");
+  const [ loading, setLoading ] = useState(true);
 
   useEffect(() => {
     const handleStart = async () => {

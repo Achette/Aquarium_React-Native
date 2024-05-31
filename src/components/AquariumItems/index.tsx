@@ -13,10 +13,10 @@ export const AquariumItems = ({item, onPress}:AquariumItemsProps) => {
 
   let icon;
   switch (item.icon) {
-    case 'curvo':
+    case 'Curvo':
       icon = Icons.circularShape;
       break;
-    case 'sextavado':
+    case 'Sextavado':
       icon = Icons.hexagonalShape;
       break;
     default:

@@ -1,25 +1,46 @@
 import { S } from './styles';
+import { Colors } from '../../theme/Colors';
 import { Icons } from '../../theme/Icons';
-import { useContext } from 'react';
-import { View, Alert } from 'react-native';
+import { useState, useEffect, useContext } from 'react';
+import { View, Alert, ActivityIndicator } from 'react-native';
 import { Text } from '@rneui/base';
 import { UserBar } from '../../components/UserBar';
 import { AquariumsList } from '../../components/AquariumsList';
 import { ActionButton } from '../../components/ActionButton';
 import { AquariumContext } from '../../context'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-let aquariums = [
-  { id: '1', icon: 'hexagonal', name: 'Aquário 1' },
-  { id: '2', icon: 'rectangular', name: 'Aquário 2' },
-  { id: '3', icon: 'circular', name: 'Aquário 3' },
-];
-// aquariums = [];
+import axios from 'axios';
 
 
 function AquariumsSelection({navigation}:any) {
 
+  const [ aquariums, setAquariums ] = useState([]);
+  const [ loading, setLoading ] = useState(true);
   const { token, setToken } = useContext(AquariumContext);
+
+  const headers = { 'Authorization': `${token}` };
+
+  useEffect(() => {
+    const loadAquariums = async () => {
+      try {     
+        const response = await axios.get(`${process.env.BASE_URL}/aquarium`, { headers })
+        const aquariumsData = await response.data.map((aquarium:any) => ({
+          id: aquarium.id,
+          icon: aquarium.format_aquarium,
+          name: aquarium.name,
+        }));
+        console.log(`${aquariumsData.length} aquarios carregados`);
+        console.log(`Aquarios: ${JSON.stringify(aquariumsData)}`);
+        setAquariums(aquariumsData);
+      } catch (e) {
+        console.log(`Erro ao carregar aquários: ${e}`);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAquariums();
+  }, []);
 
   const handleLogOff = () => {
     Alert.alert('Já vai?', 'Valeu, falou');
@@ -36,16 +57,22 @@ function AquariumsSelection({navigation}:any) {
         logOffButtonOnPress={handleLogOff}
       />
 
-      {aquariums.length === 0 ?
-        <View style={S.noAquariums}>
-          <Text style={S.noAquariumsText}>Nenhum aquário cadastrado 😕</Text>
+      {loading ? (
+        <View style={S.loadingContainer}>
+          <ActivityIndicator size="large" color={Colors.primary} />
         </View>
-      :
-        <AquariumsList
-          navigation={navigation}
-          data={aquariums}
-        />
-      }
+      ) : (
+        aquariums.length === 0 ? (
+          <View style={S.noAquariums}>
+            <Text style={S.noAquariumsText}>Nenhum aquário cadastrado 😕</Text>
+          </View>
+        ) : (
+          <AquariumsList
+            navigation={navigation}
+            data={aquariums}
+          />
+        )
+      )}
 
       <View style={S.bottomBar}>
         <ActionButton

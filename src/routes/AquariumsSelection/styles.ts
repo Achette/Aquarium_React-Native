@@ -22,4 +22,10 @@ export const S = StyleSheet.create({
     width: '85%',
     alignItems: 'flex-end',
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.background,
+  },
 });
