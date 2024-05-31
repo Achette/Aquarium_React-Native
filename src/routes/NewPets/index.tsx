@@ -92,7 +92,7 @@ function NewPets({navigation}:any) {
     if (hasVegetation) aquariumAccessories.push({ name: 'Plantas naturais' });
 
     const aquariumSensors = [];
-    if (hasTemperatureSensor) aquariumSensors.push({ name: 'Sensor', metric: 'Temperatura externa' });
+    if (hasTemperatureSensor) aquariumSensors.push({ name: 'Sensor', metric: 'Temperatura' });
     if (hasWaterLevelSensor) aquariumSensors.push({ name: 'Sensor', metric: 'Nível de água' });
     if (hasLuminositySensor) aquariumSensors.push({ name: 'Sensor', metric: 'Luminosidade' });
     if (hasPhSensor) aquariumSensors.push({ name: 'Sensor', metric: 'pH' });
