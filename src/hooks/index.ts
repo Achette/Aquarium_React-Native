@@ -1,0 +1,1 @@
+export { useAquariumDetails } from './useAquariumDetails';

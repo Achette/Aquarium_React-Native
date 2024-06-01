@@ -22,6 +22,7 @@ export interface Accessory {
 }
 
 export interface Sensor {
+  name: string;
   metric: string;
   current: string;
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { TopBar, ConfigDisplay, DataDisplay, ActionButton, Loading } from '../../components';
+import { TopBar, ConfigDisplay, DataDisplay, ActionButton } from '../../components';
 import { useAquarium } from '../../context';
 import { Icons } from '../../theme';
 import { Map } from './map';
@@ -10,7 +10,8 @@ import { S } from './styles';
 
 export default function AquariumTab({navigation}:any) {
   const route = useRoute();
-  const { aquarium } = route.params as { aquarium: any };
+
+  const { aquarium }:any = route.params;
   const { aquariumsList } = useAquarium();
   const [ selectedAquarium, setSelectedAquarium ] = useState<any>(null);
   const [ isLoading, setIsLoading ] = useState(true);
@@ -23,13 +24,7 @@ export default function AquariumTab({navigation}:any) {
     }
   }, [aquariumsList]);
 
-  if (isLoading || !selectedAquarium) {
-    return (
-      <View style={S.container}>
-        <Loading text="Carregando aquário..." />
-      </View>
-    );
-  }
+  if (!aquarium || isLoading || !selectedAquarium) return null;
 
   const icon = Map.icon[selectedAquarium.format_aquarium] || Icons.rectangularShape;
   const title = selectedAquarium.name;

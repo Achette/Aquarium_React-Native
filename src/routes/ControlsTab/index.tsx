@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { TopBar, ItemControlButton, Loading } from '../../components';
+import { TopBar, ItemControlButton } from '../../components';
 import { useAquarium } from '../../context';
 import { Icons } from '../../theme';
 import { S } from './styles';
@@ -10,7 +10,7 @@ import { S } from './styles';
 export default function ControlsTab({navigation}:any) {
   const route = useRoute();
 
-  const { aquarium } = route.params as { aquarium: any };
+  const { aquarium }:any = route.params;
   const { aquariumsList } = useAquarium();
   const [ selectedAquarium, setSelectedAquarium ] = useState<any>(null);
   const [ isLoading, setIsLoading ] = useState(true);
@@ -37,20 +37,12 @@ export default function ControlsTab({navigation}:any) {
     'Luz LED': { title: 'Luzes de LED', icon: Icons.ledLights, onPress: () => setHasLedLights(!hasLedLights), isSelected: hasLedLights },
   };
 
-  if (isLoading || !selectedAquarium) {
-    return (
-      <View style={S.container}>
-        <Loading text="Carregando aquário..." />
-      </View>
-    );
-  }
+  if (isLoading || !selectedAquarium) return null
 
   let controls:any[] = []
   if (selectedAquarium.accessories && selectedAquarium.accessories.length > 0) {
     selectedAquarium.accessories.forEach((accessory: any) => {
-      if (accessory.name === 'Plantas naturais') {
-        return;
-      }
+      if (accessory.name === 'Plantas naturais') return;
       controls.push(accessoriesMap[accessory.name]);
     })
   }
