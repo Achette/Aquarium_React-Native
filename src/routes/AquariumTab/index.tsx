@@ -1,54 +1,87 @@
 import { S } from './styles';
-import { View, Alert, ScrollView } from 'react-native';
+import { Icons } from '../../theme/Icons';
+import { useAquarium } from '../../context';
+import { useState, useEffect } from 'react';
+import { View, Alert } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import { TopBar } from '../../components/TopBar';
 import { ConfigDisplay } from '../../components/ConfigDisplay';
 import { DataDisplay } from '../../components/DataDisplay';
 import { ActionButton } from '../../components/ActionButton';
+import { Loading } from '../../components/Loading';
 
 
 export default function AquariumTab({navigation}:any) {
+  const route = useRoute();
+  const { aquarium } = route.params as { aquarium: any };
+  const { aquariumsList } = useAquarium();
+  const [ selectedAquarium, setSelectedAquarium ] = useState<any>(null);
+  const [ isLoading, setIsLoading ] = useState(true);
+  
+  useEffect(() => {
+    const aquariumData = aquariumsList.find((a: any) => a.id === aquarium.id);
+    if (aquariumData) {
+      setSelectedAquarium(aquariumData);
+      setIsLoading(false);
+    }
+  }, [aquariumsList]);
 
-  const icon = require('../../assets/icons/shapes/hexagonal.png');
-  const title = 'Aquário 1';
+  const iconMap: Record<string, any> = {
+    'Curvo': Icons.circularShape,
+    'Sextavado': Icons.hexagonalShape,
+    'Retangular': Icons.rectangularShape,
+  };
 
-  const materialIcon = require('../../assets/icons/config/material.png');
-  const voltageIcon = require('../../assets/icons/config/voltage.png');
-  const heightIcon = require('../../assets/icons/config/height.png');
-  const thicknessIcon = require('../../assets/icons/config/thickness.png');
-  const capacityIcon = require('../../assets/icons/config/capacity.png');
-  const fishIcon = require('../../assets/icons/pets/fish.png');
-  const turtleIcon = require('../../assets/icons/pets/turtle.png');
+  const petMap: Record<string, any> = {
+    'Peixe': Icons.fish,
+    'Tartaruga': Icons.turtle,
+    'Cobra': Icons.snake,
+    'Sapo': Icons.frog,
+  };
 
-  const configs = [
-    { icon: materialIcon, content: 'Vidro' },
-    { icon: voltageIcon, content: '127V' },
-    { icon: heightIcon, content: '30cm' },
-    { icon: thicknessIcon, content: '3mm' },
-    { icon: capacityIcon, content: '3,5L' },
-    { icon: fishIcon, content: '8' },
-    { icon: turtleIcon, content: '2' },
+  const sensorMap: Record<string, any> = {
+    'Temperatura': Icons.temperatureData,
+    'Saturação': Icons.saturationData,
+    'pH': Icons.phData,
+    'Nível de água': Icons.waterLevelData,
+    'Luminosidade': Icons.luminosityData,
+  };
+
+  if (isLoading || !selectedAquarium) {
+    return (
+      <View style={S.container}>
+        <Loading text="Carregando aquário..." />
+      </View>
+    );
+  }
+
+  const icon = iconMap[selectedAquarium.format_aquarium] || Icons.rectangularShape;
+  const title = selectedAquarium.name;
+
+  let configs = [
+    { icon: Icons.material, content: selectedAquarium.material },
+    { icon: Icons.voltage, content: selectedAquarium.voltage },
+    { icon: Icons.height, content: `${selectedAquarium.height}cm` },
+    { icon: Icons.thickness, content: `${selectedAquarium.thickness}mm` },
+    { icon: Icons.capacity, content: `${selectedAquarium.capacity}L` },
   ];
 
-  const internalTemperatureIcon = require('../../assets/icons/data/temperature.png');
-  const saturarionIcon = require('../../assets/icons/data/saturation.png');
-  const phIcon = require('../../assets/icons/data/ph.png');
-  const waterLevelIcon = require('../../assets/icons/data/waterlevel.png');
-  const luminosityIcon = require('../../assets/icons/data/luminosity.png');
-  const lastCleaningIcon = require('../../assets/icons/data/lastcleaning.png');
-  const lastFeedingIcon = require('../../assets/icons/data/lastfeeding.png');
+  if (selectedAquarium.pets && selectedAquarium.pets.length > 0) {
+    selectedAquarium.pets.forEach((pet: any) => {
+      configs.push({ icon: petMap[pet.species], content: pet.quantity });
+    });
+  }
 
   const data = [
-    { icon: internalTemperatureIcon, title: 'Temperatura Interna', value: '27°C' },
-    { icon: saturarionIcon, title: 'Saturação', value: '9,07 ppm' },
-    { icon: phIcon, title: 'PH', value: '7' },
-    { icon: waterLevelIcon, title: 'Variação do Nível da Água', value: '17,5 ml' },
-    { icon: luminosityIcon, title: 'Luminosidade', value: '35 lm' },
-    { icon: lastCleaningIcon, title: 'Última Limpeza', value: '16/04/2024 | 12:00' },
-    { icon: lastFeedingIcon, title: 'Última Alimentação', value: '23/04/2024 | 12:00' },
+    { icon: Icons.lastCleaningData, title: 'Última Limpeza', value: '16/04/2024 | 12:00' },
+    { icon: Icons.lastFeedingData, title: 'Última Alimentação', value: '23/04/2024 | 12:00' },
   ];
 
-  const cleanIcon = require('../../assets/icons/buttons/clean.png');
-  const foodIcon = require('../../assets/icons/buttons/food.png');
+  if (selectedAquarium.sensors && selectedAquarium.sensors.length > 0) {
+    selectedAquarium.sensors.forEach((sensor: any) => {
+      data.push({ icon: sensorMap[sensor.metric], title: sensor.metric, value: sensor.current });
+    });
+  }
 
   return (
     <View style={S.container}>
@@ -78,20 +111,20 @@ export default function AquariumTab({navigation}:any) {
             icon={data.icon}
           />
         ))}
-    </View>
+      </View>
 
-    <View style={S.buttonsBar}>
-      <ActionButton
-        icon={cleanIcon}
-        title='Limpar'
-        onPress={() => {Alert.alert('Limpar', 'Pronto, limpou os cocô tudo')}}
-      />
-      <ActionButton
-        icon={foodIcon}
-        title='Alimentar'
-        onPress={() => {Alert.alert('Alimentar', 'Pronto, deu comida pros peixinho')}}
-      />
-    </View>
+      <View style={S.buttonsBar}>
+        <ActionButton
+          icon={Icons.cleanButton}
+          title='Limpar'
+          onPress={() => {Alert.alert('Limpar', 'Pronto, limpou os cocô tudo')}}
+        />
+        <ActionButton
+          icon={Icons.foodButton}
+          title='Alimentar'
+          onPress={() => {Alert.alert('Alimentar', 'Pronto, deu comida pros peixinho')}}
+        />
+      </View>
   </View>
   );
 };

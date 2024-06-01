@@ -1,9 +1,7 @@
 import { S } from './styles';
+import { Icons } from '../../theme/Icons';
 import { Image, TouchableOpacity, Alert } from 'react-native';
 
-
-const BackIcon = require('../../assets/icons/topbar/back.png');
-const ConfigIcon = require('../../assets/icons/topbar/config.png');
 
 export const BackButton = ({navigation}:any) => {
   return (
@@ -11,7 +9,7 @@ export const BackButton = ({navigation}:any) => {
       onPress={() => navigation.navigate('AquariumsSelection')}
       style={S.button}
     >
-      <Image source={BackIcon}/>
+      <Image source={Icons.backTopBar}/>
     </TouchableOpacity>
   );
 };
@@ -22,7 +20,7 @@ export const ConfigButton = () => {
       onPress={() => Alert.alert('Configurações', 'Configurar configurações configuráveis')}
       style={[S.button, S.buttonRight]}
     >
-      <Image source={ConfigIcon}/>
+      <Image source={Icons.configTopBar}/>
     </TouchableOpacity>
   );
 };

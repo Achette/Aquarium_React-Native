@@ -1,4 +1,5 @@
 import { S } from './styles';
+import { Icons } from '../../theme/Icons';
 import { Text, Image } from 'react-native';
 import { Button } from '@rneui/themed';
 
@@ -8,20 +9,15 @@ type AquariumItemsProps = {
   onPress: any;
 };
 
+const iconMap: Record<string, any> = {
+  'Curvo': Icons.circularShape,
+  'Sextavado': Icons.hexagonalShape,
+  'Retangular': Icons.rectangularShape,
+};
+
 export const AquariumItems = ({item, onPress}:AquariumItemsProps) => {
 
-  let icon;
-  switch (item.icon) {
-    case 'circular':
-      icon = require('../../assets/icons/shapes/circular.png');
-      break;
-    case 'hexagonal':
-      icon = require('../../assets/icons/shapes/hexagonal.png');
-      break;
-    default:
-      icon = require('../../assets/icons/shapes/rectangular.png');
-      break;
-  };
+  const icon = iconMap[item.format_aquarium] || Icons.rectangularShape;
 
   return (
     <Button 

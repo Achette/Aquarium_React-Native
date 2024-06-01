@@ -1,24 +1,57 @@
 import { S } from './styles';
+import { Icons } from '../../theme/Icons';
+import { useState, useEffect, useContext } from 'react';
 import { View, Alert } from 'react-native';
 import { Text } from '@rneui/base';
 import { UserBar } from '../../components/UserBar';
 import { AquariumsList } from '../../components/AquariumsList';
 import { ActionButton } from '../../components/ActionButton';
-
-let aquariums = [
-  { id: '1', icon: 'hexagonal', name: 'Aquário 1' },
-  { id: '2', icon: 'rectangular', name: 'Aquário 2' },
-  { id: '3', icon: 'circular', name: 'Aquário 3' },
-];
-// aquariums = [];
-
-const addIcon = require('../../assets/icons/buttons/add.png');
+import { Loading } from '../../components/Loading';
+import { AquariumContext } from '../../context'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 
-function AquariumsSelection({navigation}:any) {
+export default function AquariumsSelection({navigation}:any) {
+  const [ isLoading, setIsLoading ] = useState(true);
+  const { token, setToken, aquariumsList, setAquariumsList } = useContext(AquariumContext);
+
+  const headers = { 'Authorization': `${token}` };
+
+  useEffect(() => {
+    const loadAquariums = async () => {
+      try {
+        const response = await axios.get(`${process.env.BASE_URL}/aquarium`, { headers });
+
+        const aquariumsData = await response.data.map((aquarium:any) => ({
+          id: aquarium.id,
+          name: aquarium.name,
+          format_aquarium: aquarium.format_aquarium,
+          material: aquarium.material,
+          thickness: aquarium.thickness,
+          height: aquarium.height,
+          voltage: aquarium.voltage,
+          capacity: aquarium.capacity,
+        }));
+
+        console.log(`Aquarios carregados: ${aquariumsData.length}`);
+        console.log(`Aquarios: ${JSON.stringify(aquariumsData)}`);
+
+        setAquariumsList(aquariumsData);
+      } catch (e) {
+        console.log(`Erro ao carregar aquários: ${e}`);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadAquariums();
+  }, []);
 
   const handleLogOff = () => {
     Alert.alert('Já vai?', 'Valeu, falou');
+    setToken('');
+    AsyncStorage.removeItem('token');
     navigation.navigate('Home');
   }
 
@@ -30,26 +63,29 @@ function AquariumsSelection({navigation}:any) {
         logOffButtonOnPress={handleLogOff}
       />
 
-      {aquariums.length === 0 ?
-        <View style={S.noAquariums}>
-          <Text style={S.noAquariumsText}>Nenhum aquário cadastrado 😕</Text>
-        </View>
-      :
-        <AquariumsList
-          navigation={navigation}
-          data={aquariums}
-        />
-      }
-
-      <View style={S.bottomBar}>
-        <ActionButton
-          icon={addIcon}
-          title='Novo Aquário'
-          onPress={() => navigation.navigate('NewAquarium')}
-        />
-      </View>
+      {isLoading ? (
+        <Loading text='Carregando seu(s) aquário(s)...' />
+      ) : (
+        <>
+          {aquariumsList.length === 0 ? (
+            <View style={S.noAquariums}>
+              <Text style={S.noAquariumsText}>Nenhum aquário cadastrado 😕</Text>
+            </View>
+          ) : (
+            <AquariumsList
+              navigation={navigation}
+              data={aquariumsList}
+            />
+          )}
+          <View style={S.bottomBar}>
+            <ActionButton
+              icon={Icons.addAquariumButton}
+              title='Novo Aquário'
+              onPress={() => navigation.navigate('NewAquarium')}
+            />
+          </View>
+        </>
+      )}
     </View>
   );
 };
-
-export default AquariumsSelection;

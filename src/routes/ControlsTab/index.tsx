@@ -1,14 +1,20 @@
 import { S } from './styles';
-import { useState } from 'react';
+import { Icons } from '../../theme/Icons';
+import { useAquarium } from '../../context';
+import { useState, useEffect } from 'react';
 import { View } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import { TopBar } from '../../components/TopBar';
 import { ItemControlButton } from '../../components/ItemControlButton';
+import { Loading } from '../../components/Loading';
 
 
-export default function ControlsTab() {
-
-  const icon = require('../../assets/icons/tabbar/controls.png');
-  const title = 'Controles';
+export default function ControlsTab({navigation}:any) {
+  const route = useRoute();
+  const { aquarium } = route.params as { aquarium: any };
+  const { aquariumsList } = useAquarium();
+  const [ selectedAquarium, setSelectedAquarium ] = useState<any>(null);
+  const [ isLoading, setIsLoading ] = useState(true);
 
   const [hasPump, setHasPump] = useState(true);
   const [hasFeeder, setHasFeeder] = useState(true);
@@ -16,29 +22,49 @@ export default function ControlsTab() {
   const [hasFilter, setHasFilter] = useState(true);
   const [hasLedLights, setHasLedLights] = useState(true);
 
-  const pumpIcon = require('../../assets/icons/accessories/pump.png');
-  const feederIcon = require('../../assets/icons/accessories/feeder.png');
-  const thermostatIcon = require('../../assets/icons/accessories/thermostat.png');
-  const filterIcon = require('../../assets/icons/accessories/filter.png');
-  const ledLightsIcon = require('../../assets/icons/accessories/ledlights.png');
+  useEffect(() => {
+    const aquariumData = aquariumsList.find((a: any) => a.id === aquarium.id);
+    if (aquariumData) {
+      setSelectedAquarium(aquariumData);
+      setIsLoading(false);
+    }
+  }, [aquariumsList]);
 
-  const controls = [
-    { title: 'Bombinha', icon: pumpIcon, onPress: () => setHasPump(!hasPump), isSelected: hasPump },
-    { title: 'Alimentador', icon: feederIcon, onPress: () => setHasFeeder(!hasFeeder), isSelected: hasFeeder },
-    { title: 'Termostato', icon: thermostatIcon, onPress: () => setHasThermostat(!hasThermostat), isSelected: hasThermostat },
-    { title: 'Filtro', icon: filterIcon, onPress: () => setHasFilter(!hasFilter), isSelected: hasFilter },
-    { title: 'Luzes de LED', icon: ledLightsIcon, onPress: () => setHasLedLights(!hasLedLights), isSelected: hasLedLights },
-  ]
+  const accessoriesMap: Record<string, any> = {
+    'Bombinha': { title: 'Bombinha', icon: Icons.pump, onPress: () => setHasPump(!hasPump), isSelected: hasPump },
+    'Alimentador automático': { title: 'Alimentador', icon: Icons.feeder, onPress: () => setHasFeeder(!hasFeeder), isSelected: hasFeeder },
+    'Termostato / Aquecedor': { title: 'Termostato', icon: Icons.thermostat, onPress: () => setHasThermostat(!hasThermostat), isSelected: hasThermostat },
+    'Filtro': { title: 'Filtro', icon: Icons.filter, onPress: () => setHasFilter(!hasFilter), isSelected: hasFilter },
+    'Luz LED': { title: 'Luzes de LED', icon: Icons.ledLights, onPress: () => setHasLedLights(!hasLedLights), isSelected: hasLedLights },
+  };
+  
+  if (isLoading || !selectedAquarium) {
+    return (
+      <View style={S.container}>
+        <Loading text="Carregando aquário..." />
+      </View>
+    );
+  }
+
+  let controls:any[] = []
+  if (selectedAquarium.accessories && selectedAquarium.accessories.length > 0) {
+    selectedAquarium.accessories.forEach((accessory: any) => {
+      if (accessory.name === 'Plantas naturais') {
+        return;
+      }
+      controls.push(accessoriesMap[accessory.name]);
+    })
+  }
 
   return (
     <View style={S.container}>
       <TopBar 
-        title={title}
-        icon={icon}
+        title='Controles'
+        icon={Icons.controlTabBar}
       />
 
       <View style={S.controlsButtonsContainer}>
-        {controls.map((item, index) => (
+        {controls.map((item:any, index:any) => (
           <ItemControlButton 
             key={index}
             icon={item.icon} 

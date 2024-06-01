@@ -28,7 +28,7 @@ export const S = StyleSheet.create({
     gap: 10,
     flexWrap: 'wrap',
     marginTop: 40,
-    width: '90%',
+    width: '85%',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -1,5 +1,6 @@
 import { S } from './styles';
-import { useState } from 'react';
+import { Icons } from '../../theme/Icons';
+import { useAquarium } from '../../context';
 import { View, ScrollView } from 'react-native';
 import { Text, Input } from '@rneui/themed';
 import { NewAquariumCheckbox } from '../../components/NewAquariumCheckbox';
@@ -9,33 +10,31 @@ import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons'
 
 function NewAquarium({navigation}:any) {
 
-  const [selectedShape, setShape] = useState('rectangular');
-  const [selectedMaterial, setMaterial] = useState('glass');
-  const [selectedVoltage, setVoltage] = useState('127');
-  const [thickness, setThickness] = useState(10.0);
-  const [height, setHeight] = useState(10.0);
-  const [volume, setVolume] = useState(10.0);
-
-  const rectangular = require('../../assets/icons/shapes/rectangular.png');
-  const circle = require('../../assets/icons/shapes/circular.png');
-  const hexagonal = require('../../assets/icons/shapes/hexagonal.png');
-  const voltage = require('../../assets/icons/voltage.png');
+  const { 
+    aquariumName, setAquariumName,
+    selectedShape, setShape, 
+    selectedMaterial, setMaterial,
+    selectedVoltage, setVoltage, 
+    thickness, setThickness, 
+    height, setHeight, 
+    volume, setVolume,
+  } = useAquarium();
 
   const shapes = [
-    { title: 'Retangular', value: 'rectangular', icon: rectangular },
-    { title: 'Curvo', value: 'circle', icon: circle },
-    { title: 'Hexagonal', value: 'hexagonal', icon: hexagonal },
+    { title: 'Retangular', value: 'Retangular', icon: Icons.rectangularShape },
+    { title: 'Curvo', value: 'Curvo', icon: Icons.circularShape },
+    { title: 'Sextavado', value: 'Sextavado', icon: Icons.hexagonalShape },
   ]
 
   const materials = [
-    { title: 'Vidro', value: 'glass' },
-    { title: 'Acrílico', value: 'acrylic' },
-    { title: 'Plástico', value: 'plastic' },
+    { title: 'Vidro', value: 'Vidro' },
+    { title: 'Acrílico', value: 'Acrílico' },
+    { title: 'Plástico', value: 'Plástico' },
   ]
 
   const voltages = [
-    { title: '127V', value: '127', icon: voltage },
-    { title: '220V', value: '220', icon: voltage },
+    { title: '110V', value: '110V', icon: Icons.voltageIcon },
+    { title: '220V', value: '220V', icon: Icons.voltageIcon },
   ]
 
   const checkBoxesObjects = [
@@ -62,6 +61,8 @@ function NewAquarium({navigation}:any) {
             placeholderTextColor={S.placeholderText.color}
             errorMessage="Campo obrigatório"
             errorStyle={S.error}
+            value={aquariumName}
+            onChangeText={setAquariumName}
           />
         </View>
 

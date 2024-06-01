@@ -6,7 +6,6 @@ export const S = StyleSheet.create({
   page: {
     flex:1,
     alignItems: 'center',
-    height: '100%',
     padding: 24,
     backgroundColor: Colors.background,
   },
@@ -22,7 +21,6 @@ export const S = StyleSheet.create({
   petsButtonsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
     gap: 12,
     marginVertical: 28,
     paddingHorizontal: 10,
