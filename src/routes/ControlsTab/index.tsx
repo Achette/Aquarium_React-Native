@@ -1,26 +1,25 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
-import { useAquarium } from '../../context';
 import { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { TopBar } from '../../components/TopBar';
-import { ItemControlButton } from '../../components/ItemControlButton';
-import { Loading } from '../../components/Loading';
+import { TopBar, ItemControlButton, Loading } from '../../components';
+import { useAquarium } from '../../context';
+import { Icons } from '../../theme';
+import { S } from './styles';
 
 
 export default function ControlsTab({navigation}:any) {
   const route = useRoute();
+
   const { aquarium } = route.params as { aquarium: any };
   const { aquariumsList } = useAquarium();
   const [ selectedAquarium, setSelectedAquarium ] = useState<any>(null);
   const [ isLoading, setIsLoading ] = useState(true);
 
-  const [hasPump, setHasPump] = useState(true);
-  const [hasFeeder, setHasFeeder] = useState(true);
-  const [hasThermostat, setHasThermostat] = useState(true);
-  const [hasFilter, setHasFilter] = useState(true);
-  const [hasLedLights, setHasLedLights] = useState(true);
+  const [ hasPump, setHasPump ] = useState(true);
+  const [ hasFeeder, setHasFeeder ] = useState(true);
+  const [ hasThermostat, setHasThermostat ] = useState(true);
+  const [ hasFilter, setHasFilter ] = useState(true);
+  const [ hasLedLights, setHasLedLights ] = useState(true);
 
   useEffect(() => {
     const aquariumData = aquariumsList.find((a: any) => a.id === aquarium.id);
@@ -30,14 +29,14 @@ export default function ControlsTab({navigation}:any) {
     }
   }, [aquariumsList]);
 
-  const accessoriesMap: Record<string, any> = {
+  const accessoriesMap:any = {
     'Bombinha': { title: 'Bombinha', icon: Icons.pump, onPress: () => setHasPump(!hasPump), isSelected: hasPump },
     'Alimentador automático': { title: 'Alimentador', icon: Icons.feeder, onPress: () => setHasFeeder(!hasFeeder), isSelected: hasFeeder },
     'Termostato / Aquecedor': { title: 'Termostato', icon: Icons.thermostat, onPress: () => setHasThermostat(!hasThermostat), isSelected: hasThermostat },
     'Filtro': { title: 'Filtro', icon: Icons.filter, onPress: () => setHasFilter(!hasFilter), isSelected: hasFilter },
     'Luz LED': { title: 'Luzes de LED', icon: Icons.ledLights, onPress: () => setHasLedLights(!hasLedLights), isSelected: hasLedLights },
   };
-  
+
   if (isLoading || !selectedAquarium) {
     return (
       <View style={S.container}>

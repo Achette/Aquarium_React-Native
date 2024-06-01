@@ -1,13 +1,8 @@
-import { S } from './styles';
 import { View, TouchableOpacity } from 'react-native';
 import { Text } from '@rneui/themed';
+import { NewAquariumValueChangeProps } from '../../types';
+import { S } from './styles';
 
-
-type NewAquariumValueChangeProps = {
-  title: string;
-  value: number;
-  setValue: any;
-}
 
 export const NewAquariumValueChange = ({title, value, setValue}:NewAquariumValueChangeProps) => {
   return (

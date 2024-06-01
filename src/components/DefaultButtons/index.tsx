@@ -1,11 +1,7 @@
-import { S } from './styles';
 import { Button } from '@rneui/themed';
+import { ButtonProps } from '../../types';
+import { S } from './styles';
 
-
-type ButtonProps = {
-  content: string;
-  onPress: any;
-};
 
 export const PrimaryButton = ({content, onPress}:ButtonProps) => {
   return (

@@ -1,24 +1,18 @@
-import { S } from './styles';
 import { View, Text, Image } from 'react-native';
-import { BackButton, ConfigButton } from '../TopBarButtons';
+import { TopBarProps } from '../../types';
+import { TopBarBackButton, TopBarConfigButton } from '../';
+import { S } from './styles';
 
-
-type TopBarProps = {
-  title: string;
-  icon: any;
-  hasBackButton?: boolean;
-  navigation?: any;
-};
 
 export const TopBar = ({ title, icon, hasBackButton=false, navigation}:TopBarProps) => {
   return (
     <View style={S.topBar}>
-      {hasBackButton ? <BackButton navigation={navigation}/> : null}
+      {hasBackButton ? <TopBarBackButton navigation={navigation}/> : null}
       <View style={S.titleContainer}>
         <Image style={S.icon} source={icon}/>
         <Text style={S.title}>{title}</Text>
       </View>
-      <ConfigButton/>
+      <TopBarConfigButton/>
     </View>
   );
 };

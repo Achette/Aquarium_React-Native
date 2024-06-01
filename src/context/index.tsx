@@ -1,44 +1,6 @@
-import React, { createContext, useState, useContext, SetStateAction } from 'react';
+import { createContext, useState, useContext } from 'react';
+import { AppContextProps, AppProviderProps } from '../types';
 
-interface AppContextProps {
-  token: string; setToken: React.Dispatch<SetStateAction<string>>;
-  userId: string; setUserId: React.Dispatch<SetStateAction<string>>;
-  aquariumsList: any[]; setAquariumsList: React.Dispatch<SetStateAction<any[]>>;
-
-  aquariumName: string; setAquariumName: React.Dispatch<SetStateAction<string>>;
-  selectedShape: string; setShape: React.Dispatch<SetStateAction<string>>;
-  selectedMaterial: string; setMaterial: React.Dispatch<SetStateAction<string>>;
-  selectedVoltage: string; setVoltage: React.Dispatch<SetStateAction<string>>;
-  thickness: number; setThickness: React.Dispatch<SetStateAction<number>>;
-  height: number; setHeight: React.Dispatch<SetStateAction<number>>;
-  volume: number; setVolume: React.Dispatch<SetStateAction<number>>;
-
-  hasPump: boolean; setHasPump: React.Dispatch<SetStateAction<boolean>>;
-  hasFeeder: boolean; setHasFeeder: React.Dispatch<SetStateAction<boolean>>;
-  hasThermostat: boolean; setHasThermostat: React.Dispatch<SetStateAction<boolean>>;
-  hasFilter: boolean; setHasFilter: React.Dispatch<SetStateAction<boolean>>;
-  hasLedLights: boolean; setHasLedLights: React.Dispatch<SetStateAction<boolean>>;
-  hasVegetation: boolean; setHasVegetation: React.Dispatch<SetStateAction<boolean>>;
-
-  hasTemperatureSensor: boolean; setHasTemperatureSensor: React.Dispatch<SetStateAction<boolean>>;
-  hasWaterLevelSensor: boolean; setHasWaterLevelSensor: React.Dispatch<SetStateAction<boolean>>;
-  hasLuminositySensor: boolean; setHasLuminositySensor: React.Dispatch<SetStateAction<boolean>>;
-  hasPhSensor: boolean; setHasPhSensor: React.Dispatch<SetStateAction<boolean>>;
-  hasSaturationSensor: boolean; setHasSaturationSensor: React.Dispatch<SetStateAction<boolean>>;
-
-  hasFish: boolean; setHasFish: React.Dispatch<SetStateAction<boolean>>;
-  hasTurtle: boolean; setHasTurtle: React.Dispatch<SetStateAction<boolean>>;
-  hasSnake: boolean; setHasSnake: React.Dispatch<SetStateAction<boolean>>;
-  hasFrog: boolean; setHasFrog: React.Dispatch<SetStateAction<boolean>>;
-  fishQuantity: number; setFishQuantity: React.Dispatch<SetStateAction<number>>;
-  turtleQuantity: number; setTurtleQuantity: React.Dispatch<SetStateAction<number>>;
-  snakeQuantity: number; setSnakeQuantity: React.Dispatch<SetStateAction<number>>;
-  frogQuantity: number; setFrogQuantity: React.Dispatch<SetStateAction<number>>;
-}
-
-type AppProviderProps = {
-  children: React.ReactNode;
-}
 
 export const AquariumContext = createContext<AppContextProps>({} as AppContextProps);
 

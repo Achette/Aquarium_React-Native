@@ -1,12 +1,11 @@
-import { S } from './styles';
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { Text, FlatList, View, Dimensions, Animated } from 'react-native';
-import { CarouselPaginator } from '../CarouselPaginator';
+import { CarouselPaginator } from '../';
+import { S } from './styles';
 
 
 export const HomeCarousel = () => {
-  
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [ currentIndex, setCurrentIndex ] = useState(0);
   const screenWidth = Dimensions.get('window').width;
   const scrollX = useRef(new Animated.Value(0)).current;
   const dataRef = useRef(0);

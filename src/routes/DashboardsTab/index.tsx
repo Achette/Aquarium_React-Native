@@ -1,7 +1,7 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
 import { Text, View } from 'react-native';
-import { TopBar } from '../../components/TopBar';
+import { TopBar } from '../../components';
+import { Icons } from '../../theme';
+import { S } from './styles';
 
 
 export default function DashboardsTab() {

@@ -1,14 +1,12 @@
-import { S } from './styles';
 import { Image } from 'react-native';
+import { Icons } from '../../theme';
+import { S } from './styles';
 
 
 export const AquariumImage = () => {
-  
-  const AquariumPNG = require('../../assets/img/aquarium.png');
-  
   return (
     <Image
-      source={AquariumPNG}
+      source={Icons.aquariumImg}
       style={S.image}
     />
   );

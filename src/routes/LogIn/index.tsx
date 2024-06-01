@@ -1,16 +1,15 @@
-import { S } from './styles';
 import { useState } from 'react';
 import { View, ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Text } from '@rneui/base';
 import { Input } from '@rneui/themed';
-import { LogInBanner } from '../../components/LogInBanner';
-import { PrimaryButton, TextButton } from '../../components/DefaultButtons';
-import { useAquarium } from '../../context'
+import { Text } from '@rneui/base';
 import axios from 'axios';
+import { LogInBanner, DefaultPrimaryButton, DefaultTextButton } from '../../components';
+import { useAquarium } from '../../context'
+import { S } from './styles';
 
 
-function LogIn({navigation}:any) {
+export default function LogIn({navigation}:any) {
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -88,17 +87,15 @@ function LogIn({navigation}:any) {
         </View>
 
         <View style={{marginVertical: 10}}>
-          <TextButton content="Esqueci minha senha" onPress={() => {Alert.alert('Esqueceu?', 'Sinto muito :(')}} />
+          <DefaultTextButton content="Esqueci minha senha" onPress={() => {Alert.alert('Esqueceu?', 'Sinto muito :(')}} />
         </View>
 
-        <PrimaryButton content="Entrar" onPress={handleLogIn} />
+        <DefaultPrimaryButton content="Entrar" onPress={handleLogIn} />
         <View style={S.infoText}>
           <Text style={S.subtitle}>Ainda não tem conta?</Text>
-          <TextButton content="Cadastrar" onPress={() => {navigation.navigate('SignUp')}} />
+          <DefaultTextButton content="Cadastrar" onPress={() => {navigation.navigate('SignUp')}} />
         </View>
       </View>
     </ScrollView>
   );
 };
-
-export default LogIn;

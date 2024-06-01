@@ -1,13 +1,11 @@
 import { Image } from 'react-native';
+import { Icons } from '../../theme';
 
 
 export const LogInBanner = () => {
-  
-  const LogInBannerPNG = require('../../assets/img/loginbanner.png');
-  
   return (
     <Image
-      source={LogInBannerPNG}
+      source={Icons.logInBannerImg}
       style={{ width: "100%", resizeMode: 'stretch'}}
     />
   );

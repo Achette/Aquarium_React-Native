@@ -1,14 +1,12 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
-import { useAquarium } from '../../context';
 import { View, ScrollView } from 'react-native';
 import { Text, Input } from '@rneui/themed';
-import { NewAquariumCheckbox } from '../../components/NewAquariumCheckbox';
-import { NewAquariumValueChange } from '../../components/NewAquariumValueChange';
-import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
+import { NewAquariumCheckbox, NewAquariumValueChange, DefaultPrimaryButton, DefaultSecondaryButton } from '../../components';
+import { useAquarium } from '../../context';
+import { Icons } from '../../theme';
+import { S } from './styles';
 
 
-function NewAquarium({navigation}:any) {
+export default function NewAquarium({navigation}:any) {
 
   const { 
     aquariumName, setAquariumName,
@@ -86,12 +84,10 @@ function NewAquarium({navigation}:any) {
         ))}
 
         <View style={S.buttonsContainer}>
-          <PrimaryButton content="Avançar" onPress={() => navigation.navigate('NewAccessories')} />
-          <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
+          <DefaultPrimaryButton content="Avançar" onPress={() => navigation.navigate('NewAccessories')} />
+          <DefaultSecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
         </View>
       </View>
     </ScrollView>
   );
 }
-
-export default NewAquarium;

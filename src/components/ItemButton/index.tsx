@@ -1,20 +1,10 @@
-import { S } from './styles';
 import { View, Image, TouchableOpacity } from 'react-native';
 import { Text } from '@rneui/themed';
+import { ItemButtonProps } from '../../types';
+import { S } from './styles';
 
-
-type ItemButtonProps = {
-  icon: any;
-  title: string;
-  onPress: any;
-  isSelected: boolean;
-  hasCounter?: boolean;
-  itemQuantity?: number;
-  setQuantity?: any;
-}
 
 export const ItemButton = ({icon, title, onPress, isSelected=false, hasCounter=false, itemQuantity=1, setQuantity}:ItemButtonProps) => {
-  
   let selectionOpacity = isSelected ? 1 : 0.4;
 
   return (

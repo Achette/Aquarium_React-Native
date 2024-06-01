@@ -1,13 +1,11 @@
 import { Image } from 'react-native';
+import { Icons } from '../../theme';
 
 
-export const HomeBanner = () => {
-  
-  const HomeBannerPNG = require('../../assets/img/homebanner.png');
-  
+export const HomeBanner = () => {  
   return (
     <Image
-      source={HomeBannerPNG}
+      source={Icons.homeBannerImg}
       style={{ width: "100%" }}
     />
   );

@@ -1,14 +1,11 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
-import { useAquarium } from '../../context';
 import { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { TopBar } from '../../components/TopBar';
-import { ConfigDisplay } from '../../components/ConfigDisplay';
-import { DataDisplay } from '../../components/DataDisplay';
-import { ActionButton } from '../../components/ActionButton';
-import { Loading } from '../../components/Loading';
+import { TopBar, ConfigDisplay, DataDisplay, ActionButton, Loading } from '../../components';
+import { useAquarium } from '../../context';
+import { Icons } from '../../theme';
+import { Map } from './map';
+import { S } from './styles';
 
 
 export default function AquariumTab({navigation}:any) {
@@ -17,7 +14,7 @@ export default function AquariumTab({navigation}:any) {
   const { aquariumsList } = useAquarium();
   const [ selectedAquarium, setSelectedAquarium ] = useState<any>(null);
   const [ isLoading, setIsLoading ] = useState(true);
-  
+
   useEffect(() => {
     const aquariumData = aquariumsList.find((a: any) => a.id === aquarium.id);
     if (aquariumData) {
@@ -25,27 +22,6 @@ export default function AquariumTab({navigation}:any) {
       setIsLoading(false);
     }
   }, [aquariumsList]);
-
-  const iconMap: Record<string, any> = {
-    'Curvo': Icons.circularShape,
-    'Sextavado': Icons.hexagonalShape,
-    'Retangular': Icons.rectangularShape,
-  };
-
-  const petMap: Record<string, any> = {
-    'Peixe': Icons.fish,
-    'Tartaruga': Icons.turtle,
-    'Cobra': Icons.snake,
-    'Sapo': Icons.frog,
-  };
-
-  const sensorMap: Record<string, any> = {
-    'Temperatura': Icons.temperatureData,
-    'Saturação': Icons.saturationData,
-    'pH': Icons.phData,
-    'Nível de água': Icons.waterLevelData,
-    'Luminosidade': Icons.luminosityData,
-  };
 
   if (isLoading || !selectedAquarium) {
     return (
@@ -55,7 +31,7 @@ export default function AquariumTab({navigation}:any) {
     );
   }
 
-  const icon = iconMap[selectedAquarium.format_aquarium] || Icons.rectangularShape;
+  const icon = Map.icon[selectedAquarium.format_aquarium] || Icons.rectangularShape;
   const title = selectedAquarium.name;
 
   let configs = [
@@ -68,7 +44,7 @@ export default function AquariumTab({navigation}:any) {
 
   if (selectedAquarium.pets && selectedAquarium.pets.length > 0) {
     selectedAquarium.pets.forEach((pet: any) => {
-      configs.push({ icon: petMap[pet.species], content: pet.quantity });
+      configs.push({ icon: Map.pet[pet.species], content: pet.quantity });
     });
   }
 
@@ -79,7 +55,7 @@ export default function AquariumTab({navigation}:any) {
 
   if (selectedAquarium.sensors && selectedAquarium.sensors.length > 0) {
     selectedAquarium.sensors.forEach((sensor: any) => {
-      data.push({ icon: sensorMap[sensor.metric], title: sensor.metric, value: sensor.current });
+      data.push({ icon: Map.sensor[sensor.metric], title: sensor.metric, value: sensor.current });
     });
   }
 

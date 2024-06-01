@@ -1,25 +1,13 @@
-import { S } from './styles';
 import { useState } from 'react';
-import { Icons } from '../../theme/Icons';
-import { useAquarium } from '../../context';
 import { View, ScrollView, Alert } from 'react-native';
 import { Text } from '@rneui/themed';
-import { ItemButton } from '../../components/ItemButton';
-import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
-import { Loading } from '../../components/Loading';
 import axios from 'axios';
+import { ItemButton, DefaultPrimaryButton, DefaultSecondaryButton, Loading } from '../../components';
+import { AquariumDataProps } from '../../types';
+import { useAquarium } from '../../context';
+import { Icons } from '../../theme';
+import { S } from './styles';
 
-
-type AquariumData = {
-  id?: string;
-  name: string;
-  format_aquarium: string;
-  material: string;
-  voltage: string;
-  thickness: string;
-  height: string;
-  capacity: string;
-};
 
 export default function NewPets({navigation}:any) {
 
@@ -95,7 +83,7 @@ export default function NewPets({navigation}:any) {
 
     setIsLoading(true);
 
-    let aquariumData: AquariumData = {
+    let aquariumData: AquariumDataProps = {
       name: aquariumName, 
       format_aquarium: selectedShape,
       material: selectedMaterial,
@@ -140,7 +128,7 @@ export default function NewPets({navigation}:any) {
 
       console.log(`Aquário criado com sucesso - ID: ${aquariumId}`);
       aquariumData = { ...aquariumData, id: aquariumId };
-      setAquariumsList((prevList:AquariumData[]) => [...prevList, aquariumData]);
+      setAquariumsList((prevList:AquariumDataProps[]) => [...prevList, aquariumData]);
 
       await Promise.all([
         ...aquariumAccessories.map(accessory => axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/accessories`, accessory, { headers })),
@@ -183,8 +171,8 @@ export default function NewPets({navigation}:any) {
               ))}
             </View>
             <View style={S.buttonsContainer}>
-              <PrimaryButton content="Criar aquário" onPress={handleCreateAquarium} />
-              <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
+              <DefaultPrimaryButton content="Criar aquário" onPress={handleCreateAquarium} />
+              <DefaultSecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
             </View>
           </>
         )}

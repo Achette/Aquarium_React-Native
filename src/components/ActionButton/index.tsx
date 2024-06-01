@@ -1,13 +1,8 @@
-import { S } from './styles';
 import { Image, Text, View } from 'react-native';
 import { Button } from '@rneui/themed';
+import { ActionButtonProps } from '../../types';
+import { S } from './styles';
 
-
-type ActionButtonProps = {
-  icon: any;
-  title: string;
-  onPress: any;
-};
 
 export const ActionButton = ({icon, title, onPress}:ActionButtonProps) => {
   return (

@@ -1,11 +1,7 @@
-import { S } from './styles';
 import { Button } from '@rneui/themed';
+import { PowerButtonProps } from '../../types';
+import { S } from './styles';
 
-
-type PowerButtonProps = {
-  size: number;
-  onPress: any;
-};
 
 export const PowerButton = ({size, onPress}:PowerButtonProps) => {
   return (

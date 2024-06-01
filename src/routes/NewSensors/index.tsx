@@ -1,13 +1,12 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
-import { useAquarium } from '../../context';
 import { View, ScrollView } from 'react-native';
 import { Text } from '@rneui/themed';
-import { ItemButton } from '../../components/ItemButton';
-import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
+import { ItemButton, DefaultPrimaryButton, DefaultSecondaryButton } from '../../components';
+import { useAquarium } from '../../context';
+import { Icons } from '../../theme';
+import { S } from './styles';
 
 
-function NewSensors({navigation}:any) {
+export default function NewSensors({navigation}:any) {
 
   const { 
     hasTemperatureSensor, setHasTemperatureSensor,
@@ -43,12 +42,10 @@ function NewSensors({navigation}:any) {
         </View>
 
         <View style={S.buttonsContainer}>
-          <PrimaryButton content="Avançar" onPress={() => navigation.navigate('NewPets')} />
-          <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
+          <DefaultPrimaryButton content="Avançar" onPress={() => navigation.navigate('NewPets')} />
+          <DefaultSecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
         </View>
       </View>
     </ScrollView>
   );
 }
-
-export default NewSensors;

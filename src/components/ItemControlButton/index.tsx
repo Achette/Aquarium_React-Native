@@ -1,18 +1,11 @@
-import { S } from './styles';
 import { View, Image } from 'react-native';
 import { Text } from '@rneui/themed';
-import { PowerButton } from '../PowerButton';
+import { ItemControlButtonProps } from '../../types';
+import { PowerButton } from '../';
+import { S } from './styles';
 
-
-type ItemControlButtonProps = {
-  icon: any;
-  title: string;
-  onPress: any;
-  isSelected: boolean;
-}
 
 export const ItemControlButton = ({ icon, title, onPress, isSelected=false }:ItemControlButtonProps) => {
-  
   let selectionOpacity = isSelected ? 1 : 0.4;
 
   return (

@@ -1,11 +1,7 @@
-import { S } from './styles';
 import { Button } from '@rneui/themed';
+import { UserButtonProps } from '../../types';
+import { S } from './styles';
 
-
-type UserButtonProps = {
-  content: string;
-  onPress: any;
-};
 
 export const UserButton = ({content, onPress}:UserButtonProps) => {
   return (

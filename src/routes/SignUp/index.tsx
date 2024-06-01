@@ -1,15 +1,14 @@
-import { S } from './styles';
 import { useState } from 'react';
 import { View, ScrollView, Alert } from 'react-native';
 import { Text } from '@rneui/base';
 import { Input } from '@rneui/themed';
-import { LogInBanner } from '../../components/LogInBanner';
-import { SecondaryButton, TextButton } from '../../components/DefaultButtons';
-import { useAquarium } from '../../context'
 import axios from 'axios';
+import { LogInBanner, DefaultSecondaryButton, DefaultTextButton } from '../../components';
+import { useAquarium } from '../../context'
+import { S } from './styles';
 
 
-function LogIn({navigation}:any) {
+export default function LogIn({navigation}:any) {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -79,15 +78,13 @@ function LogIn({navigation}:any) {
           ))}
         </View>
 
-        <SecondaryButton content="Cadastrar" onPress={handleSignUp} />
+        <DefaultSecondaryButton content="Cadastrar" onPress={handleSignUp} />
         <View style={{flexDirection: 'row', marginVertical: 15}}>
           <Text style={S.subtitle}>Já tem uma conta?</Text>
-          <TextButton content="Entrar" onPress={() => {navigation.navigate('LogIn')}} />
+          <DefaultTextButton content="Entrar" onPress={() => {navigation.navigate('LogIn')}} />
         </View>
 
       </View>
     </ScrollView>
   );
 };
-
-export default LogIn;

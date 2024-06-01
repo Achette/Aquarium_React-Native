@@ -1,13 +1,13 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
-import { useAquarium } from '../../context';
 import { useEffect } from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import axios from 'axios';
 import DashboardsTab from '../DashboardsTab';
 import AquariumTab from '../AquariumTab';
 import ControlsTab from '../ControlsTab';
-import axios from 'axios';
+import { useAquarium } from '../../context';
+import { Icons } from '../../theme';
+import { S } from './styles';
 
 
 const Tab = createBottomTabNavigator()

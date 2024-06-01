@@ -1,15 +1,12 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
 import { useState, useEffect, useContext } from 'react';
 import { View, Alert } from 'react-native';
 import { Text } from '@rneui/base';
-import { UserBar } from '../../components/UserBar';
-import { AquariumsList } from '../../components/AquariumsList';
-import { ActionButton } from '../../components/ActionButton';
-import { Loading } from '../../components/Loading';
-import { AquariumContext } from '../../context'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { UserBar, AquariumsList, ActionButton, Loading } from '../../components';
+import { AquariumContext } from '../../context'
+import { Icons } from '../../theme';
+import { S } from './styles';
 
 
 export default function AquariumsSelection({navigation}:any) {
