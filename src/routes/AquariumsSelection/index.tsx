@@ -14,9 +14,8 @@ import axios from 'axios';
 
 export default function AquariumsSelection({navigation}:any) {
 
-  const [ aquariums, setAquariums ] = useState([]);
   const [ isLoading, setIsLoading ] = useState(true);
-  const { token, setToken } = useContext(AquariumContext);
+  const { token, setToken, aquariumsList, setAquariumsList } = useContext(AquariumContext);
 
   const headers = { 'Authorization': `${token}` };
 
@@ -36,10 +35,10 @@ export default function AquariumsSelection({navigation}:any) {
           capacity: aquarium.capacity,
         }));
 
-        console.log(`${aquariumsData.length} aquarios carregados`);
+        console.log(`Aquarios carregados: ${aquariumsData.length}`);
         console.log(`Aquarios: ${JSON.stringify(aquariumsData)}`);
 
-        setAquariums(aquariumsData);
+        setAquariumsList(aquariumsData);
       } catch (e) {
         console.log(`Erro ao carregar aquários: ${e}`);
       } finally {
@@ -69,14 +68,14 @@ export default function AquariumsSelection({navigation}:any) {
         <Loading text='Carregando seus aquários...' />
       ) : (
         <>
-          {aquariums.length === 0 ? (
+          {aquariumsList.length === 0 ? (
             <View style={S.noAquariums}>
               <Text style={S.noAquariumsText}>Nenhum aquário cadastrado 😕</Text>
             </View>
           ) : (
             <AquariumsList
               navigation={navigation}
-              data={aquariums}
+              data={aquariumsList}
             />
           )}
           <View style={S.bottomBar}>

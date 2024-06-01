@@ -1,9 +1,8 @@
 import { S } from './styles';
-import { useState, useContext } from 'react';
-import { AquariumContext } from '../../context'
+import { useState } from 'react';
 import { Icons } from '../../theme/Icons';
 import { useAquarium } from '../../context';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Alert } from 'react-native';
 import { Text } from '@rneui/themed';
 import { ItemButton } from '../../components/ItemButton';
 import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
@@ -11,12 +10,25 @@ import { Loading } from '../../components/Loading';
 import axios from 'axios';
 
 
-function NewPets({navigation}:any) {
+type AquariumData = {
+  id?: string;
+  name: string;
+  format_aquarium: string;
+  material: string;
+  voltage: string;
+  thickness: string;
+  height: string;
+  capacity: string;
+};
 
-  const [ isLoading, setIsLoading ] = useState(true);
+export default function NewPets({navigation}:any) {
+
+  const [ isLoading, setIsLoading ] = useState(false);
 
   const {
     token,
+    aquariumsList, setAquariumsList,
+
     aquariumName, setAquariumName,
     selectedShape, setShape,
     selectedMaterial, setMaterial,
@@ -24,12 +36,14 @@ function NewPets({navigation}:any) {
     thickness, setThickness,
     height, setHeight,
     volume, setVolume,
+
     hasPump, setHasPump,
     hasFeeder, setHasFeeder,
     hasThermostat, setHasThermostat,
     hasFilter, setHasFilter,
     hasLedLights, setHasLedLights,
     hasVegetation, setHasVegetation,
+
     hasTemperatureSensor, setHasTemperatureSensor,
     hasWaterLevelSensor, setHasWaterLevelSensor,
     hasLuminositySensor, setHasLuminositySensor,
@@ -81,7 +95,7 @@ function NewPets({navigation}:any) {
 
     setIsLoading(true);
 
-    const aquariumData = {
+    let aquariumData: AquariumData = {
       name: aquariumName, 
       format_aquarium: selectedShape,
       material: selectedMaterial,
@@ -123,7 +137,10 @@ function NewPets({navigation}:any) {
     try {
       const aquariumResponse = await axios.post(`${process.env.BASE_URL}/aquarium`, aquariumData, { headers });
       const aquariumId = aquariumResponse.data.result.id;
+
       console.log(`Aquário criado com sucesso - ID: ${aquariumId}`);
+      aquariumData = { ...aquariumData, id: aquariumId };
+      setAquariumsList((prevList:AquariumData[]) => [...prevList, aquariumData]);
 
       await Promise.all([
         ...aquariumAccessories.map(accessory => axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/accessories`, accessory, { headers })),
@@ -134,10 +151,12 @@ function NewPets({navigation}:any) {
       console.log('Acessórios, sensores e pets adicionados com sucesso.');
 
       resetParams();
-      setIsLoading(false);
       navigation.navigate('AquariumsSelection');
     } catch (e) {
+      Alert.alert('Erro', 'Houve um erro ao criar o aquário. Tente novamente mais tarde.')
       console.error('Erro ao criar aquário:', e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -173,5 +192,3 @@ function NewPets({navigation}:any) {
     </ScrollView>
   );
 }
-
-export default NewPets;

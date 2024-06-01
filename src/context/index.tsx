@@ -3,6 +3,8 @@ import React, { createContext, useState, useContext, SetStateAction } from 'reac
 interface AppContextProps {
   token: string; setToken: React.Dispatch<SetStateAction<string>>;
   userId: string; setUserId: React.Dispatch<SetStateAction<string>>;
+  aquariumsList: any[]; setAquariumsList: React.Dispatch<SetStateAction<any[]>>;
+
   aquariumName: string; setAquariumName: React.Dispatch<SetStateAction<string>>;
   selectedShape: string; setShape: React.Dispatch<SetStateAction<string>>;
   selectedMaterial: string; setMaterial: React.Dispatch<SetStateAction<string>>;
@@ -10,17 +12,20 @@ interface AppContextProps {
   thickness: number; setThickness: React.Dispatch<SetStateAction<number>>;
   height: number; setHeight: React.Dispatch<SetStateAction<number>>;
   volume: number; setVolume: React.Dispatch<SetStateAction<number>>;
+
   hasPump: boolean; setHasPump: React.Dispatch<SetStateAction<boolean>>;
   hasFeeder: boolean; setHasFeeder: React.Dispatch<SetStateAction<boolean>>;
   hasThermostat: boolean; setHasThermostat: React.Dispatch<SetStateAction<boolean>>;
   hasFilter: boolean; setHasFilter: React.Dispatch<SetStateAction<boolean>>;
   hasLedLights: boolean; setHasLedLights: React.Dispatch<SetStateAction<boolean>>;
   hasVegetation: boolean; setHasVegetation: React.Dispatch<SetStateAction<boolean>>;
+
   hasTemperatureSensor: boolean; setHasTemperatureSensor: React.Dispatch<SetStateAction<boolean>>;
   hasWaterLevelSensor: boolean; setHasWaterLevelSensor: React.Dispatch<SetStateAction<boolean>>;
   hasLuminositySensor: boolean; setHasLuminositySensor: React.Dispatch<SetStateAction<boolean>>;
   hasPhSensor: boolean; setHasPhSensor: React.Dispatch<SetStateAction<boolean>>;
   hasSaturationSensor: boolean; setHasSaturationSensor: React.Dispatch<SetStateAction<boolean>>;
+
   hasFish: boolean; setHasFish: React.Dispatch<SetStateAction<boolean>>;
   hasTurtle: boolean; setHasTurtle: React.Dispatch<SetStateAction<boolean>>;
   hasSnake: boolean; setHasSnake: React.Dispatch<SetStateAction<boolean>>;
@@ -40,6 +45,7 @@ export const AquariumContext = createContext<AppContextProps>({} as AppContextPr
 export function AquariumProvider({ children }: AppProviderProps) {
   const [token, setToken] = useState<string>('');
   const [userId, setUserId] = useState<string>('');
+  const [aquariumsList, setAquariumsList] = useState<any[]>([]);
 
   const [aquariumName, setAquariumName] = useState<string>('');
   const [selectedShape, setShape] = useState<string>('Retangular');
@@ -76,6 +82,8 @@ export function AquariumProvider({ children }: AppProviderProps) {
     <AquariumContext.Provider value={{ 
       token, setToken,
       userId, setUserId,
+      aquariumsList, setAquariumsList,
+
       aquariumName, setAquariumName,
       selectedShape, setShape,
       selectedMaterial, setMaterial,
@@ -83,17 +91,20 @@ export function AquariumProvider({ children }: AppProviderProps) {
       thickness, setThickness,
       height, setHeight,
       volume, setVolume,
+
       hasPump, setHasPump,
       hasFeeder, setHasFeeder,
       hasThermostat, setHasThermostat,
       hasFilter, setHasFilter,
       hasLedLights, setHasLedLights,
       hasVegetation, setHasVegetation,
+
       hasTemperatureSensor, setHasTemperatureSensor,
       hasWaterLevelSensor, setHasWaterLevelSensor,
       hasLuminositySensor, setHasLuminositySensor,
       hasPhSensor, setHasPhSensor,
       hasSaturationSensor, setHasSaturationSensor,
+
       hasFish, setHasFish,
       hasTurtle, setHasTurtle,
       hasSnake, setHasSnake,
