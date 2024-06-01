@@ -47,8 +47,12 @@ export default function AquariumTab({navigation}:any) {
     'Luminosidade': Icons.luminosityData,
   };
 
-  if (isLoading) {
-    return <Loading text="Carregando aquário..." />;
+  if (isLoading || !selectedAquarium) {
+    return (
+      <View style={S.container}>
+        <Loading text="Carregando aquário..." />
+      </View>
+    );
   }
 
   const icon = iconMap[selectedAquarium.format_aquarium] || Icons.rectangularShape;
@@ -107,20 +111,20 @@ export default function AquariumTab({navigation}:any) {
             icon={data.icon}
           />
         ))}
-    </View>
+      </View>
 
-    <View style={S.buttonsBar}>
-      <ActionButton
-        icon={Icons.cleanButton}
-        title='Limpar'
-        onPress={() => {Alert.alert('Limpar', 'Pronto, limpou os cocô tudo')}}
-      />
-      <ActionButton
-        icon={Icons.foodButton}
-        title='Alimentar'
-        onPress={() => {Alert.alert('Alimentar', 'Pronto, deu comida pros peixinho')}}
-      />
-    </View>
+      <View style={S.buttonsBar}>
+        <ActionButton
+          icon={Icons.cleanButton}
+          title='Limpar'
+          onPress={() => {Alert.alert('Limpar', 'Pronto, limpou os cocô tudo')}}
+        />
+        <ActionButton
+          icon={Icons.foodButton}
+          title='Alimentar'
+          onPress={() => {Alert.alert('Alimentar', 'Pronto, deu comida pros peixinho')}}
+        />
+      </View>
   </View>
   );
 };
