@@ -8,35 +8,21 @@ import { useAquarium } from '../../context';
 import { Icons } from '../../theme';
 import { S } from './styles';
 
+import { useResetParams } from '../../hooks';
+
 
 export default function NewPets({navigation}:any) {
 
   const [ isLoading, setIsLoading ] = useState(false);
+  const resetParams = useResetParams();
 
   const {
     token,
-    aquariumsList, setAquariumsList,
+    setAquariumsList,
 
-    aquariumName, setAquariumName,
-    selectedShape, setShape,
-    selectedMaterial, setMaterial,
-    selectedVoltage, setVoltage,
-    thickness, setThickness,
-    height, setHeight,
-    volume, setVolume,
-
-    hasPump, setHasPump,
-    hasFeeder, setHasFeeder,
-    hasThermostat, setHasThermostat,
-    hasFilter, setHasFilter,
-    hasLedLights, setHasLedLights,
-    hasVegetation, setHasVegetation,
-
-    hasTemperatureSensor, setHasTemperatureSensor,
-    hasWaterLevelSensor, setHasWaterLevelSensor,
-    hasLuminositySensor, setHasLuminositySensor,
-    hasPhSensor, setHasPhSensor,
-    hasSaturationSensor, setHasSaturationSensor,
+    aquariumName, selectedShape, selectedMaterial, selectedVoltage, thickness, height, volume, 
+    hasPump, hasFeeder, hasThermostat, hasFilter, hasLedLights, hasVegetation, 
+    hasTemperatureSensor, hasWaterLevelSensor, hasLuminositySensor, hasPhSensor, hasSaturationSensor, 
 
     hasFish, setHasFish,
     hasTurtle, setHasTurtle,
@@ -56,28 +42,6 @@ export default function NewPets({navigation}:any) {
     { title: 'Cobra', icon: Icons.snake, onPress: () => setHasSnake(!hasSnake), isSelected: hasSnake, itemQuantity: snakeQuantity, setQuantity: setSnakeQuantity},
     { title: 'Sapo', icon: Icons.frog, onPress: () => setHasFrog(!hasFrog), isSelected: hasFrog, itemQuantity: frogQuantity, setQuantity: setFrogQuantity},
   ]
-
-  const resetParams = () => {
-    setAquariumName('');
-    setShape('Retangular');
-    setMaterial('Vidro');
-    setVoltage('110V');
-
-    const number10Params = [setThickness, setHeight, setVolume];
-    number10Params.forEach((f) => f(10.0));
-
-    const booleanFalseParams = [
-      setHasPump, setHasFeeder, setHasThermostat, setHasFilter, setHasLedLights, setHasVegetation,
-      setHasTemperatureSensor, setHasWaterLevelSensor, setHasLuminositySensor, setHasPhSensor, setHasSaturationSensor,
-      setHasFish, setHasTurtle, setHasSnake, setHasFrog,
-    ];
-    booleanFalseParams.forEach((f) => f(false));
-
-    const number1Params = [setFishQuantity, setTurtleQuantity, setSnakeQuantity, setFrogQuantity];
-    number1Params.forEach((f) => f(1));
-
-    console.log('Parâmetros resetados com sucesso!');
-  };
 
   const handleCreateAquarium = async () => {
 
