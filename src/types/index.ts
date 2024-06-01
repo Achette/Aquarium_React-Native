@@ -3,20 +3,6 @@ import { SetStateAction } from 'react';
 
 // == INTERFACES FOR API ==
 
-export interface Aquarium {
-  id: string;
-  name: string;
-  format_aquarium: string;
-  material: string;
-  voltage: string;
-  height: number;
-  thickness: number;
-  capacity: number;
-  accessories: Accessory[];
-  sensors: Sensor[];
-  pets: Pet[];
-}
-
 export interface Accessory {
   name: string;
 }

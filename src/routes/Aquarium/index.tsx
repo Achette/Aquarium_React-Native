@@ -10,9 +10,9 @@ export default function Aquarium({ route }: any) {
 
   const { loading } = useAquariumDetails(route.params.aquarium.id);
   const Tab = createBottomTabNavigator()
-  
+
   if (loading) return <Loading text='Carregando dados do aquário...' />;
-  
+
   return (
     <Tab.Navigator
       initialRouteName="Início"
