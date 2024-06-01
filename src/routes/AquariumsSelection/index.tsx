@@ -13,7 +13,6 @@ import axios from 'axios';
 
 
 export default function AquariumsSelection({navigation}:any) {
-
   const [ isLoading, setIsLoading ] = useState(true);
   const { token, setToken, aquariumsList, setAquariumsList } = useContext(AquariumContext);
 
@@ -65,7 +64,7 @@ export default function AquariumsSelection({navigation}:any) {
       />
 
       {isLoading ? (
-        <Loading text='Carregando seus aquários...' />
+        <Loading text='Carregando seu(s) aquário(s)...' />
       ) : (
         <>
           {aquariumsList.length === 0 ? (

@@ -1,16 +1,30 @@
 import { S } from './styles';
 import { Icons } from '../../theme/Icons';
+import { useAquarium } from '../../context';
+import { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { TopBar } from '../../components/TopBar';
 import { ConfigDisplay } from '../../components/ConfigDisplay';
 import { DataDisplay } from '../../components/DataDisplay';
 import { ActionButton } from '../../components/ActionButton';
+import { Loading } from '../../components/Loading';
 
 
 export default function AquariumTab({navigation}:any) {
   const route = useRoute();
   const { aquarium } = route.params as { aquarium: any };
+  const { aquariumsList } = useAquarium();
+  const [ selectedAquarium, setSelectedAquarium ] = useState<any>(null);
+  const [ isLoading, setIsLoading ] = useState(true);
+  
+  useEffect(() => {
+    const aquariumData = aquariumsList.find((a: any) => a.id === aquarium.id);
+    if (aquariumData) {
+      setSelectedAquarium(aquariumData);
+      setIsLoading(false);
+    }
+  }, [aquariumsList]);
 
   const iconMap: Record<string, any> = {
     'Curvo': Icons.circularShape,
@@ -18,30 +32,52 @@ export default function AquariumTab({navigation}:any) {
     'Retangular': Icons.rectangularShape,
   };
 
-  const icon = iconMap[aquarium.format_aquarium] || Icons.rectangularShape;
-  const title = aquarium.name;
+  const petMap: Record<string, any> = {
+    'Peixe': Icons.fish,
+    'Tartaruga': Icons.turtle,
+    'Cobra': Icons.snake,
+    'Sapo': Icons.frog,
+  };
 
-  //! criar função para coletar os dados complementares do aquário usando o aquarium.id
+  const sensorMap: Record<string, any> = {
+    'Temperatura': Icons.temperatureData,
+    'Saturação': Icons.saturationData,
+    'pH': Icons.phData,
+    'Nível de água': Icons.waterLevelData,
+    'Luminosidade': Icons.luminosityData,
+  };
 
-  const configs = [
-    { icon: Icons.material, content: 'Vidro' },
-    { icon: Icons.voltage, content: '110V' },
-    { icon: Icons.height, content: '30cm' },
-    { icon: Icons.thickness, content: '3mm' },
-    { icon: Icons.capacity, content: '3,5L' },
-    { icon: Icons.fish, content: '8' },
-    { icon: Icons.turtle, content: '2' },
+  if (isLoading) {
+    return <Loading text="Carregando aquário..." />;
+  }
+
+  const icon = iconMap[selectedAquarium.format_aquarium] || Icons.rectangularShape;
+  const title = selectedAquarium.name;
+
+  let configs = [
+    { icon: Icons.material, content: selectedAquarium.material },
+    { icon: Icons.voltage, content: selectedAquarium.voltage },
+    { icon: Icons.height, content: `${selectedAquarium.height}cm` },
+    { icon: Icons.thickness, content: `${selectedAquarium.thickness}mm` },
+    { icon: Icons.capacity, content: `${selectedAquarium.capacity}L` },
   ];
 
+  if (selectedAquarium.pets && selectedAquarium.pets.length > 0) {
+    selectedAquarium.pets.forEach((pet: any) => {
+      configs.push({ icon: petMap[pet.species], content: pet.quantity });
+    });
+  }
+
   const data = [
-    { icon: Icons.temperatureData, title: 'Temperatura', value: '27°C' },
-    { icon: Icons.saturationData, title: 'Saturação', value: '9,07 ppm' },
-    { icon: Icons.phData, title: 'PH', value: '7' },
-    { icon: Icons.waterLevelData, title: 'Variação do Nível da Água', value: '17,5 ml' },
-    { icon: Icons.luminosityData, title: 'Luminosidade', value: '35 lm' },
     { icon: Icons.lastCleaningData, title: 'Última Limpeza', value: '16/04/2024 | 12:00' },
     { icon: Icons.lastFeedingData, title: 'Última Alimentação', value: '23/04/2024 | 12:00' },
   ];
+
+  if (selectedAquarium.sensors && selectedAquarium.sensors.length > 0) {
+    selectedAquarium.sensors.forEach((sensor: any) => {
+      data.push({ icon: sensorMap[sensor.metric], title: sensor.metric, value: sensor.current });
+    });
+  }
 
   return (
     <View style={S.container}>

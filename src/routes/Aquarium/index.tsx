@@ -1,10 +1,13 @@
 import { S } from './styles';
 import { Icons } from '../../theme/Icons';
+import { useAquarium } from '../../context';
+import { useEffect } from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import DashboardsTab from '../DashboardsTab';
 import AquariumTab from '../AquariumTab';
 import ControlsTab from '../ControlsTab';
+import axios from 'axios';
 
 
 const Tab = createBottomTabNavigator()
@@ -16,7 +19,35 @@ const tabs = [
 ]
 
 export default function Aquarium({ route }:any) {
-  const { aquarium } = route.params;
+
+  const { token, aquariumsList, setAquariumsList } = useAquarium();
+  let { aquarium } = route.params;
+
+  const headers = { 'Authorization': `${token}` };
+
+  useEffect(() => {
+    const getAquariumDetails = async () => {
+      try {
+        const [accessoriesResponse, sensorsResponse, petsResponse] = await Promise.all([
+          axios.get(`${process.env.BASE_URL}/aquarium/${aquarium.id}/accessories`, { headers }),
+          axios.get(`${process.env.BASE_URL}/aquarium/${aquarium.id}/sensors`, { headers }),
+          axios.get(`${process.env.BASE_URL}/aquarium/${aquarium.id}/pets`, { headers }),
+        ]);
+
+        aquarium.accessories = accessoriesResponse.data.map((accessory: any) => ({ name: accessory.name }));
+        aquarium.sensors = sensorsResponse.data.map((sensor: any) => ({ name: sensor.name, metric: sensor.metric, current: sensor.current }));
+        aquarium.pets = petsResponse.data.map((pet: any) => ({ species: pet.species, quantity: pet.quantity }));
+
+        const updatedAquariumsList = aquariumsList.map((a: any) => (a.id === aquarium.id ? aquarium : a));
+        setAquariumsList(updatedAquariumsList);
+        console.log('Aquários atualizados:', updatedAquariumsList);
+      } catch (e) {
+        console.error('Erro ao buscar detalhes do aquário:', e);
+      }
+    };
+
+    getAquariumDetails();
+  }, []);
 
   return (
     <Tab.Navigator

@@ -115,11 +115,11 @@ export default function NewPets({navigation}:any) {
     ].filter(Boolean);
 
     const aquariumSensors = [
-      hasTemperatureSensor && { name: 'Sensor', metric: 'Temperatura' },
-      hasWaterLevelSensor && { name: 'Sensor', metric: 'Nível de água' },
-      hasLuminositySensor && { name: 'Sensor', metric: 'Luminosidade' },
-      hasPhSensor && { name: 'Sensor', metric: 'pH' },
-      hasSaturationSensor && { name: 'Sensor', metric: 'Saturação' },
+      hasTemperatureSensor && { name: 'Sensor', metric: 'Temperatura', current: '27°C' },
+      hasWaterLevelSensor && { name: 'Sensor', metric: 'Nível de água', current: '90%' },
+      hasLuminositySensor && { name: 'Sensor', metric: 'Luminosidade', current: '35 lm'},
+      hasPhSensor && { name: 'Sensor', metric: 'pH', current: '7' },
+      hasSaturationSensor && { name: 'Sensor', metric: 'Saturação', current: '9,07 ppm'},
     ].filter(Boolean);
 
     const aquariumPets = [
