@@ -1,14 +1,15 @@
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Loading } from '../../components';
-import { useAquariumDetails } from '../../hooks';
+import { useLoadAquariumDetails } from '../../hooks';
 import { S } from './styles';
 import { tabs } from './tabs';
 
 
 export default function Aquarium({ route }: any) {
 
-  const { loading } = useAquariumDetails(route.params.aquarium.id);
+  const aquarium = route.params.aquarium;
+  const { loading } = useLoadAquariumDetails(aquarium.id);
   const Tab = createBottomTabNavigator()
 
   if (loading) return <Loading text='Carregando dados do aquário...' />;
@@ -27,7 +28,7 @@ export default function Aquarium({ route }: any) {
           key={tab.name}
           name={tab.name}
           component={tab.component}
-          initialParams={{ aquarium: route.params.aquarium }}
+          initialParams={{ aquarium: aquarium }}
           options={{
             tabBarLabel: tab.name,
             tabBarLabelStyle: S.tabBarLabel,

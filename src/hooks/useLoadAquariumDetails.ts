@@ -4,7 +4,7 @@ import { useAquarium } from '../context';
 import { Accessory, Pet, Sensor } from '../types';
 
 
-export const useAquariumDetails = (aquariumId:string) => {
+export const useLoadAquariumDetails = (aquariumId:string) => {
   const { token, aquariumsList, setAquariumsList } = useAquarium();
   const [ loading, setLoading ] = useState(true);
 

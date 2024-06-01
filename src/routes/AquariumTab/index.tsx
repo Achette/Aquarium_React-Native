@@ -1,58 +1,19 @@
-import { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { useSelectedAquarium, useAquariumData } from '../../hooks';
 import { TopBar, ConfigDisplay, DataDisplay, ActionButton } from '../../components';
-import { useAquarium } from '../../context';
 import { Icons } from '../../theme';
-import { Map } from './map';
 import { S } from './styles';
 
 
 export default function AquariumTab({navigation}:any) {
   const route = useRoute();
-
   const { aquarium }:any = route.params;
-  const { aquariumsList } = useAquarium();
-  const [ selectedAquarium, setSelectedAquarium ] = useState<any>(null);
-  const [ isLoading, setIsLoading ] = useState(true);
-
-  useEffect(() => {
-    const aquariumData = aquariumsList.find((a: any) => a.id === aquarium.id);
-    if (aquariumData) {
-      setSelectedAquarium(aquariumData);
-      setIsLoading(false);
-    }
-  }, [aquariumsList]);
-
+  
+  const { selectedAquarium, isLoading } = useSelectedAquarium(aquarium.id);
   if (!aquarium || isLoading || !selectedAquarium) return null;
 
-  const icon = Map.icon[selectedAquarium.format_aquarium] || Icons.rectangularShape;
-  const title = selectedAquarium.name;
-
-  let configs = [
-    { icon: Icons.material, content: selectedAquarium.material },
-    { icon: Icons.voltage, content: selectedAquarium.voltage },
-    { icon: Icons.height, content: `${selectedAquarium.height}cm` },
-    { icon: Icons.thickness, content: `${selectedAquarium.thickness}mm` },
-    { icon: Icons.capacity, content: `${selectedAquarium.capacity}L` },
-  ];
-
-  if (selectedAquarium.pets && selectedAquarium.pets.length > 0) {
-    selectedAquarium.pets.forEach((pet: any) => {
-      configs.push({ icon: Map.pet[pet.species], content: pet.quantity });
-    });
-  }
-
-  const data = [
-    { icon: Icons.lastCleaningData, title: 'Última Limpeza', value: '16/04/2024 | 12:00' },
-    { icon: Icons.lastFeedingData, title: 'Última Alimentação', value: '23/04/2024 | 12:00' },
-  ];
-
-  if (selectedAquarium.sensors && selectedAquarium.sensors.length > 0) {
-    selectedAquarium.sensors.forEach((sensor: any) => {
-      data.push({ icon: Map.sensor[sensor.metric], title: sensor.metric, value: sensor.current });
-    });
-  }
+  const { icon, title, configs, data }:any = useAquariumData(selectedAquarium);
 
   return (
     <View style={S.container}>
@@ -64,7 +25,7 @@ export default function AquariumTab({navigation}:any) {
       />
 
       <View style={S.configsDisplay}>
-        {configs.map((config, index) => (
+        {configs.map((config:any, index:any) => (
           <ConfigDisplay
             key={index}
             content={config.content}
@@ -74,7 +35,7 @@ export default function AquariumTab({navigation}:any) {
       </View>
 
       <View style={S.dataDisplay}>
-        {data.map((data, index) => (
+        {data.map((data:any, index:any) => (
           <DataDisplay
             key={index}
             title={data.title}
