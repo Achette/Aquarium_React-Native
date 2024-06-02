@@ -85,18 +85,8 @@ export function useSignUp(navigation:any) {
   };
 
   return {
-    name,
-    setName,
-    email,
-    setEmail,
-    password,
-    setPassword,
-    passwordConfirmation,
-    setPasswordConfirmation,
-    userErrorMessage,
-    emailErrorMessage,
-    passwordErrorMessage,
-    passwordConfirmationErrorMessage,
-    handleSignUp,
+    setName, setEmail, setPassword, setPasswordConfirmation,
+    userErrorMessage, emailErrorMessage, passwordErrorMessage, passwordConfirmationErrorMessage,
+    handleSignUp
   };
 }
