@@ -10,10 +10,10 @@ import { S } from './styles';
 
 export default function LogIn({navigation}:any) {
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [ name, setName ] = useState('');
+  const [ email, setEmail ] = useState('');
+  const [ password, setPassword ] = useState('');
+  const [ passwordConfirmation, setPasswordConfirmation ] = useState('');
   const [ userErrorMessage, setUserErrorMessage ] = useState('');
   const [ emailErrorMessage, setEmailErrorMessage ] = useState('');
   const [ passwordErrorMessage, setPasswordErrorMessage ] = useState('');

@@ -24,19 +24,30 @@ export default function AquariumsSelection({navigation}:any) {
     };
     fetchUser();
   }, [user]);
-  
+
   const handleLogOff = () => {
-    Alert.alert('Já vai?', 'Valeu, falou');
+    Alert.alert('LogOff', 'Deseja realmente sair?', [
+      { text: 'Cancelar', style: 'cancel' },
+      { text: 'Sair', onPress: logOff }
+    ]);
+  }
+
+  const logOff = () => {
     setToken('');
     AsyncStorage.removeItem('token');
     navigation.navigate('Home');
+  }
+
+  const handleUserButton = async () => {
+    const username = await AsyncStorage.getItem('username');
+    Alert.alert('Oi :)', `Você está logado como "${username}"`);
   }
 
   return (
     <View style={S.page}>
       <UserBar
         userButtonContent={userInitials || ''}
-        userButtonOnPress={() => {Alert.alert('Oi :)', 'Seu pai tem boi?')}}
+        userButtonOnPress={handleUserButton}
         logOffButtonOnPress={handleLogOff}
       />
 

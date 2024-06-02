@@ -105,7 +105,7 @@ export default function LogIn({navigation}:any) {
         </View>
 
         <View style={{marginVertical: 10}}>
-          <DefaultTextButton content="Esqueci minha senha" onPress={() => {Alert.alert('Esqueceu?', 'Sinto muito :(')}} />
+          <DefaultTextButton content="Esqueci minha senha" onPress={() => {Alert.alert('Esqueceu?', 'Sinto muito :(\n\nDizem que ômega-3 é bom pra memória')}} />
         </View>
 
         <DefaultPrimaryButton content="Entrar" onPress={handleLogIn} />
