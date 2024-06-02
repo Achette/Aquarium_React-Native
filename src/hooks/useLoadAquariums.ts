@@ -24,8 +24,7 @@ export const useLoadAquariums = () => {
           capacity: aquarium.capacity,
         }));
 
-        console.log(`Aquarios carregados: ${aquariumsData.length}`);
-        console.log(`Aquarios: ${JSON.stringify(aquariumsData)}`);
+        console.log(`Aquarios carregados: ${aquariumsData.length} - ${JSON.stringify(aquariumsData)}`);
         setAquariumsList(aquariumsData);
       } catch (e) {
         console.log(`Erro ao carregar aquários: ${e}`);
@@ -35,7 +34,7 @@ export const useLoadAquariums = () => {
     };
 
     loadAquariums();
-  }, []);
+  }, [token]);
 
   return { isLoading };
 };

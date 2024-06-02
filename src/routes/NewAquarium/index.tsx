@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Text, Input } from '@rneui/themed';
 import { NewAquariumCheckbox, NewAquariumValueChange, DefaultPrimaryButton, DefaultSecondaryButton } from '../../components';
@@ -7,6 +8,7 @@ import { S } from './styles';
 
 
 export default function NewAquarium({navigation}:any) {
+  const [ errorMessage, setErrorMessage ] = useState('');
 
   const { 
     aquariumName, setAquariumName,
@@ -47,6 +49,15 @@ export default function NewAquarium({navigation}:any) {
     { title: 'Volume (L)', value: volume, setValue: setVolume },
   ]
 
+  const handleNext = () => {
+    setErrorMessage('');
+    if (!aquariumName) {
+      setErrorMessage('Preencha o campo nome do aquário');
+      return;
+    }
+    navigation.navigate('NewAccessories');
+  }
+
   return (
     <ScrollView>
       <View style={S.page}>
@@ -57,7 +68,7 @@ export default function NewAquarium({navigation}:any) {
             inputStyle={{padding: 0}}
             placeholder="Nome do aquário"
             placeholderTextColor={S.placeholderText.color}
-            errorMessage="Campo obrigatório"
+            errorMessage={errorMessage}
             errorStyle={S.error}
             value={aquariumName}
             onChangeText={setAquariumName}
@@ -84,7 +95,7 @@ export default function NewAquarium({navigation}:any) {
         ))}
 
         <View style={S.buttonsContainer}>
-          <DefaultPrimaryButton content="Avançar" onPress={() => navigation.navigate('NewAccessories')} />
+          <DefaultPrimaryButton content="Avançar" onPress={handleNext} />
           <DefaultSecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
         </View>
       </View>

@@ -14,13 +14,17 @@ export default function LogIn({navigation}:any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [ userErrorMessage, setUserErrorMessage ] = useState('');
+  const [ emailErrorMessage, setEmailErrorMessage ] = useState('');
+  const [ passwordErrorMessage, setPasswordErrorMessage ] = useState('');
+  const [ passwordConfirmationErrorMessage, setPasswordConfirmationErrorMessage ] = useState('');
   const { setToken, setUserId } = useAquarium();
 
   const inputsContents = [
-    { placeholder: 'Nome', leftIconName: 'user', errorMessage: '', inputMode: 'text', secureTextEntry: false, onChangeText: setName},
-    { placeholder: 'Email', leftIconName: 'mail', errorMessage: 'E-mail inválido', inputMode: 'email', secureTextEntry: false, onChangeText: setEmail },
-    { placeholder: 'Senha', leftIconName: 'lock', errorMessage: 'Senha inválida', inputMode: 'text', secureTextEntry: true, onChangeText: setPassword },
-    { placeholder: 'Confirme sua senha', leftIconName: 'lock', errorMessage: 'Senha inválida', inputMode: 'text', secureTextEntry: true, onChangeText: setPasswordConfirmation},
+    { placeholder: 'Usuário', leftIconName: 'user', errorMessage: userErrorMessage, inputMode: 'text', secureTextEntry: false, onChangeText: setName},
+    { placeholder: 'Email', leftIconName: 'mail', errorMessage: emailErrorMessage, inputMode: 'email', secureTextEntry: false, onChangeText: setEmail },
+    { placeholder: 'Senha', leftIconName: 'lock', errorMessage: passwordErrorMessage, inputMode: 'text', secureTextEntry: true, onChangeText: setPassword },
+    { placeholder: 'Confirme sua senha', leftIconName: 'lock', errorMessage: passwordConfirmationErrorMessage, inputMode: 'text', secureTextEntry: true, onChangeText: setPasswordConfirmation},
   ]
 
   async function handleSignUp() {
@@ -31,8 +35,44 @@ export default function LogIn({navigation}:any) {
       repeat_password: passwordConfirmation,
     };
 
-    //! criar validação de dados, senha, etc
-    //! criar lógica para mensagens de erro
+    const resetErrorMessages = () => {
+      setUserErrorMessage('');
+      setEmailErrorMessage('');
+      setPasswordErrorMessage('');
+      setPasswordConfirmationErrorMessage('');
+    }
+
+    resetErrorMessages();
+
+    if (!userData.username) {
+      setUserErrorMessage('Preencha o campo usuário');
+      return;
+    }
+    if (!userData.email) {
+      setEmailErrorMessage('Preencha o campo e-mail');
+      return;
+    }
+    if (!userData.password) {
+      setPasswordErrorMessage('Preencha o campo senha');
+      return;
+    }
+    if (!userData.repeat_password) {
+      setPasswordConfirmationErrorMessage('Preencha o campo de confirmação de senha');
+      return;
+    }
+    if (userData.password !== userData.repeat_password) {
+      setPasswordConfirmationErrorMessage('As senhas não coincidem');
+      return;
+    }
+    if (userData.username.length < 3) {
+      setUserErrorMessage('Usuário deve ter no mínimo 3 caracteres');
+      return;
+    }
+    const emailPattern = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    if (!emailPattern.test(userData.email)) {
+      setEmailErrorMessage('Email inválido');
+      return;
+    }
 
     try {
       const response = await axios.post(`${process.env.BASE_URL}/register`, userData);

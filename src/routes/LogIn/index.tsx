@@ -11,13 +11,15 @@ import { S } from './styles';
 
 export default function LogIn({navigation}:any) {
 
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
+  const [ name, setName ] = useState('');
+  const [ password, setPassword ] = useState('');
+  const [ userErrorMessage, setUserErrorMessage ] = useState('');
+  const [ passwordErrorMessage, setPasswordErrorMessage ] = useState('');
   const { setToken, setUserId } = useAquarium();
 
   const inputsContents = [
-    { placeholder: 'Nome', leftIconName: 'user', errorMessage: '', inputMode: 'text', secureTextEntry: false, onChangeText: setName},
-    { placeholder: 'Senha', leftIconName: 'lock', errorMessage: 'Senha inválida', inputMode: 'text', secureTextEntry: true, onChangeText: setPassword },
+    { placeholder: 'Usuário', leftIconName: 'user', errorMessage: userErrorMessage, inputMode: 'text', secureTextEntry: false, onChangeText: setName},
+    { placeholder: 'Senha', leftIconName: 'lock', errorMessage: passwordErrorMessage, inputMode: 'text', secureTextEntry: true, onChangeText: setPassword },
   ]
 
   const storeUser = async (username:string, password:string, jwt:string, userId:string) => {
@@ -38,8 +40,25 @@ export default function LogIn({navigation}:any) {
       password: password,
     };
 
-    //! criar validação de dados, senha, etc
-    //! criar lógica para mensagens de erro
+    const resetErrorMessages = () => {
+      setUserErrorMessage('');
+      setPasswordErrorMessage('');
+    }
+
+    resetErrorMessages();
+
+    if (!userData.username) {
+      setUserErrorMessage('Preencha o campo usuário');
+      return;
+    }
+    if (!userData.password) {
+      setPasswordErrorMessage('Preencha o campo senha');
+      return;
+    }
+    if (userData.username.length < 3) {
+      setUserErrorMessage('Usuário deve ter no mínimo 3 caracteres');
+      return;
+    }
 
     try {
       const response = await axios.post(`${process.env.BASE_URL}/login`, userData);
@@ -51,7 +70,6 @@ export default function LogIn({navigation}:any) {
         setToken(jwt);
         setUserId(userId);
         storeUser(userData.username, userData.password, jwt, userId);
-        Alert.alert('Sucesso!', 'Login realizado com sucesso!');
         navigation.navigate('AquariumsSelection');
       }
     } catch (error) {

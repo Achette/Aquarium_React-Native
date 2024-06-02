@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import { Text } from '@rneui/base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,7 +12,19 @@ import { S } from './styles';
 export default function AquariumsSelection({navigation}:any) {
   const { isLoading } = useLoadAquariums();
   const { setToken, aquariumsList } = useAquarium();
+  const [ userInitials, setUserInitials ] = useState<string | null>(null);
+  const user = AsyncStorage.getItem('username');
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      const username = await AsyncStorage.getItem('username');
+      if (username) {
+        setUserInitials(username.slice(0, 2).toUpperCase());
+      }
+    };
+    fetchUser();
+  }, [user]);
+  
   const handleLogOff = () => {
     Alert.alert('Já vai?', 'Valeu, falou');
     setToken('');
@@ -22,7 +35,7 @@ export default function AquariumsSelection({navigation}:any) {
   return (
     <View style={S.page}>
       <UserBar
-        userButtonContent="JP"
+        userButtonContent={userInitials || ''}
         userButtonOnPress={() => {Alert.alert('Oi :)', 'Seu pai tem boi?')}}
         logOffButtonOnPress={handleLogOff}
       />
