@@ -1,14 +1,14 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
-import { useAquarium } from '../../context';
+import { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { Text, Input } from '@rneui/themed';
-import { NewAquariumCheckbox } from '../../components/NewAquariumCheckbox';
-import { NewAquariumValueChange } from '../../components/NewAquariumValueChange';
-import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
+import { NewAquariumCheckbox, NewAquariumValueChange, DefaultPrimaryButton, DefaultSecondaryButton } from '../../components';
+import { useAquarium } from '../../context';
+import { Icons } from '../../theme';
+import { S } from './styles';
 
 
-function NewAquarium({navigation}:any) {
+export default function NewAquarium({navigation}:any) {
+  const [ errorMessage, setErrorMessage ] = useState('');
 
   const { 
     aquariumName, setAquariumName,
@@ -49,6 +49,15 @@ function NewAquarium({navigation}:any) {
     { title: 'Volume (L)', value: volume, setValue: setVolume },
   ]
 
+  const handleNext = () => {
+    setErrorMessage('');
+    if (!aquariumName) {
+      setErrorMessage('Preencha o campo nome do aquário');
+      return;
+    }
+    navigation.navigate('NewAccessories');
+  }
+
   return (
     <ScrollView>
       <View style={S.page}>
@@ -59,7 +68,7 @@ function NewAquarium({navigation}:any) {
             inputStyle={{padding: 0}}
             placeholder="Nome do aquário"
             placeholderTextColor={S.placeholderText.color}
-            errorMessage="Campo obrigatório"
+            errorMessage={errorMessage}
             errorStyle={S.error}
             value={aquariumName}
             onChangeText={setAquariumName}
@@ -86,12 +95,10 @@ function NewAquarium({navigation}:any) {
         ))}
 
         <View style={S.buttonsContainer}>
-          <PrimaryButton content="Avançar" onPress={() => navigation.navigate('NewAccessories')} />
-          <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
+          <DefaultPrimaryButton content="Avançar" onPress={handleNext} />
+          <DefaultSecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
         </View>
       </View>
     </ScrollView>
   );
 }
-
-export default NewAquarium;

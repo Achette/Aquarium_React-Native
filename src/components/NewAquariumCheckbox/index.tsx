@@ -1,15 +1,8 @@
-import { S } from './styles';
 import { View, Image } from 'react-native';
 import { Button, Text } from '@rneui/themed';
+import { NewAquariumCheckboxProps } from '../../types';
+import { S } from './styles';
 
-
-type NewAquariumCheckboxProps = {
-  onSelect: any;
-  selectedValue: string;
-  object: any[];
-  title: string;
-  iconStyle?: any;
-}
 
 export const NewAquariumCheckbox = ({onSelect, selectedValue, object, title, iconStyle}:NewAquariumCheckboxProps) => {
   return (
@@ -25,7 +18,7 @@ export const NewAquariumCheckbox = ({onSelect, selectedValue, object, title, ico
               buttonStyle={[ S.checkBox, selectedValue === obj.value ? {} : {opacity: 0.4}]}
               onPress={() => onSelect(obj.value)}
               icon={
-                obj.icon === undefined ? null :
+                obj.icon === undefined ? undefined :
                 <Image source={obj.icon} style={[S.checkBoxIcon, iconStyle]}/>
               }
             />

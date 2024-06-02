@@ -1,8 +1,13 @@
 const path = '../assets/icons';
+const pathImg = '../assets/img';
 
 export const Icons = {
   logo: require(`${path}/logo.png`),
   voltageIcon: require(`${path}/voltage.png`),
+
+  aquariumImg: require(`${pathImg}/aquarium.png`),
+  homeBannerImg: require(`${pathImg}/homebanner.png`),
+  logInBannerImg: require(`${pathImg}/loginbanner.png`),
 
   addAquariumButton: require(`${path}/buttons/add.png`),
   cleanButton: require(`${path}/buttons/clean.png`),

@@ -1,15 +1,9 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
 import { View, Text, Image } from 'react-native';
-import { UserButton } from '../UserButton';
-import { PowerButton } from '../PowerButton';
+import { UserButton, PowerButton } from '../';
+import { UserBarProps } from '../../types';
+import { Icons } from '../../theme';
+import { S } from './styles';
 
-
-type UserBarProps = {
-  userButtonContent: string;
-  userButtonOnPress: any;
-  logOffButtonOnPress: any;
-};
 
 export const UserBar = ({userButtonContent, userButtonOnPress, logOffButtonOnPress}:UserBarProps) => {
   return (

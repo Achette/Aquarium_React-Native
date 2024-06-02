@@ -1,12 +1,7 @@
-import { S } from './styles';
 import { Text, View, Image } from 'react-native';
+import { DataDisplayProps } from '../../types';
+import { S } from './styles';
 
-
-type DataDisplayProps = {
-  title: string;
-  value: string;
-  icon: any;
-};
 
 export const DataDisplay = ({title, value, icon}:DataDisplayProps) => {
   return(

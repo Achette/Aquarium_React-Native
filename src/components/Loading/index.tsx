@@ -1,11 +1,8 @@
-import { S } from './styles';
-import { Colors } from '../../theme/Colors';
 import { ActivityIndicator, View, Text } from 'react-native';
+import { LoadingProps } from '../../types';
+import { Colors } from '../../theme';
+import { S } from './styles';
 
-
-type LoadingProps = {
-  text: string;
-}
 
 export const Loading = ({text}:LoadingProps) => {
   return (

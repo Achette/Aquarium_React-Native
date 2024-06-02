@@ -1,20 +1,17 @@
-import { S } from './styles';
 import { View } from 'react-native';
-import { PrimaryButton, SecondaryButton } from '../../components/HomeButtons';
-import { HomeBanner } from '../../components/HomeBanner';
-import { AquariumImage } from '../../components/AquariumImage';
-import { HomeCarousel } from '../../components/HomeCarousel';
+import { HomePrimaryButton, HomeSecondaryButton, HomeBanner, AquariumImage, HomeCarousel } from '../../components';
+import { S } from './styles';
 
 
-function Home({navigation}:any) {
+export default function Home({navigation}:any) {
   return (
     <View style={S.page}>
       <View style={S.buttons}>
-        <SecondaryButton
+        <HomeSecondaryButton
           content='Cadastrar'
           onPress={() => navigation.navigate('SignUp')}
         />
-        <PrimaryButton
+        <HomePrimaryButton
           content='Entrar'
           onPress={() => navigation.navigate('LogIn')}
         />
@@ -25,5 +22,3 @@ function Home({navigation}:any) {
     </View>
   );
 };
-
-export default Home;

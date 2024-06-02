@@ -2,19 +2,11 @@ import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Colors } from '../theme/Colors';
-import { AquariumProvider, useAquarium } from '../context';
-import Home from '../routes/Home';
-import LogIn from '../routes/LogIn';
-import SignUp from '../routes/SignUp';
-import AquariumsSelection from '../routes/AquariumsSelection';
-import NewAquarium from '../routes/NewAquarium';
-import NewAccessories from '../routes/NewAccessories';
-import NewSensors from '../routes/NewSensors';
-import NewPets from '../routes/NewPets';
-import Aquarium from '../routes/Aquarium';
-import { Loading } from '../components/Loading';
 import axios from 'axios';
+import { Home, LogIn, SignUp, AquariumsSelection, NewAquarium, NewAccessories, NewSensors, NewPets, Aquarium } from '../routes';
+import { AquariumProvider, useAquarium } from '../context';
+import { Loading } from '../components';
+import { Colors } from '../theme';
 
 
 const Stack = createStackNavigator();

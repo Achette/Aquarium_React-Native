@@ -1,11 +1,7 @@
-import { S } from './styles';
 import { View, useWindowDimensions, Animated } from 'react-native'
+import { CarouselPaginatorProps } from '../../types'
+import { S } from './styles';
 
-
-type CarouselPaginatorProps = {
-  data: any;
-  scrollX: any;
-};
 
 export const CarouselPaginator = ({ data, scrollX }:CarouselPaginatorProps) => {
 

@@ -1,23 +1,19 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
 import { Text, Image } from 'react-native';
 import { Button } from '@rneui/themed';
+import { AquariumItemsProps } from '../../types';
+import { Icons } from '../../theme';
+import { S } from './styles';
 
-
-type AquariumItemsProps = {
-  item: any;
-  onPress: any;
-};
 
 const iconMap: Record<string, any> = {
+  'Retangular': Icons.rectangularShape,
   'Curvo': Icons.circularShape,
   'Sextavado': Icons.hexagonalShape,
-  'Retangular': Icons.rectangularShape,
 };
 
 export const AquariumItems = ({item, onPress}:AquariumItemsProps) => {
 
-  const icon = iconMap[item.format_aquarium] || Icons.rectangularShape;
+  const icon = iconMap[item.format_aquarium];
 
   return (
     <Button 

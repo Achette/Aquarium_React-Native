@@ -1,6 +1,6 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
 import { Image, TouchableOpacity, Alert } from 'react-native';
+import { Icons } from '../../theme';
+import { S } from './styles';
 
 
 export const BackButton = ({navigation}:any) => {

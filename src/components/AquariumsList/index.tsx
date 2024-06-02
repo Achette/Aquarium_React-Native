@@ -1,12 +1,8 @@
-import { S } from './styles';
 import { FlatList } from 'react-native';
-import { AquariumItems } from '../AquariumItems';
+import { AquariumsListProps } from '../../types';
+import { AquariumItems } from '../';
+import { S } from './styles';
 
-
-type AquariumsListProps = {
-  navigation: any;
-  data: any;
-};
 
 export const AquariumsList = ({navigation, data}:AquariumsListProps) => {
   return(

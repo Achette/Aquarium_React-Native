@@ -1,11 +1,7 @@
-import { S } from './styles';
 import { Text, View, Image } from 'react-native';
+import { ConfigDisplayProps } from '../../types';
+import { S } from './styles';
 
-
-type ConfigDisplayProps = {
-  content: string;
-  icon: any;
-};
 
 export const ConfigDisplay = ({content, icon}:ConfigDisplayProps) => {
   return(

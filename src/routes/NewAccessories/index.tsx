@@ -1,13 +1,12 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
-import { useAquarium } from '../../context';
 import { View, ScrollView } from 'react-native';
 import { Text } from '@rneui/themed';
-import { PrimaryButton, SecondaryButton } from '../../components/DefaultButtons';
-import { ItemButton } from '../../components/ItemButton';
+import { DefaultPrimaryButton, DefaultSecondaryButton, ItemButton } from '../../components';
+import { useAquarium } from '../../context';
+import { Icons } from '../../theme';
+import { S } from './styles';
 
 
-function NewAccessories({navigation}:any) {
+export default function NewAccessories({navigation}:any) {
 
   const { 
     hasPump, setHasPump,
@@ -45,12 +44,10 @@ function NewAccessories({navigation}:any) {
         </View>
 
         <View style={S.buttonsContainer}>
-          <PrimaryButton content="Avançar" onPress={() => navigation.navigate('NewSensors')} />
-          <SecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
+          <DefaultPrimaryButton content="Avançar" onPress={() => navigation.navigate('NewSensors')} />
+          <DefaultSecondaryButton content="Voltar" onPress={() => navigation.goBack()} />
         </View>
       </View>
     </ScrollView>
   );
 }
-
-export default NewAccessories;

@@ -1,65 +1,53 @@
-import { S } from './styles';
-import { Icons } from '../../theme/Icons';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
 import { Text } from '@rneui/base';
-import { UserBar } from '../../components/UserBar';
-import { AquariumsList } from '../../components/AquariumsList';
-import { ActionButton } from '../../components/ActionButton';
-import { Loading } from '../../components/Loading';
-import { AquariumContext } from '../../context'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
+import { UserBar, AquariumsList, ActionButton, Loading } from '../../components';
+import { useLoadAquariums } from '../../hooks';
+import { useAquarium } from '../../context'
+import { Icons } from '../../theme';
+import { S } from './styles';
 
 
 export default function AquariumsSelection({navigation}:any) {
-  const [ isLoading, setIsLoading ] = useState(true);
-  const { token, setToken, aquariumsList, setAquariumsList } = useContext(AquariumContext);
-
-  const headers = { 'Authorization': `${token}` };
+  const { isLoading } = useLoadAquariums();
+  const { setToken, aquariumsList } = useAquarium();
+  const [ userInitials, setUserInitials ] = useState<string | null>(null);
+  const user = AsyncStorage.getItem('username');
 
   useEffect(() => {
-    const loadAquariums = async () => {
-      try {
-        const response = await axios.get(`${process.env.BASE_URL}/aquarium`, { headers });
-
-        const aquariumsData = await response.data.map((aquarium:any) => ({
-          id: aquarium.id,
-          name: aquarium.name,
-          format_aquarium: aquarium.format_aquarium,
-          material: aquarium.material,
-          thickness: aquarium.thickness,
-          height: aquarium.height,
-          voltage: aquarium.voltage,
-          capacity: aquarium.capacity,
-        }));
-
-        console.log(`Aquarios carregados: ${aquariumsData.length}`);
-        console.log(`Aquarios: ${JSON.stringify(aquariumsData)}`);
-
-        setAquariumsList(aquariumsData);
-      } catch (e) {
-        console.log(`Erro ao carregar aquários: ${e}`);
-      } finally {
-        setIsLoading(false);
+    const fetchUser = async () => {
+      const username = await AsyncStorage.getItem('username');
+      if (username) {
+        setUserInitials(username.slice(0, 2).toUpperCase());
       }
     };
-
-    loadAquariums();
-  }, []);
+    fetchUser();
+  }, [user]);
 
   const handleLogOff = () => {
-    Alert.alert('Já vai?', 'Valeu, falou');
+    Alert.alert('LogOff', 'Deseja realmente sair?', [
+      { text: 'Cancelar', style: 'cancel' },
+      { text: 'Sair', onPress: logOff }
+    ]);
+  }
+
+  const logOff = () => {
     setToken('');
     AsyncStorage.removeItem('token');
     navigation.navigate('Home');
   }
 
+  const handleUserButton = async () => {
+    const username = await AsyncStorage.getItem('username');
+    Alert.alert('Oi :)', `Você está logado como "${username}"`);
+  }
+
   return (
     <View style={S.page}>
       <UserBar
-        userButtonContent="JP"
-        userButtonOnPress={() => {Alert.alert('Oi :)', 'Seu pai tem boi?')}}
+        userButtonContent={userInitials || ''}
+        userButtonOnPress={handleUserButton}
         logOffButtonOnPress={handleLogOff}
       />
 
