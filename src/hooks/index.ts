@@ -1,3 +1,4 @@
+export { useAquariumControls } from './useAquariumControls';
 export { useAquariumData } from './useAquariumData'
 export { useCreateAquarium } from './useCreateAquarium';
 export { useLoadAquariumDetails } from './useLoadAquariumDetails';
