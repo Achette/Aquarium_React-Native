@@ -13,9 +13,9 @@ export function AquariumProvider({ children }: AppProviderProps) {
   const [selectedShape, setShape] = useState<string>('Retangular');
   const [selectedMaterial, setMaterial] = useState<string>('Vidro');
   const [selectedVoltage, setVoltage] = useState<string>('110V');
-  const [thickness, setThickness] = useState<number>(10.0);
-  const [height, setHeight] = useState<number>(10.0);
-  const [volume, setVolume] = useState<number>(10.0);
+  const [thickness, setThickness] = useState<number>(0.0);
+  const [height, setHeight] = useState<number>(0.0);
+  const [volume, setVolume] = useState<number>(0.0);
 
   const [hasPump, setHasPump] = useState<boolean>(false);
   const [hasFeeder, setHasFeeder] = useState<boolean>(false);

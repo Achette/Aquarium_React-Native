@@ -21,4 +21,13 @@ export const S = StyleSheet.create({
     gap: 12,
     marginVertical: 28,
   },
+  noAccessories: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noAccessoriesText: {
+    fontSize: 18,
+    color: Colors.primary,
+  },
 });
