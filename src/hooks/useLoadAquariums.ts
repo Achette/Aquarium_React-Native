@@ -11,7 +11,7 @@ export const useLoadAquariums = () => {
   useEffect(() => {
     const loadAquariums = async () => {
       try {
-        const response = await axios.get(`${process.env.BASE_URL}/aquarium`, { headers });
+        const response = await axios.get(`${process.env.BASE_URL}/aquarium`, { headers, timeout: 5000 });
 
         const aquariumsData = response.data.map((aquarium:any) => ({
           id: aquarium.id,

@@ -58,7 +58,7 @@ export const useCreateAquarium = () => {
     ].filter(Boolean);
 
     try {
-      const aquariumResponse = await axios.post(`${process.env.BASE_URL}/aquarium`, aquariumData, { headers });
+      const aquariumResponse = await axios.post(`${process.env.BASE_URL}/aquarium`, aquariumData, { headers, timeout: 5000 });
       const aquariumId = aquariumResponse.data.result.id;
 
       console.log(`Aquário criado com sucesso - ID: ${aquariumId}`);

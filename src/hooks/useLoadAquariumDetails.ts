@@ -13,9 +13,9 @@ export const useLoadAquariumDetails = (aquariumId:string) => {
     const fetchAquariumDetails = async () => {
       try {
         const [accessoriesResponse, sensorsResponse, petsResponse] = await Promise.all([
-          axios.get(`${process.env.BASE_URL}/aquarium/${aquariumId}/accessories`, { headers }),
-          axios.get(`${process.env.BASE_URL}/aquarium/${aquariumId}/sensors`, { headers }),
-          axios.get(`${process.env.BASE_URL}/aquarium/${aquariumId}/pets`, { headers }),
+          axios.get(`${process.env.BASE_URL}/aquarium/${aquariumId}/accessories`, { headers, timeout: 5000 }),
+          axios.get(`${process.env.BASE_URL}/aquarium/${aquariumId}/sensors`, { headers, timeout: 5000 }),
+          axios.get(`${process.env.BASE_URL}/aquarium/${aquariumId}/pets`, { headers, timeout: 5000 }),
         ]);
 
         const aquariumDetails = {
