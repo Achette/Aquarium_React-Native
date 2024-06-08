@@ -43,11 +43,11 @@ export const useCreateAquarium = () => {
     ].filter(Boolean);
 
     const aquariumSensors = [
-      hasTemperatureSensor && { name: 'Sensor', metric: 'Temperatura', current: '27°C' },
-      hasWaterLevelSensor && { name: 'Sensor', metric: 'Nível de água', current: '90%' },
-      hasLuminositySensor && { name: 'Sensor', metric: 'Luminosidade', current: '35 lm' },
-      hasPhSensor && { name: 'Sensor', metric: 'pH', current: '7' },
-      hasSaturationSensor && { name: 'Sensor', metric: 'Saturação', current: '9,07 ppm' },
+      hasTemperatureSensor && { name: 'Temperatura', current: '27' },
+      hasWaterLevelSensor && { name: 'Nível de água', current: '90' },
+      hasLuminositySensor && { name: 'Luminosidade', current: '35' },
+      hasPhSensor && { name: 'pH', current: '7' },
+      hasSaturationSensor && { name: 'Saturação', current: '9,07' },
     ].filter(Boolean);
 
     const aquariumPets = [
@@ -66,9 +66,9 @@ export const useCreateAquarium = () => {
       setAquariumsList((prevList: AquariumDataProps[]) => [...prevList, aquariumData]);
 
       await Promise.all([
-        ...aquariumAccessories.map(accessory => axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/accessories`, accessory, { headers })),
-        ...aquariumSensors.map(sensor => axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/sensors`, sensor, { headers })),
-        ...aquariumPets.map(pet => axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/pets`, pet, { headers }))
+        ...aquariumAccessories.map(accessory => axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/accessories`, accessory, { headers, timeout: 5000 })),
+        ...aquariumSensors.map(sensor => axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/sensors`, sensor, { headers, timeout: 5000 })),
+        ...aquariumPets.map(pet => axios.post(`${process.env.BASE_URL}/aquarium/${aquariumId}/pets`, pet, { headers, timeout: 5000 }))
       ]);
 
       console.log('Acessórios, sensores e pets adicionados com sucesso.');

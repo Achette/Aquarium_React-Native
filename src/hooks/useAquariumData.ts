@@ -15,6 +15,13 @@ const map:any = {
     'Nível de água': Icons.waterLevelData,
     'Luminosidade': Icons.luminosityData,
   },
+  sensorPrefixes: {
+    'Temperatura': ' °C',
+    'Saturação': ' ppm',
+    'pH': '',
+    'Nível de água': ' %',
+    'Luminosidade': ' lm',
+  },
   pet: {
     'Peixe': Icons.fish,
     'Tartaruga': Icons.turtle,
@@ -32,7 +39,7 @@ export const useAquariumData = (selectedAquarium:any) => {
 
   const configs = [
     { icon: Icons.material, content: selectedAquarium.material },
-    { icon: Icons.voltage, content: selectedAquarium.voltage },
+    { icon: Icons.voltage, content: `${selectedAquarium.voltage}V` },
     { icon: Icons.height, content: `${selectedAquarium.height}cm` },
     { icon: Icons.thickness, content: `${selectedAquarium.thickness}mm` },
     { icon: Icons.capacity, content: `${selectedAquarium.capacity}L` },
@@ -45,7 +52,7 @@ export const useAquariumData = (selectedAquarium:any) => {
 
   if (selectedAquarium.sensors && selectedAquarium.sensors.length > 0) {
     selectedAquarium.sensors.forEach((sensor:Sensor) => {
-      data.push({ icon: map.sensor[sensor.metric], title: sensor.metric, value: sensor.current });
+      data.push({ icon: map.sensor[sensor.name], title: sensor.name, value: `${sensor.current}${map.sensorPrefixes[sensor.name]}` });
     });
   }
   

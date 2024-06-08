@@ -20,7 +20,7 @@ export const useLoadAquariumDetails = (aquariumId:string) => {
 
         const aquariumDetails = {
           accessories: accessoriesResponse.data.map((accessory:Accessory) => ({ name: accessory.name })),
-          sensors: sensorsResponse.data.map((sensor:Sensor) => ({ name: sensor.name, metric: sensor.metric, current: sensor.current })),
+          sensors: sensorsResponse.data.map((sensor:Sensor) => ({ name: sensor.name, current: sensor.current })),
           pets: petsResponse.data.map((pet:Pet) => ({ species: pet.species, quantity: pet.quantity }))
         };
 
