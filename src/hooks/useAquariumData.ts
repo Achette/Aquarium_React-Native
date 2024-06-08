@@ -19,7 +19,7 @@ const map:any = {
     'Temperatura': ' °C',
     'Saturação': ' ppm',
     'pH': '',
-    'Nível de água': ' %',
+    'Nível de água': ' cm',
     'Luminosidade': ' lm',
   },
   pet: {
@@ -33,6 +33,7 @@ const map:any = {
 export const useAquariumData = (selectedAquarium:any) => {
 
   if (!selectedAquarium) return null;
+  console.log('selectedAquarium ID:', selectedAquarium.id);
 
   const icon = map.icon[selectedAquarium.format_aquarium] || Icons.rectangularShape;
   const title = selectedAquarium.name;
