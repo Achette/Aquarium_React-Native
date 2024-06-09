@@ -30,7 +30,7 @@ const map:any = {
   },
 }
 
-export const useAquariumData = (selectedAquarium:any) => {
+export const useAquariumData = (selectedAquarium:any, lastCleaning:string, lastFeeding:string) => {
 
   if (!selectedAquarium) return null;
   console.log('selectedAquarium ID:', selectedAquarium.id);
@@ -47,8 +47,8 @@ export const useAquariumData = (selectedAquarium:any) => {
   ];
 
   const data = [
-    { icon: Icons.lastCleaningData, title: 'Última Limpeza', value: '16/04/2024 | 12:00' },
-    { icon: Icons.lastFeedingData, title: 'Última Alimentação', value: '23/04/2024 | 12:00' },
+    { icon: Icons.lastCleaningData, title: 'Última Limpeza', value: lastCleaning },
+    { icon: Icons.lastFeedingData, title: 'Última Alimentação', value: lastFeeding },
   ];
 
   if (selectedAquarium.sensors && selectedAquarium.sensors.length > 0) {
