@@ -46,17 +46,19 @@ export const useAquariumData = (selectedAquarium:any, lastCleaning:string, lastF
     { icon: Icons.capacity, content: `${selectedAquarium.capacity}L` },
   ];
 
-  const data = [
-    { icon: Icons.lastCleaningData, title: 'Última Limpeza', value: lastCleaning },
-    { icon: Icons.lastFeedingData, title: 'Última Alimentação', value: lastFeeding },
-  ];
-
+  const data = [];
+  
   if (selectedAquarium.sensors && selectedAquarium.sensors.length > 0) {
     selectedAquarium.sensors.forEach((sensor:Sensor) => {
       data.push({ icon: map.sensor[sensor.name], title: sensor.name, value: `${sensor.current}${map.sensorPrefixes[sensor.name]}` });
     });
   }
-  
+
+  data.push(
+    { icon: Icons.lastCleaningData, title: 'Última Limpeza', value: lastCleaning },
+    { icon: Icons.lastFeedingData, title: 'Última Alimentação', value: lastFeeding },
+  );
+
   if (selectedAquarium.pets && selectedAquarium.pets.length > 0) {
     selectedAquarium.pets.forEach((pet:Pet) => {
       configs.push({ icon: map.pet[pet.species], content: pet.quantity });
