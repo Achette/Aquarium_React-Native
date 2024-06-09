@@ -33,7 +33,6 @@ const map:any = {
 export const useAquariumData = (selectedAquarium:any, lastCleaning:string, lastFeeding:string) => {
 
   if (!selectedAquarium) return null;
-  console.log('selectedAquarium ID:', selectedAquarium.id);
 
   const icon = map.icon[selectedAquarium.format_aquarium] || Icons.rectangularShape;
   const title = selectedAquarium.name;
