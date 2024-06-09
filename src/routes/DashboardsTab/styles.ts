@@ -10,8 +10,13 @@ export const S = StyleSheet.create({
   },
   text: {
     color: Colors.primary,
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginTop: 100,
+    fontSize: 22,
+    marginTop: 250,
+    textAlign: 'justify',
+    paddingHorizontal: 35,
   },
+  textLink: {
+    fontWeight: 'bold',
+    marginTop: 10,
+  }
 });

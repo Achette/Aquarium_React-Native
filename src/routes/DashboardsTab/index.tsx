@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { Text, View, Linking } from 'react-native';
 import { TopBar } from '../../components';
 import { Icons } from '../../theme';
 import { S } from './styles';
@@ -11,7 +11,15 @@ export default function DashboardsTab() {
         title='Dashboards'
         icon={Icons.dashboardTabBar}
       />
-      <Text style={S.text}>Dashboards</Text>
+      <Text style={S.text}>
+        Para conferir e analisar os dados históricos e dashboards, acesse a versão web do nosso app: {' '}
+      </Text>
+      <Text 
+        style={[S.text, S.textLink]}
+        onPress={() => Linking.openURL('https://aquarium-lake.vercel.app/')}
+      >
+        Aquarium Web
+      </Text>
     </View>
   );
 };
