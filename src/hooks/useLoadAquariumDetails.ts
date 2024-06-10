@@ -13,14 +13,14 @@ export const useLoadAquariumDetails = (aquariumId:string) => {
     const fetchAquariumDetails = async () => {
       try {
         const [accessoriesResponse, sensorsResponse, petsResponse] = await Promise.all([
-          axios.get(`${process.env.BASE_URL}/aquarium/${aquariumId}/accessories`, { headers }),
-          axios.get(`${process.env.BASE_URL}/aquarium/${aquariumId}/sensors`, { headers }),
-          axios.get(`${process.env.BASE_URL}/aquarium/${aquariumId}/pets`, { headers }),
+          axios.get(`${process.env.BASE_URL}/aquarium/${aquariumId}/accessories`, { headers, timeout: 5000 }),
+          axios.get(`${process.env.BASE_URL}/aquarium/${aquariumId}/sensors`, { headers, timeout: 5000 }),
+          axios.get(`${process.env.BASE_URL}/aquarium/${aquariumId}/pets`, { headers, timeout: 5000 }),
         ]);
 
         const aquariumDetails = {
           accessories: accessoriesResponse.data.map((accessory:Accessory) => ({ name: accessory.name })),
-          sensors: sensorsResponse.data.map((sensor:Sensor) => ({ name: sensor.name, metric: sensor.metric, current: sensor.current })),
+          sensors: sensorsResponse.data.map((sensor:Sensor) => ({ name: sensor.name, current: sensor.current })),
           pets: petsResponse.data.map((pet:Pet) => ({ species: pet.species, quantity: pet.quantity }))
         };
 

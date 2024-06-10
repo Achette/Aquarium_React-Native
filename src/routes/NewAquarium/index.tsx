@@ -33,8 +33,8 @@ export default function NewAquarium({navigation}:any) {
   ]
 
   const voltages = [
-    { title: '110V', value: '110V', icon: Icons.voltageIcon },
-    { title: '220V', value: '220V', icon: Icons.voltageIcon },
+    { title: '110V', value: '110', icon: Icons.voltageIcon },
+    { title: '220V', value: '220', icon: Icons.voltageIcon },
   ]
 
   const checkBoxesObjects = [

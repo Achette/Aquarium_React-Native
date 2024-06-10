@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { TopBar, ItemControlButton } from '../../components';
 import { useAquariumControls } from '../../hooks';
 import { Icons } from '../../theme';
@@ -16,17 +16,23 @@ export default function ControlsTab() {
         icon={Icons.controlTabBar}
       />
 
-      <View style={S.controlsButtonsContainer}>
+      {controls.length === 0 ? (
+        <View style={S.noAccessories}>
+          <Text style={S.noAccessoriesText}>Não há acessórios cadastrado neste aquário</Text>
+        </View>
+      ) : (
+        <View style={S.controlsButtonsContainer}>
         {controls.map((item:any, index:any) => (
           <ItemControlButton 
-            key={index}
-            icon={item.icon} 
-            title={item.title} 
-            onPress={item.onPress} 
-            isSelected={item.isSelected}
+          key={index}
+          icon={item.icon} 
+          title={item.title} 
+          onPress={item.onPress} 
+          isSelected={item.isSelected}
           />
         ))}
-      </View>
+        </View>
+      )}
     </View>
   );
 };

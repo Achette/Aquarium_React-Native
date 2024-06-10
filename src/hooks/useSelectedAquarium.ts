@@ -10,6 +10,7 @@ export const useSelectedAquarium = (aquariumId:string) => {
   useEffect(() => {
     const aquariumData = aquariumsList.find(a => a.id === aquariumId);
     if (aquariumData) {
+      console.log('Aquário selecionado:', aquariumData);
       setSelectedAquarium(aquariumData);
       setIsLoading(false);
     }

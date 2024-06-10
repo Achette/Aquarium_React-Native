@@ -55,7 +55,7 @@ export function useLogIn(navigation:any) {
     if (!validateInputs(userData)) return;
 
     try {
-      const response = await axios.post(`${process.env.BASE_URL}/login`, userData);
+      const response = await axios.post(`${process.env.BASE_URL}/login`, userData, { timeout: 5000 });
       const jwt = response.data.jwt;
       const userId = response.data.result.id;
 
