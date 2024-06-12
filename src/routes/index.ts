@@ -1,0 +1,9 @@
+export { default as Aquarium } from './Aquarium';
+export { default as AquariumsSelection } from './AquariumsSelection';
+export { default as Home } from './Home';
+export { default as LogIn } from './LogIn';
+export { default as NewAccessories } from './NewAccessories';
+export { default as NewAquarium } from './NewAquarium';
+export { default as NewPets } from './NewPets';
+export { default as NewSensors } from './NewSensors';
+export { default as SignUp } from './SignUp';
